@@ -13,13 +13,13 @@ CREATE TABLE schedule (
     --↑単位数
     grade INT NOT NULL,
     --↑履修可能最低年次
-    timing VARCHAR NOT NULL
+    timing VARCHAR NOT NULL,
     --↑いつ履修するか？まだ書いてない。
     --前期A,後期B,
     --前期前半C,前期後半D,後期前半E,後期後半F
-    DayofWeek VARCHAR NOT NULL
+    DayofWeek VARCHAR NOT NULL,
     --Mon,Tue,Wed,Thu,Fri,Sat
-    DayTime Int NOT NULL
+    DayTime Int NOT NULL,
     --何時間目か
     otherClass VARCHAR NOT NULL
     --'ID,IC,IS,IM,IN'で記述していく。1or0で。
