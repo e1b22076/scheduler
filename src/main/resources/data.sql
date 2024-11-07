@@ -186,7 +186,9 @@ VALUES ('B1C012A0','English','英語による情報技術Ⅰb','normal',false,1,
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
 VALUES ('B1C016A0','English','英語演習','normal',false,1,3,'B','Thu',2,'1,1,1,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B1C013','English','海外語学研修','normal',false,2,1,'Z','ZZZ',0,'1,1,1,1,1');
+VALUES ('B1C013C0','English','海外語学研修【春季】','normal',false,2,1,'Z','ZZZ',0,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C013B0','English','海外語学研修【夏季】','normal',false,2,1,'Z','ZZZ',0,'1,1,1,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
 VALUES ('B1C014A0','English','日本語Ⅰ','normal',true,2,1,'A','Wed',3,'1,1,1,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
@@ -299,17 +301,51 @@ VALUES ('B3C018A0','Science','視る自然科学','normal',false,2,2,'B','Wed',2
 --キャリア科目 Career
 
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B4C001','Career','基礎ゼミナール','normal',false,1,1,'A','B',0,'1,1,1,1,1');
+VALUES ('B4C001A0','Career','基礎ゼミナール','normal',false,1,1,'A','Wed',1,'1,1,1,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B4C002','Career','キャリアステップ','normal',false,1,1,'A','B',0,'1,1,1,1,1');
+VALUES ('B4C001L0','Career','基礎ゼミナール','normal',false,1,1,'A','Wed',2,'1,1,1,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B4C003','Career','キャリアデザインⅠ','normal',false,1,2,'A','B',0,'1,1,1,1,1');
+VALUES ('B4C002A0','Career','キャリアステップ','normal',false,1,1,'B','Mon',2,'1,1,0,0,1');--IC,IN,ID
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B4C004','Career','キャリアデザインⅡ','normal',false,1,2,'A','B',0,'1,1,1,1,1');
+VALUES ('B4C002C0','Career','キャリアステップ','normal',false,1,1,'B','Mon',3,'0,0,0,1,0');--IM
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B4C005','Career','グローバルテクノロジ論','normal',false,1,2,'A','B',0,'1,1,1,1,1');
+VALUES ('B4C002B0','Career','キャリアステップ','normal',false,1,1,'B','Mon',4,'0,0,1,0,0');--IS
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B4C006','Career','OIT概論','normal',false,1,1,'A','B',0,'1,1,1,1,1');
+VALUES ('B4C003C0','Career','キャリアデザインⅠ','normal',false,1,2,'A','Mon',1,'0,0,0,1,0');--IM
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B4C003D0','Career','キャリアデザインⅠ','normal',false,1,2,'A','Mon',2,'0,0,0,0,1');--IN
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B4C003E0','Career','キャリアデザインⅠ','normal',false,1,2,'A','Mon',3,'1,0,0,0,0');--ID
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('1CCG02A0','Career','キャリアデザインⅠ','normal',false,1,2,'A','Mon',1,'0,0,0,1,0');--IM
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('1DCG02A0','Career','キャリアデザインⅠ','normal',false,1,2,'A','Mon',2,'0,0,0,0,N');--IM
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B4C003B0','Career','キャリアデザインⅠ','normal',false,1,2,'A','Wed',2,'0,0,1,0,0');--IS
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('1BCG02A0','Career','キャリアデザインⅠ','normal',false,1,2,'A','Wed',2,'0,0,1,0,0');--IS
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B4C003A0','Career','キャリアデザインⅠ','normal',false,1,2,'A','Fri',2,'0,1,0,0,0');--IC
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('1ACG02A0','Career','キャリアデザインⅠ','normal',false,1,2,'A','Fri',2,'0,1,0,0,0');--IC
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B4C004D0','Career','キャリアデザインⅡ','normal',false,1,2,'B','Thu',3,'0,0,1,0,1');--IS,IN
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B4C004A0','Career','キャリアデザインⅡ','normal',false,1,2,'B','Thu',4,'1,1,0,1,0');--ID,IC,IM
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('1BCG03A0','Career','キャリアデザインⅡ','normal',false,1,2,'B','Thu',3,'0,0,1,0,0');--IS
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('1DCG03A0','Career','キャリアデザインⅡ','normal',false,1,2,'B','Thu',3,'0,0,1,0,0');--IN
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('1ACG03A0','Career','キャリアデザインⅡ','normal',false,1,2,'B','Thu',4,'0,1,0,0,0');--IC
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('1CCG03A0','Career','キャリアデザインⅡ','normal',false,1,2,'B','Thu',4,'0,0,0,1,0');--IM
+--INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+--VALUES ('B4C005','Career','グローバルテクノロジ論','normal',false,1,2,'A','B',0,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B4C006A0','Career','OIT概論','normal',false,1,1,'Z','ZZZ',0,'1,1,1,1,1');
+
+--OIT概論って卒業要件単位に含まれる？？？？？
 
 --以下学科別
 --データサイエンス学科 ID
