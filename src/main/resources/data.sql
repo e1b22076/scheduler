@@ -195,13 +195,29 @@ VALUES ('B1C015B0','English','日本語Ⅱ','normal',true,2,1,'B','Wed',3,'1,1,1
 --健康・スポーツ科学 Sports
 
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B2C001','Sports','基礎スポーツ科学a','normal',false,1,1,'A','B',0,'1,1,1,1,1');
+VALUES ('B2C001A0','Sports','基礎スポーツ科学a','normal',false,1,1,'A','Tue',1,'0,0,1,0,0');--IS
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B2C002','Sports','基礎スポーツ科学b','normal',false,1,2,'A','B',0,'1,1,1,1,1');
+VALUES ('B2C001B0','Sports','基礎スポーツ科学a','normal',false,1,1,'A','Tue',2,'0,0,0,0,1');--IN
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B2C003','Sports','健康科学','normal',false,2,3,'A','B',0,'1,1,1,1,1');
+VALUES ('B2C001C0','Sports','基礎スポーツ科学a','normal',false,1,1,'A','Tue',3,'0,0,0,1,0');--IM
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B2C004','Sports','スポーツ科学実習','normal',false,1,3,'A','B',0,'1,1,1,1,1');
+VALUES ('B2C001D0','Sports','基礎スポーツ科学a','normal',false,1,1,'A','Fri',1,'0,1,0,0,0');--IC
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B2C001E0','Sports','基礎スポーツ科学a','normal',false,1,1,'A','Fri',2,'1,0,0,0,0');--ID
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B2C002A0','Sports','基礎スポーツ科学b','normal',false,1,2,'B','Tue',1,'0,1,0,0,0');--IC
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B2C002B0','Sports','基礎スポーツ科学b','normal',false,1,2,'B','Tue',2,'0,0,0,1,0');--IM
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B2C002C0','Sports','基礎スポーツ科学b','normal',false,1,2,'B','Tue',3,'0,0,0,0,1');--IN
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B2C002D0','Sports','基礎スポーツ科学b','normal',false,1,2,'B','Fri',1,'0,0,1,0,0');--IS
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B2C002E0','Sports','基礎スポーツ科学b','normal',false,1,2,'B','Fri',2,'1,0,0,0,0');--ID
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B2C003A0','Sports','健康科学','normal',false,2,3,'A','Wed',2,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B2C004A0','Sports','スポーツ科学実習','normal',false,1,3,'A','Fri',3,'1,1,1,1,1');
 
 --総合理学系 Science
 
