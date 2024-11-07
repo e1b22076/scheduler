@@ -94,37 +94,103 @@ VALUES ('B0C023A0','Humanities','人間発達と人権','normal',false,2,2,'B','
 --外国語 English
 
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B1C001','English','英語表現(basic)a','normal',false,1,1,'A','B',0,'1,1,1,1,1');
+VALUES ('B1C001A0','English','英語表現(basic1)a','normal',false,1,1,'A','Mon',1,'0,0,1,0,0');--IS
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B1C002','English','英語表現(basic)b','normal',false,1,1,'A','B',0,'1,1,1,1,1');
+VALUES ('B1C001D0','English','英語表現(basic1)a','normal',false,1,1,'A','Mon',2,'0,0,0,1,0');--IM
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B1C003','English','英語の語法','normal',false,2,3,'A','B',0,'1,1,1,1,1');
+VALUES ('B1C001G0','English','英語表現(basic1)a','normal',false,1,1,'A','Thu',1,'1,0,0,0,1');--ID,IN
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B1C004','English','口語英語Ⅰa','normal',false,1,1,'A','B',0,'1,1,1,1,1');
+VALUES ('B1C001K0','English','英語表現(basic1)a','normal',false,1,1,'A','Thu',2,'1,1,0,0,0');--ID,IC
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B1C005','English','口語英語Ⅰb','normal',false,1,1,'A','B',0,'1,1,1,1,1');
+VALUES ('B1C002A0','English','英語表現(basic1)b','normal',false,1,1,'B','Mon',1,'0,0,1,0,0');--IS
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B1C006','English','英語による情報技術Ⅱ','normal',false,2,3,'A','B',0,'1,1,1,1,1');
+VALUES ('B1C002D0','English','英語表現(basic1)b','normal',false,1,1,'B','Mon',2,'0,0,0,1,0');--IM
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B1C007','English','英語表現(basic2)a','normal',false,1,2,'A','B',0,'1,1,1,1,1');
+VALUES ('B1C002G0','English','英語表現(basic1)b','normal',false,1,1,'B','Thu',1,'1,0,0,0,1');--ID,IN
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B1C008','English','英語表現(basic2)a','normal',false,1,2,'A','B',0,'1,1,1,1,1');
+VALUES ('B1C002K0','English','英語表現(basic1)b','normal',false,1,1,'B','Thu',2,'1,1,0,0,0');--ID,IC
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B1C009','English','口語英語Ⅱa','normal',false,1,2,'A','B',0,'1,1,1,1,1');
+VALUES ('B1C003A0','English','英語の語法','normal',false,2,3,'A','Mon',3,'0,0,0,1,0');--IM
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B1C010','English','口語英語Ⅱb','normal',false,1,2,'A','B',0,'1,1,1,1,1');
+VALUES ('B1C003D0','English','英語の語法','normal',false,2,3,'A','Tue',3,'0,1,0,0,0');--IC
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B1C011','English','英語による情報技術Ⅰa','normal',false,1,2,'A','B',0,'1,1,1,1,1');
+VALUES ('B1C003J0','English','英語の語法','normal',false,2,3,'A','Wed',1,'0,0,0,0,1');--IN
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B1C012','English','英語による情報技術Ⅰb','normal',false,1,2,'A','B',0,'1,1,1,1,1');
+VALUES ('B1C003L0','English','英語の語法','normal',false,2,3,'A','Wed',2,'0,0,0,0,1');--IN
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B1C016','English','英語演習','normal',false,1,3,'A','B',0,'1,1,1,1,1');
+VALUES ('B1C003G0','English','英語の語法','normal',false,2,3,'A','Mon',3,'0,0,1,0,0');--IS
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B1C013','English','海外語学研修','normal',false,2,1,'A','B',0,'1,1,1,1,1');
+VALUES ('B1C003I0','English','英語の語法','normal',false,2,3,'B','Thu',3,'1,1,1,1,1');--全学科いけるっぽい？
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B1C014','English','日本語Ⅰ','normal',false,2,1,'A','B',0,'1,1,1,1,1');
+VALUES ('B1C004A0','English','口語英語Ⅰa','normal',false,1,1,'A','Mon',3,'1,0,0,0,1');--ID,IN
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B1C015','English','日本語Ⅱ','normal',false,2,1,'A','B',0,'1,1,1,1,1');
+VALUES ('B1C004E0','English','口語英語Ⅰa','normal',false,1,1,'A','Mon',4,'1,1,0,0,0');--ID,IC
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C004I0','English','口語英語Ⅰa','normal',false,1,1,'A','Thu',3,'0,0,0,1,0');--IM
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C004M0','English','口語英語Ⅰa','normal',false,1,1,'A','Thu',4,'0,0,1,0,0');--IS
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C005A0','English','口語英語Ⅰb','normal',false,1,1,'B','Mon',3,'1,0,0,0,1');--ID,IN
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C005E0','English','口語英語Ⅰb','normal',false,1,1,'B','Mon',4,'1,1,0,0,0');--ID,IC
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C005I0','English','口語英語Ⅰb','normal',false,1,1,'B','Thu',3,'0,0,0,1,0');--IM
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C005M0','English','口語英語Ⅰb','normal',false,1,1,'B','Thu',4,'0,0,1,0,0');--IS
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C006A0','English','英語による情報技術Ⅱ','normal',false,2,3,'A','Mon',3,'0,0,0,1,0');--IM
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C006B0','English','英語による情報技術Ⅱ','normal',false,2,3,'A','Mon',3,'0,1,0,0,0');--IC
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C006D0','English','英語による情報技術Ⅱ','normal',false,2,3,'A','Thu',2,'1,0,0,0,1');--ID,IN
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C006C0','English','英語による情報技術Ⅱ','normal',false,2,3,'A','Thu',1,'0,0,1,0,0');--IS
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C006F0','English','英語による情報技術Ⅱ','normal',false,2,3,'B','Thu',2,'1,1,1,1,1');--全学科受けられるっぽい？
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C007A0','English','英語表現(basic2)a','normal',false,1,2,'A','Tue',4,'0,0,0,1,0');--IM
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C007C0','English','英語表現(basic2)a','normal',false,1,2,'A','Tue',5,'0,0,0,0,1');--IN
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C007E0','English','英語表現(basic2)a','normal',false,1,2,'A','Fri',3,'1,1,1,0,0');--IS,ID,IC
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C007G0','English','英語表現(basic2)a','normal',false,1,2,'A','Fri',4,'1,1,0,0,0');--ID,IC
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C008A0','English','英語表現(basic2)b','normal',false,1,2,'B','Tue',4,'0,0,0,1,0');--IM
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C008C0','English','英語表現(basic2)b','normal',false,1,2,'B','Tue',5,'0,0,0,0,1');--IN
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C008E0','English','英語表現(basic2)b','normal',false,1,2,'B','Fri',3,'1,1,1,0,0');--IS,ID,IC
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C008G0','English','英語表現(basic2)b','normal',false,1,2,'B','Fri',4,'1,1,0,0,0');--ID,IC
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C009A0','English','口語英語Ⅱa','normal',false,1,2,'A','Tue',4,'0,0,0,1,0');--IM
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C009B0','English','口語英語Ⅱa','normal',false,1,2,'A','Tue',5,'0,0,0,0,1');--IN
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C009C0','English','口語英語Ⅱa','normal',false,1,2,'A','Fri',3,'0,0,1,0,0');--IS
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C009D0','English','口語英語Ⅱa','normal',false,1,2,'A','Fri',4,'1,1,0,0,0');--ID,IC
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C010A0','English','口語英語Ⅱb','normal',false,1,2,'B','Tue',4,'0,0,0,1,0');--IM
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C010B0','English','口語英語Ⅱb','normal',false,1,2,'B','Tue',5,'0,0,0,0,1');--IN
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C010C0','English','口語英語Ⅱb','normal',false,1,2,'B','Fri',3,'0,0,1,0,0');--IS
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C010D0','English','口語英語Ⅱb','normal',false,1,2,'B','Fri',4,'1,1,0,0,0');--ID,IC
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C011A0','English','英語による情報技術Ⅰa','normal',false,1,2,'A','Tue',4,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C012A0','English','英語による情報技術Ⅰb','normal',false,1,2,'B','Tue',4,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C016A0','English','英語演習','normal',false,1,3,'B','Thu',2,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C013','English','海外語学研修','normal',false,2,1,'Z','ZZZ',0,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C014A0','English','日本語Ⅰ','normal',true,2,1,'A','Wed',3,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B1C015B0','English','日本語Ⅱ','normal',true,2,1,'B','Wed',3,'1,1,1,1,1');
 
 --健康・スポーツ科学 Sports
 

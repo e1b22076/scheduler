@@ -17,10 +17,11 @@ CREATE TABLE schedule (
     --↑いつ履修するか？まだ書いてない。
     --前期A,後期B,
     --前期前半C,前期後半D,後期前半E,後期後半F
+    --期間外Z
     DayofWeek VARCHAR NOT NULL,
-    --Mon,Tue,Wed,Thu,Fri,Sat
+    --Mon,Tue,Wed,Thu,Fri,Sat,ZZZ(期間外)
     DayTime Int NOT NULL,
-    --何時間目か
+    --何時間目か。連続科目は始まる時間を(期間外は0)
     otherClass VARCHAR NOT NULL
     --'ID,IC,IS,IM,IN'で記述していく。1or0で。
     --自分自身は1で。
