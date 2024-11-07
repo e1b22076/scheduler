@@ -222,31 +222,79 @@ VALUES ('B2C004A0','Sports','スポーツ科学実習','normal',false,1,3,'A','F
 --総合理学系 Science
 
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B3C001','Science','科学史','normal',false,2,4,'A','B',0,'1,1,1,1,1');
+VALUES ('B3C001A0','Science','科学史','normal',false,2,4,'B','Wed',1,'1,1,1,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B3B003','Science','物理学基礎','choice',false,2,1,'A','B',0,'1,1,1,1,1');
+VALUES ('B3B003A0','Science','物理学基礎','choice',false,2,1,'A','Tue',3,'1,1,0,0,0');--ID,IC
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B3C004','Science','物理現象の数理','normal',false,2,2,'A','B',0,'1,1,1,1,1');
+VALUES ('B3B003B0','Science','物理学基礎','choice',false,2,1,'A','Tue',4,'1,0,0,0,1');--ID,IN
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B3C005','Science','力学','normal',false,2,1,'A','B',0,'1,1,1,1,1');
+VALUES ('B3B003C0','Science','物理学基礎','choice',false,2,1,'A','Fri',3,'0,0,1,0,0');--IS
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B3C006','Science','電磁気学','normal',false,2,1,'A','B',0,'1,1,1,1,1');
+VALUES ('B3B003D0','Science','物理学基礎','choice',false,2,1,'A','Fri',4,'0,0,0,1,0');--IM
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B3B007','Science','現代物理学入門','choice',false,2,2,'A','B',0,'1,1,1,1,1');
+VALUES ('B3C004A0','Science','物理現象の数理','normal',false,2,2,'A','Mon',3,'1,1,1,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B3C009','Science','化学基礎','normal',false,2,1,'A','B',0,'1,1,1,1,1');
+VALUES ('B3C004B0','Science','物理現象の数理','normal',false,2,2,'A','Mon',4,'1,1,1,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B3C010','Science','環境情報科学','normal',false,2,2,'A','B',0,'1,1,1,1,1');
+VALUES ('B3C005B0','Science','力学','normal',false,2,1,'A','Tue',3,'0,0,1,0,0');--IS
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B3C012','Science','地球化学基礎','normal',false,2,1,'A','B',0,'1,1,1,1,1');
+VALUES ('B3C005A0','Science','力学','normal',false,2,1,'A','Tue',3,'0,0,0,1,0');--IM
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B3B014','Science','地球環境','choice',false,2,1,'A','B',0,'1,1,1,1,1');
+VALUES ('B3C005C0','Science','力学','normal',false,2,1,'A','Thu',3,'1,0,0,0,1');--ID,IN
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B3C015','Science','生命科学基礎','normal',false,2,1,'A','B',0,'1,1,1,1,1');
+VALUES ('B3C005D0','Science','力学','normal',false,2,1,'A','Thu',4,'1,1,0,0,0');--ID,IC
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B3B017','Science','情報生命科学','choice',false,2,1,'A','B',0,'1,1,1,1,1');
+VALUES ('B3C006A0','Science','電磁気学','normal',false,2,1,'B','Tue',3,'1,1,0,0,0');--ID,IC
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('B3C018','Science','視る自然科学','normal',false,2,2,'A','B',0,'1,1,1,1,1');
+VALUES ('B3C006B0','Science','電磁気学','normal',false,2,1,'B','Tue',4,'1,0,0,0,1');--ID,IN
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B3C006C0','Science','電磁気学','normal',false,2,1,'B','Fri',3,'0,0,1,0,0');--IS
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B3C006D0','Science','電磁気学','normal',false,2,1,'B','Fri',4,'0,0,0,1,0');--IM
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B3B007A0','Science','現代物理学入門','choice',false,2,2,'B','Tue',3,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B3B007B0','Science','現代物理学入門','choice',false,2,2,'B','Tue',4,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B3C009A0','Science','化学基礎','normal',false,2,1,'A','Fri',3,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B3C009B0','Science','化学基礎','normal',false,2,1,'A','Fri',4,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B3C009C0','Science','化学基礎','normal',false,2,1,'B','Fri',4,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B3C010A0','Science','環境情報科学','normal',false,2,2,'A','Fri',3,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B3C010B0','Science','環境情報科学','normal',false,2,1,'B','Fri',3,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B3C010C0','Science','環境情報科学','normal',false,2,1,'B','Fri',4,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B3C012B0','Science','地球科学基礎','normal',false,2,1,'A','Tue',2,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B3C012A0','Science','地球科学基礎','normal',false,2,1,'A','Tue',3,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B3C012D0','Science','地球科学基礎','normal',false,2,1,'A','Thu',2,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B3C012C0','Science','地球科学基礎','normal',false,2,1,'A','Thu',3,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B3B014B0','Science','地球環境','choice',false,2,1,'B','Tue',2,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B3B014A0','Science','地球環境','choice',false,2,1,'B','Tue',3,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B3B014C0','Science','地球環境','choice',false,2,1,'B','Thu',3,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B3C015A0','Science','生命科学基礎','normal',false,2,1,'A','Tue',4,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B3C015B0','Science','生命科学基礎','normal',false,2,1,'A','Fri',3,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B3C015C0','Science','生命科学基礎','normal',false,2,1,'A','Fri',4,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B3B017A0','Science','情報生命科学','choice',false,2,1,'B','Tue',4,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B3B017B0','Science','情報生命科学','choice',false,2,1,'B','Fri',3,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B3B017C0','Science','情報生命科学','choice',false,2,1,'B','Fri',4,'1,1,1,1,1');
+INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
+VALUES ('B3C018A0','Science','視る自然科学','normal',false,2,2,'B','Wed',2,'1,1,1,1,1');
 
 --キャリア科目 Career
 
