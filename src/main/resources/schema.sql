@@ -14,3 +14,20 @@ CREATE TABLE fruit (
     name VARCHAR NOT NULL,
     price INT NOT NULL
 );
+
+CREATE TABLE events (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    start_year INT NOT NULL,
+    start_month INT NOT NULL,
+    start_day INT NOT NULL,
+    start_time TIME,
+    end_year INT,
+    end_month INT,
+    end_day INT,
+    end_time TIME,
+    location VARCHAR(255),
+    is_all_day BOOLEAN DEFAULT FALSE
+);
+
