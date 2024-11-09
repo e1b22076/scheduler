@@ -1,7 +1,7 @@
 CREATE TABLE schedule (
     id  VARCHAR PRIMARY KEY,
     --↑主キー。こちらでIDを設定。
-    class VARCHAR NOT NULL,
+    department VARCHAR NOT NULL,
     -- ↑学科。ID～IN OR English OR Science OR Humanities OR Career OR Sports
     className VARCHAR NOT NULL,
     -- ↑授業名。フルネームで。
@@ -14,7 +14,7 @@ CREATE TABLE schedule (
     grade INT NOT NULL,
     --↑履修可能最低年次
     timing VARCHAR NOT NULL,
-    --↑いつ履修するか？まだ書いてない。
+    --↑いつ履修するか？
     --前期A,後期B,
     --前期前半C,前期後半D,後期前半E,後期後半F
     --期間外Z
