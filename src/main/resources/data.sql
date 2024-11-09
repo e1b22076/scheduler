@@ -355,7 +355,7 @@ VALUES ('1GAA01B0','ID','線形数学Ⅰ','required',false,2,1,'A','Mon',3,'1,0,
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
 VALUES ('1GAA01A0','ID','線形数学Ⅰ','required',false,2,1,'A','Mon',4,'1,0,0,0,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1GCA02A0','ID','線形数学Ⅱ','normal',false,2,3,'B','Mon',2,'1,0,0,1,1');--ID,IM,IN
+VALUES ('1GCA02A0','ID','線形数学Ⅱ','normal',false,2,3,'B','Mon',2,'1,0,0,0,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
 VALUES ('1GAA03A0','ID','微積分学Ⅰ','required',false,2,1,'A','Thu',2,'1,0,0,0,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
@@ -411,7 +411,7 @@ VALUES ('1GCL20A0','ID','オペレーションズ・リサーチ','normal',false
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
 VALUES ('1GAL27A0','ID','情報技術者論','required',false,2,3,'B','Wed',2,'1,0,0,0,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1GAL29A0','ID','情報ゼミナール','required',false,2,3,'B','Thu',4,'1,1,1,1,1');
+VALUES ('1GAL29A0','ID','情報ゼミナール','required',false,2,3,'B','Thu',4,'1,0,0,0,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
 VALUES ('1GCL31A0','ID','システム工学','normal',false,2,2,'A','Thu',4,'1,0,0,0,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
@@ -752,277 +752,277 @@ VALUES ('1BBN11A0','IS','CSプロジェクト演習','choice',false,1,4,'Z','ZZZ
 --情報メディア学科 IM
 
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CBA01A0','IM','線形数学Ⅰ','choice',false,2,1,'A','Thu',4,'1,1,1,1,1');
+VALUES ('1CBA01A0','IM','線形数学Ⅰ','choice',false,2,1,'A','Thu',4,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CBA01B0','IM','線形数学Ⅰ','choice',false,2,1,'A','Thu',4,'1,1,1,1,1');
+VALUES ('1CBA01B0','IM','線形数学Ⅰ','choice',false,2,1,'A','Thu',4,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CBA01C0','IM','線形数学Ⅰ','choice',false,2,1,'B','Mon',1,'1,1,1,1,1');
+VALUES ('1CBA01C0','IM','線形数学Ⅰ','choice',false,2,1,'B','Mon',1,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCA02A0','IM','線形数学Ⅱ','normal',false,2,3,'B','Mon',2,'1,1,1,1,1');
+VALUES ('1CCA02A0','IM','線形数学Ⅱ','normal',false,2,3,'B','Mon',2,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CBA03A0','IM','微積分学Ⅰ','choice',false,2,1,'A','Mon',4,'1,1,1,1,1');
+VALUES ('1CBA03A0','IM','微積分学Ⅰ','choice',false,2,1,'A','Mon',4,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CBA03B0','IM','微積分学Ⅰ','choice',false,2,1,'A','Mon',4,'1,1,1,1,1');
+VALUES ('1CBA03B0','IM','微積分学Ⅰ','choice',false,2,1,'A','Mon',4,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CBA03C0','IM','微積分学Ⅰ','choice',false,2,1,'B','Thu',4,'1,1,1,1,1');
+VALUES ('1CBA03C0','IM','微積分学Ⅰ','choice',false,2,1,'B','Thu',4,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCA04A0','IM','微積分学Ⅱ','normal',false,2,3,'B','Mon',1,'1,1,1,1,1');
+VALUES ('1CCA04A0','IM','微積分学Ⅱ','normal',false,2,3,'B','Mon',1,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CBA05A0','IM','情報数学','choice',false,2,2,'B','Tue',1,'1,1,1,1,1');
+VALUES ('1CBA05A0','IM','情報数学','choice',false,2,2,'B','Tue',1,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCA06A0','IM','周波数解析','normal',false,2,2,'A','Wed',2,'1,1,1,1,1');
+VALUES ('1CCA06A0','IM','周波数解析','normal',false,2,2,'A','Wed',2,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCA07A0','IM','微分方程式','normal',false,2,1,'B','Mon',4,'1,1,1,1,1');
+VALUES ('1CCA07A0','IM','微分方程式','normal',false,2,1,'B','Mon',4,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCA07B0','IM','微分方程式','normal',false,2,1,'B','Mon',4,'1,1,1,1,1');
+VALUES ('1CCA07B0','IM','微分方程式','normal',false,2,1,'B','Mon',4,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CBA08A0','IM','グラフ理論','choice',false,2,2,'A','Mon',2,'1,1,1,1,1');
+VALUES ('1CBA08A0','IM','グラフ理論','choice',false,2,2,'A','Mon',2,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCA09A0','IM','数理計画法','normal',false,2,3,'B','Tue',1,'1,1,1,1,1');
+VALUES ('1CCA09A0','IM','数理計画法','normal',false,2,3,'B','Tue',1,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CBA11A0','IM','確率・統計','choice',false,2,3,'A','Mon',1,'1,1,1,1,1');
+VALUES ('1CBA11A0','IM','確率・統計','choice',false,2,3,'A','Mon',1,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CAB01A0','IM','コンピュータ入門','required',false,2,1,'A','Tue',2,'1,1,1,1,1');
+VALUES ('1CAB01A0','IM','コンピュータ入門','required',false,2,1,'A','Tue',2,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CBB02A0','IM','情報通信ネットワーク','choice',false,2,2,'A','Tue',2,'1,1,1,1,1');
+VALUES ('1CBB02A0','IM','情報通信ネットワーク','choice',false,2,2,'A','Tue',2,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CBB04A0','IM','オートマトンと形式言語','choice',false,2,3,'A','Tue',5,'1,1,1,1,1');
+VALUES ('1CBB04A0','IM','オートマトンと形式言語','choice',false,2,3,'A','Tue',5,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CAB05A0','IM','テクニカルライティング','required',false,2,1,'B','Thu',1,'1,1,1,1,1');
+VALUES ('1CAB05A0','IM','テクニカルライティング','required',false,2,1,'B','Thu',1,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CAB05B0','IM','テクニカルライティング','required',false,2,1,'B','Thu',1,'1,1,1,1,1');
+VALUES ('1CAB05B0','IM','テクニカルライティング','required',false,2,1,'B','Thu',1,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCB07A0','IM','ディジタル回路','normal',false,2,1,'B','Fri',2,'1,1,1,1,1');
+VALUES ('1CCB07A0','IM','ディジタル回路','normal',false,2,1,'B','Fri',2,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCB08A0','IM','情報処理基礎','normal',false,2,1,'Z','ZZZ',0,'1,1,1,1,1');
+VALUES ('1CCB08A0','IM','情報処理基礎','normal',false,2,1,'Z','ZZZ',0,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCB10A0','IM','プログラミング入門','normal',false,2,1,'A','Mon',3,'1,1,1,1,1');
+VALUES ('1CCB10A0','IM','プログラミング入門','normal',false,2,1,'A','Mon',3,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CAB11A0','IM','計算機アーキテクチャ','required',false,2,2,'A','Fri',2,'1,1,1,1,1');
+VALUES ('1CAB11A0','IM','計算機アーキテクチャ','required',false,2,2,'A','Fri',2,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CBB12A0','IM','情報セキュリティの基礎','choice',false,2,3,'A','Mon',2,'1,1,1,1,1');
+VALUES ('1CBB12A0','IM','情報セキュリティの基礎','choice',false,2,3,'A','Mon',2,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CBB13A0','IM','データ構造とアルゴリズムⅠ','choice',false,2,2,'A','Wed',1,'1,1,1,1,1');
+VALUES ('1CBB13A0','IM','データ構造とアルゴリズムⅠ','choice',false,2,2,'A','Wed',1,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCB14A0','IM','データ構造とアルゴリズムⅡ','normal',false,2,3,'A','Tue',1,'1,1,1,1,1');
+VALUES ('1CCB14A0','IM','データ構造とアルゴリズムⅡ','normal',false,2,3,'A','Tue',1,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCB15A0','IM','システムプログラム','normal',false,2,3,'A','Tue',2,'1,1,1,1,1');
+VALUES ('1CCB15A0','IM','システムプログラム','normal',false,2,3,'A','Tue',2,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CAB16A0','IM','オペレーティングシステム','required',false,2,2,'B','Mon',4,'1,1,1,1,1');
+VALUES ('1CAB16A0','IM','オペレーティングシステム','required',false,2,2,'B','Mon',4,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CBB17A0','IM','プログラミング言語論','choice',false,2,3,'B','Wed',2,'1,1,1,1,1');
+VALUES ('1CBB17A0','IM','プログラミング言語論','choice',false,2,3,'B','Wed',2,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCB18A0','IM','アセンブリ言語','normal',false,2,2,'B','Thu',3,'1,1,1,1,1');
+VALUES ('1CCB18A0','IM','アセンブリ言語','normal',false,2,2,'B','Thu',3,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCB18B0','IM','アセンブリ言語','normal',false,2,3,'B','Fri',5,'1,1,1,1,1');
+VALUES ('1CCB18B0','IM','アセンブリ言語','normal',false,2,3,'B','Fri',5,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CBB20A0','IM','データベースシステム','choice',false,2,2,'B','Thu',3,'1,1,1,1,1');
+VALUES ('1CBB20A0','IM','データベースシステム','choice',false,2,2,'B','Thu',3,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CBB21A0','IM','ソフトウェア工学Ⅰ','choice',false,2,2,'B','Mon',5,'1,1,1,1,1');
+VALUES ('1CBB21A0','IM','ソフトウェア工学Ⅰ','choice',false,2,2,'B','Mon',5,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CBB22A0','IM','ソフトウェア工学Ⅱ','choice',false,2,3,'A','Mon',4,'1,1,1,1,1');
+VALUES ('1CBB22A0','IM','ソフトウェア工学Ⅱ','choice',false,2,3,'A','Mon',4,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCB26A0','IM','コンピュータリテラシー','normal',false,2,1,'A','Wed',2,'1,1,1,1,1');
+VALUES ('1CCB26A0','IM','コンピュータリテラシー','normal',false,2,1,'A','Wed',2,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCB26B0','IM','コンピュータリテラシー','normal',false,2,1,'A','Wed',1,'1,1,1,1,1');
+VALUES ('1CCB26B0','IM','コンピュータリテラシー','normal',false,2,1,'A','Wed',1,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCL12A0','IM','メディアデータ論','normal',false,2,1,'B','Thu',2,'1,1,1,1,1');
+VALUES ('1CCL12A0','IM','メディアデータ論','normal',false,2,1,'B','Thu',2,'0,1,1,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CBL13A0','IM','コンピュータグラフィックスⅠ','choice',false,2,2,'A','Mon',4,'1,1,1,1,1');
+VALUES ('1CBL13A0','IM','コンピュータグラフィックスⅠ','choice',false,2,2,'A','Mon',4,'0,0,0,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CBL13B0','IM','コンピュータグラフィックスⅠ','choice',false,2,2,'A','Mon',3,'1,1,1,1,1');
+VALUES ('1CBL13B0','IM','コンピュータグラフィックスⅠ','choice',false,2,2,'A','Mon',3,'0,0,0,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCL14A0','IM','人間情報学','normal',false,2,2,'A','Thu',3,'1,1,1,1,1');
+VALUES ('1CCL14A0','IM','人間情報学','normal',false,2,2,'A','Thu',3,'0,1,1,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCL15A0','IM','ヒューマンインターフェース','normal',false,2,3,'A','Thu',2,'1,1,1,1,1');
+VALUES ('1CCL15A0','IM','ヒューマンインターフェース','normal',false,2,3,'A','Thu',2,'0,1,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CBL21A0','IM','画像情報処理Ⅰ','choice',false,2,2,'B','Mon',3,'1,1,1,1,1');
+VALUES ('1CBL21A0','IM','画像情報処理Ⅰ','choice',false,2,2,'B','Mon',3,'0,0,1,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CBL22A0','IM','音響処理','choice',false,2,2,'A','Fri',1,'1,1,1,1,1');
+VALUES ('1CBL22A0','IM','音響処理','choice',false,2,2,'A','Fri',1,'0,1,1,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCL23A0','IM','感性情報処理','normal',false,2,2,'B','Fri',2,'1,1,1,1,1');
+VALUES ('1CCL23A0','IM','感性情報処理','normal',false,2,2,'B','Fri',2,'0,1,1,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCL24A0','IM','色彩学','normal',false,2,3,'B','Tue',5,'1,1,1,1,1');
+VALUES ('1CCL24A0','IM','色彩学','normal',false,2,3,'B','Tue',5,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CAL27A0','IM','情報技術者論','required',false,2,3,'B','Wed',1,'1,1,1,1,1');
+VALUES ('1CAL27A0','IM','情報技術者論','required',false,2,3,'B','Wed',1,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CAL29A0','IM','情報ゼミナール','required',false,2,3,'B','Thu',4,'1,1,1,1,1');
+VALUES ('1CAL29A0','IM','情報ゼミナール','required',false,2,3,'B','Thu',4,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCM05A0','IM','コンピュータグラフィックスⅡ','normal',false,2,3,'B','Tue',2,'1,1,1,1,1');
+VALUES ('1CCM05A0','IM','コンピュータグラフィックスⅡ','normal',false,2,3,'B','Tue',2,'0,1,1,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCM16A0','IM','構造化文書処理','normal',false,2,3,'B','Fri',4,'1,1,1,1,1');
+VALUES ('1CCM16A0','IM','構造化文書処理','normal',false,2,3,'B','Fri',4,'0,1,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCM25A0','IM','画像情報処理Ⅱ','normal',false,2,3,'A','Thu',1,'1,1,1,1,1');
+VALUES ('1CCM25A0','IM','画像情報処理Ⅱ','normal',false,2,3,'A','Thu',1,'0,1,1,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCM26A0','IM','CAD','normal',false,2,3,'B','Fri',3,'1,1,1,1,1');
+VALUES ('1CCM26A0','IM','CAD','normal',false,2,3,'B','Fri',3,'0,1,1,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCM27A0','IM','音声情報処理','normal',false,2,3,'A','Fri',3,'1,1,1,1,1');
+VALUES ('1CCM27A0','IM','音声情報処理','normal',false,2,3,'A','Fri',3,'0,1,1,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCM28A0','IM','メディアインタフェース','normal',false,2,3,'B','Fri',2,'1,1,1,1,1');
+VALUES ('1CCM28A0','IM','メディアインタフェース','normal',false,2,3,'B','Fri',2,'0,1,1,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCM29A0','IM','Webデザイン','normal',false,2,3,'A','Wed',1,'1,1,1,1,1');
+VALUES ('1CCM29A0','IM','Webデザイン','normal',false,2,3,'A','Wed',1,'0,1,1,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCM29B0','IM','Webデザイン','normal',false,2,3,'A','Wed',1,'1,1,1,1,1');
+VALUES ('1CCM29B0','IM','Webデザイン','normal',false,2,3,'A','Wed',1,'0,1,1,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCM30A0','IM','情報科学実践演習(国際PBL)','normal',false,1,2,'Z','ZZZ',0,'1,1,1,1,1');
+VALUES ('1CCM30A0','IM','情報科学実践演習(国際PBL)','normal',false,1,2,'Z','ZZZ',0,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCM41A0','IM','情報科学実践演習(国内PBL)a','normal',false,1,2,'Z','ZZZ',0,'1,1,1,1,1');
+VALUES ('1CCM41A0','IM','情報科学実践演習(国内PBL)a','normal',false,1,2,'Z','ZZZ',0,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCM42A0','IM','情報科学実践演習(国内PBL)b','normal',false,1,2,'Z','ZZZ',0,'1,1,1,1,1');
+VALUES ('1CCM42A0','IM','情報科学実践演習(国内PBL)b','normal',false,1,2,'Z','ZZZ',0,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
 VALUES ('B4D001A0','IM','特別講義a','ignore',false,1,1,'Z','ZZZ',0,'1,1,1,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
 VALUES ('B4D002A0','IM','特別講義b','ignore',false,1,1,'Z','ZZZ',0,'1,1,1,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CCN01A0','IM','アニメーション演習','normal',false,1,1,'A','Fri',2,'1,1,1,1,1');
+VALUES ('1CCN01A0','IM','アニメーション演習','normal',false,1,1,'A','Fri',2,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CAN02A0','IM','情報メディア入門','required',false,1,1,'B','Fri',1,'1,1,1,1,1');
+VALUES ('1CAN02A0','IM','情報メディア入門','required',false,1,1,'B','Fri',1,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CAN03A0','IM','C演習Ⅰ','required',true,3,1,'B','Wed',1,'1,1,1,1,1');
+VALUES ('1CAN03A0','IM','C演習Ⅰ','required',true,3,1,'B','Wed',1,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CBN04A0','IM','C演習Ⅱ','choice',true,3,2,'A','Thu',1,'1,1,1,1,1');
+VALUES ('1CBN04A0','IM','C演習Ⅱ','choice',true,3,2,'A','Thu',1,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CBN05A0','IM','Java演習','choice',true,3,2,'B','Thu',1,'1,1,1,1,1');
+VALUES ('1CBN05A0','IM','Java演習','choice',true,3,2,'B','Thu',1,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CBN06A0','IM','ソフトウェア工学演習','choice',true,2,3,'A','Fri',1,'1,1,1,1,1');
+VALUES ('1CBN06A0','IM','ソフトウェア工学演習','choice',true,2,3,'A','Fri',1,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CAN07A0','IM','情報メディア演習Ⅰ','required',true,2,2,'B','Mon',1,'1,1,1,1,1');
+VALUES ('1CAN07A0','IM','情報メディア演習Ⅰ','required',true,2,2,'B','Mon',1,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CAN08A0','IM','情報メディア演習Ⅱ','required',true,2,3,'A','Tue',3,'1,1,1,1,1');
+VALUES ('1CAN08A0','IM','情報メディア演習Ⅱ','required',true,2,3,'A','Tue',3,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CAN09A0','IM','情報メディア演習Ⅲ','required',true,2,3,'B','Tue',3,'1,1,1,1,1');
+VALUES ('1CAN09A0','IM','情報メディア演習Ⅲ','required',true,2,3,'B','Tue',3,'0,0,0,1,0');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1CBN11A0','IM','CSプロジェクト演習','choice',false,1,4,'Z','ZZZ',0,'1,1,1,1,1');
+VALUES ('1CBN11A0','IM','CSプロジェクト演習','choice',false,1,4,'Z','ZZZ',0,'0,0,0,1,0');
 
 --ネットワークデザイン学科 IN
 
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FBA01A0','IN','線形数学Ⅰ','choice',false,2,1,'A','Thu',2,'1,1,1,1,1');
+VALUES ('1FBA01A0','IN','線形数学Ⅰ','choice',false,2,1,'A','Thu',2,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FBA01B0','IN','線形数学Ⅰ','choice',false,2,1,'A','Thu',2,'1,1,1,1,1');
+VALUES ('1FBA01B0','IN','線形数学Ⅰ','choice',false,2,1,'A','Thu',2,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FBA01C0','IN','線形数学Ⅰ','choice',false,2,1,'B','Mon',2,'1,1,1,1,1');
+VALUES ('1FBA01C0','IN','線形数学Ⅰ','choice',false,2,1,'B','Mon',2,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCA02A0','IN','線形数学Ⅱ','normal',false,2,3,'B','Mon',2,'1,1,1,1,1');
+VALUES ('1FCA02A0','IN','線形数学Ⅱ','normal',false,2,3,'B','Mon',2,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FBA03A0','IN','微積分学Ⅰ','choice',false,2,1,'A','Mon',2,'1,1,1,1,1');
+VALUES ('1FBA03A0','IN','微積分学Ⅰ','choice',false,2,1,'A','Mon',2,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FBA03B0','IN','微積分学Ⅰ','choice',false,2,1,'A','Mon',2,'1,1,1,1,1');
+VALUES ('1FBA03B0','IN','微積分学Ⅰ','choice',false,2,1,'A','Mon',2,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FBA03C0','IN','微積分学Ⅰ','choice',false,2,1,'B','Thu',3,'1,1,1,1,1');
+VALUES ('1FBA03C0','IN','微積分学Ⅰ','choice',false,2,1,'B','Thu',3,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCA04A0','IN','微積分学Ⅱ','normal',false,2,3,'B','Mon',1,'1,1,1,1,1');
+VALUES ('1FCA04A0','IN','微積分学Ⅱ','normal',false,2,3,'B','Mon',1,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FBA05A0','IN','情報数学','choice',false,2,2,'B','Mon',2,'1,1,1,1,1');
+VALUES ('1FBA05A0','IN','情報数学','choice',false,2,2,'B','Mon',2,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCA07A0','IN','微分方程式','normal',false,2,1,'B','Tue',1,'1,1,1,1,1');
+VALUES ('1FCA07A0','IN','微分方程式','normal',false,2,1,'B','Tue',1,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCA07B0','IN','微分方程式','normal',false,2,1,'B','Tue',1,'1,1,1,1,1');
+VALUES ('1FCA07B0','IN','微分方程式','normal',false,2,1,'B','Tue',1,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FBA08A0','IN','グラフ理論','choice',false,2,2,'A','Thu',3,'1,1,1,1,1');
+VALUES ('1FBA08A0','IN','グラフ理論','choice',false,2,2,'A','Thu',3,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCA09A0','IN','数理計画法','normal',false,2,3,'B','Tue',2,'1,1,1,1,1');
+VALUES ('1FCA09A0','IN','数理計画法','normal',false,2,3,'B','Tue',2,'0,1,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FBA11A0','IN','確率・統計','choice',false,2,3,'A','Tue',3,'1,1,1,1,1');
+VALUES ('1FBA11A0','IN','確率・統計','choice',false,2,3,'A','Tue',3,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FAB01A0','IN','コンピュータ入門','required',false,2,1,'A','Mon',4,'1,1,1,1,1');
+VALUES ('1FAB01A0','IN','コンピュータ入門','required',false,2,1,'A','Mon',4,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FAB02A0','IN','情報通信ネットワーク','required',false,2,2,'A','Tue',1,'1,1,1,1,1');
+VALUES ('1FAB02A0','IN','情報通信ネットワーク','required',false,2,2,'A','Tue',1,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FAB05A0','IN','テクニカルライティング','required',false,2,1,'B','Thu',2,'1,1,1,1,1');
+VALUES ('1FAB05A0','IN','テクニカルライティング','required',false,2,1,'B','Thu',2,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FAB05B0','IN','テクニカルライティング','required',false,2,1,'B','Thu',2,'1,1,1,1,1');
+VALUES ('1FAB05B0','IN','テクニカルライティング','required',false,2,1,'B','Thu',2,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCB07A0','IN','ディジタル回路','normal',false,2,1,'B','Fri',2,'1,1,1,1,1');
+VALUES ('1FCB07A0','IN','ディジタル回路','normal',false,2,1,'B','Fri',2,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCB08A0','IN','情報処理基礎','normal',false,2,1,'Z','ZZZ',0,'1,1,1,1,1');
+VALUES ('1FCB08A0','IN','情報処理基礎','normal',false,2,1,'Z','ZZZ',0,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FAB11A0','IN','計算機アーキテクチャ','required',false,2,2,'A','Fri',2,'1,1,1,1,1');
+VALUES ('1FAB11A0','IN','計算機アーキテクチャ','required',false,2,2,'A','Fri',2,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FBB13A0','IN','データ構造とアルゴリズムⅠ','choice',false,2,2,'A','Wed',2,'1,1,1,1,1');
+VALUES ('1FBB13A0','IN','データ構造とアルゴリズムⅠ','choice',false,2,2,'A','Wed',2,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FAB16A0','IN','オペレーティングシステム','required',false,2,2,'B','Mon',4,'1,1,1,1,1');
+VALUES ('1FAB16A0','IN','オペレーティングシステム','required',false,2,2,'B','Mon',4,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCB19A0','IN','Unix入門','normal',false,1,1,'C','Tue',3,'1,1,1,1,1');
+VALUES ('1FCB19A0','IN','Unix入門','normal',false,1,1,'C','Tue',3,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FBB20A0','IN','データベースシステム','choice',false,2,2,'B','Fri',1,'1,1,1,1,1');
+VALUES ('1FBB20A0','IN','データベースシステム','choice',false,2,2,'B','Fri',1,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FBB21A0','IN','ソフトウェア工学Ⅰ','choice',false,2,2,'B','Mon',3,'1,1,1,1,1');
+VALUES ('1FBB21A0','IN','ソフトウェア工学Ⅰ','choice',false,2,2,'B','Mon',3,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FAB24A0','IN','ネットワークデザイン入門','required',false,1,1,'C','Mon',1,'1,1,1,1,1');
+VALUES ('1FAB24A0','IN','ネットワークデザイン入門','required',false,1,1,'C','Mon',1,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FBB25A0','IN','通信理論','choice',false,2,2,'A','Mon',3,'1,1,1,1,1');
+VALUES ('1FBB25A0','IN','通信理論','choice',false,2,2,'A','Mon',3,'0,1,1,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCB26A0','IN','コンピュータリテラシー','normal',false,2,1,'A','Wed',2,'1,1,1,1,1');
+VALUES ('1FCB26A0','IN','コンピュータリテラシー','normal',false,2,1,'A','Wed',2,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCB26B0','IN','コンピュータリテラシー','normal',false,2,1,'A','Wed',1,'1,1,1,1,1');
+VALUES ('1FCB26B0','IN','コンピュータリテラシー','normal',false,2,1,'A','Wed',1,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCB28A0','IN','ディジタル信号処理','normal',false,2,2,'A','Wed',1,'1,1,1,1,1');
+VALUES ('1FCB28A0','IN','ディジタル信号処理','normal',false,2,2,'A','Wed',1,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCB29A0','IN','プログラミングリテラシー(入門)','normal',false,1,1,'D','Mon',1,'1,1,1,1,1');
+VALUES ('1FCB29A0','IN','プログラミングリテラシー(入門)','normal',false,1,1,'D','Mon',1,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCB30A0','IN','プログラミングリテラシー(読解)','normal',false,1,1,'F','Mon',4,'1,1,1,1,1');
+VALUES ('1FCB30A0','IN','プログラミングリテラシー(読解)','normal',false,1,1,'F','Mon',4,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FBB31A0','IN','情報セキュリティの基礎','choice',false,2,2,'B','Fri',2,'1,1,1,1,1');
+VALUES ('1FBB31A0','IN','情報セキュリティの基礎','choice',false,2,2,'B','Fri',2,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCL17A0','IN','Webサイト制作','normal',false,2,3,'A','Mon',4,'1,1,1,1,1');
+VALUES ('1FCL17A0','IN','Webサイト制作','normal',false,2,3,'A','Mon',4,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCL17B0','IN','Webサイト制作','normal',false,2,3,'A','Sat',1,'1,1,1,1,1');
+VALUES ('1FCL17B0','IN','Webサイト制作','normal',false,2,3,'A','Sat',1,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCL18A0','IN','モバイルコミュニケーション','normal',false,2,3,'A','Mon',2,'1,1,1,1,1');
+VALUES ('1FCL18A0','IN','モバイルコミュニケーション','normal',false,2,3,'A','Mon',2,'0,1,1,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FBL19A0','IN','ネットワーク設計','choice',false,2,2,'B','Mon',1,'1,1,1,1,1');
+VALUES ('1FBL19A0','IN','ネットワーク設計','choice',false,2,2,'B','Mon',1,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCL25A0','IN','サーバ構築管理','normal',false,2,3,'B','Thu',3,'1,1,1,1,1');
+VALUES ('1FCL25A0','IN','サーバ構築管理','normal',false,2,3,'B','Thu',3,'0,1,1,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FBL26A0','IN','ネットワークアプリケーション','choice',false,2,3,'B','Tue',3,'1,1,1,1,1');
+VALUES ('1FBL26A0','IN','ネットワークアプリケーション','choice',false,2,3,'B','Tue',3,'0,0,1,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FAL27A0','IN','情報技術者論','required',false,2,3,'B','Wed',2,'1,1,1,1,1');
+VALUES ('1FAL27A0','IN','情報技術者論','required',false,2,3,'B','Wed',2,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FAL29A0','IN','情報ゼミナール','required',false,2,3,'B','Thu',4,'1,1,1,1,1');
+VALUES ('1FAL29A0','IN','情報ゼミナール','required',false,2,3,'B','Thu',4,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCL34A0','IN','情報セキュリティの応用','normal',false,2,3,'A','Mon',3,'1,1,1,1,1');
+VALUES ('1FCL34A0','IN','情報セキュリティの応用','normal',false,2,3,'A','Mon',3,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FBM11A0','IN','オートマトンと形式言語','choice',false,2,3,'A','Tue',5,'1,1,1,1,1');
+VALUES ('1FBM11A0','IN','オートマトンと形式言語','choice',false,2,3,'A','Tue',5,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCM12A0','IN','データ構造とアルゴリズムⅡ','normal',false,2,3,'A','Tue',2,'1,1,1,1,1');
+VALUES ('1FCM12A0','IN','データ構造とアルゴリズムⅡ','normal',false,2,3,'A','Tue',2,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCM13A0','IN','システムプログラム','normal',false,2,3,'A','Tue',1,'1,1,1,1,1');
+VALUES ('1FCM13A0','IN','システムプログラム','normal',false,2,3,'A','Tue',1,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FBM14A0','IN','プログラミング言語論','choice',false,2,3,'A','Thu',1,'1,1,1,1,1');
+VALUES ('1FBM14A0','IN','プログラミング言語論','choice',false,2,3,'A','Thu',1,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FBM15A0','IN','ソフトウェア工学Ⅱ','choice',false,2,3,'A','Tue',4,'1,1,1,1,1');
+VALUES ('1FBM15A0','IN','ソフトウェア工学Ⅱ','choice',false,2,3,'A','Tue',4,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCM16A0','IN','構造化文書処理','normal',false,2,3,'B','Tue',4,'1,1,1,1,1');
+VALUES ('1FCM16A0','IN','構造化文書処理','normal',false,2,3,'B','Tue',4,'0,1,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCM18A0','IN','ヒューマンインターフェース','normal',false,2,3,'A','Fri',3,'1,1,1,1,1');
+VALUES ('1FCM18A0','IN','ヒューマンインターフェース','normal',false,2,3,'A','Fri',3,'0,1,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCM19A0','IN','メディア通信概論','normal',false,2,3,'B','Tue',1,'1,1,1,1,1');
+VALUES ('1FCM19A0','IN','メディア通信概論','normal',false,2,3,'B','Tue',1,'0,1,1,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCM20A0','IN','オペレーションズ・リサーチ','normal',false,2,3,'A','Fri',4,'1,1,1,1,1');
+VALUES ('1FCM20A0','IN','オペレーションズ・リサーチ','normal',false,2,3,'A','Fri',4,'0,1,0,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCM21A0','IN','モデリングとシミュレーション','normal',false,2,3,'B','Mon',3,'1,1,1,1,1');
+VALUES ('1FCM21A0','IN','モデリングとシミュレーション','normal',false,2,3,'B','Mon',3,'0,1,0,1,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCM30A0','IN','情報科学実践演習(国際PBL)','normal',false,1,2,'Z','ZZZ',0,'1,1,1,1,1');
+VALUES ('1FCM30A0','IN','情報科学実践演習(国際PBL)','normal',false,1,2,'Z','ZZZ',0,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCM41A0','IN','情報科学実践演習(国内PBL)a','normal',false,1,2,'Z','ZZZ',0,'1,1,1,1,1');
+VALUES ('1FCM41A0','IN','情報科学実践演習(国内PBL)a','normal',false,1,2,'Z','ZZZ',0,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FCM42A0','IN','情報科学実践演習(国内PBL)b','normal',false,1,2,'Z','ZZZ',0,'1,1,1,1,1');
+VALUES ('1FCM42A0','IN','情報科学実践演習(国内PBL)b','normal',false,1,2,'Z','ZZZ',0,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FAN03A0','IN','C演習Ⅰ','required',true,3,1,'B','Wed',1,'1,1,1,1,1');
+VALUES ('1FAN03A0','IN','C演習Ⅰ','required',true,3,1,'B','Wed',1,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FBN04A0','IN','C演習Ⅱ','choice',true,3,2,'A','Thu',1,'1,1,1,1,1');
+VALUES ('1FBN04A0','IN','C演習Ⅱ','choice',true,3,2,'A','Thu',1,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FBN05A0','IN','Java演習','choice',true,3,2,'B','Tue',1,'1,1,1,1,1');
+VALUES ('1FBN05A0','IN','Java演習','choice',true,3,2,'B','Tue',1,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FBN06A0','IN','ソフトウェア工学演習','choice',true,3,1,'A','Fri',1,'1,1,1,1,1');
+VALUES ('1FBN06A0','IN','ソフトウェア工学演習','choice',true,3,1,'A','Fri',1,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FAN07A0','IN','ネットワークデザイン基礎演習','required',true,2,2,'B','Thu',1,'1,1,1,1,1');
+VALUES ('1FAN07A0','IN','ネットワークデザイン基礎演習','required',true,2,2,'B','Thu',1,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FAN08A0','IN','ネットワークデザイン専門演習','required',true,2,3,'A','Thu',3,'1,1,1,1,1');
+VALUES ('1FAN08A0','IN','ネットワークデザイン専門演習','required',true,2,3,'A','Thu',3,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FAN09A0','IN','ネットワーク・セキュリティ演習','normal',true,2,3,'B','Fri',3,'1,1,1,1,1');
+VALUES ('1FAN09A0','IN','ネットワーク・セキュリティ演習','normal',true,2,3,'B','Fri',3,'0,0,0,0,1');
 INSERT INTO schedule (id,class,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
-VALUES ('1FBN11A0','IN','CSプロジェクト演習','choice',false,1,4,'Z','ZZZ',0,'1,1,1,1,1');
+VALUES ('1FBN11A0','IN','CSプロジェクト演習','choice',false,1,4,'Z','ZZZ',0,'0,0,0,0,1');
 
 --終わり
