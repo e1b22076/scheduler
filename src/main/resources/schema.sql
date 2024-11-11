@@ -23,11 +23,7 @@ CREATE TABLE events (
     start_month INT NOT NULL,
     start_day INT NOT NULL,
     start_time TIME,
-    end_year INT,
-    end_month INT,
-    end_day INT,
     end_time TIME,
     location VARCHAR(255),
     is_all_day BOOLEAN DEFAULT FALSE
 );
-

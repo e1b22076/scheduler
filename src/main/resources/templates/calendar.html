@@ -1,28 +1,93 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <title>calendar demo</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <link rel='stylesheet' href='webjars/fullcalendar/3.5.1/dist/fullcalendar.css' />
-  <script src="webjars/jquery/2.0.3/jquery.min.js"></script>
-  <script src='webjars/moment/2.19.1/min/moment.min.js'></script>
-  <script src='webjars/fullcalendar/3.5.1/dist/fullcalendar.js'></script>
-  <script type="text/javascript">
-    $(document).ready(function () {
-      $('#calendar').fullCalendar({
-        events: {
-          url: '/api/event/all'
-        }
-      });
-    });
-  </script>
+  <meta charset="UTF-8" />
+  <title>カレンダー</title>
+  <style>
+    table {
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    td {
+      text-align: center;
+      vertical-align: top;
+      min-height: 100px;
+      padding: 10px;
+    }
+
+    .sunday {
+      background-color: red;
+      color: white;
+    }
+
+    .saturday {
+      background-color: blue;
+      color: white;
+    }
+  </style>
 </head>
 
 <body>
-  <div id='calendar'></div>
+  <h1>カレンダー</h1>
+  <div>
+    <!-- Previous Year Button -->
+    <form th:action="@{/calendar}" method="get" style="display: inline;">
+      <input type="hidden" name="year" th:value="${year - 1}" />
+      <input type="hidden" name="month" th:value="${month}" />
+      <button type="submit">前の年</button>
+    </form>
 
-  
+    <!-- Display Current Year -->
+    <span>[[${year}]]年</span>
+
+    <!-- Next Year Button -->
+    <form th:action="@{/calendar}" method="get" style="display: inline;">
+      <input type="hidden" name="year" th:value="${year + 1}" />
+      <input type="hidden" name="month" th:value="${month}" />
+      <button type="submit">次の年</button>
+    </form>
+  </div>
+
+  <div>
+    <form th:action="@{/calendar}" method="get" style="display: inline;">
+      <input type="hidden" name="year" th:value="${year}" />
+      <input type="hidden" name="month" th:value="${month - 1}" />
+      <button type="submit">前の月</button>
+    </form>
+
+    <span>[[${month}]]月</span>
+
+    <form th:action="@{/calendar}" method="get" style="display: inline;">
+      <input type="hidden" name="year" th:value="${year}" />
+      <input type="hidden" name="month" th:value="${month + 1}" />
+      <button type="submit">次の月</button>
+    </form>
+  </div>
+
+  <table border="1">
+    <tr>
+      <td class="sunday">日</td>
+      <td>月</td>
+      <td>火</td>
+      <td>水</td>
+      <td>木</td>
+      <td>金</td>
+      <td class="saturday">土</td>
+    </tr>
+    <tr th:each="weekDays : ${week.weekList}">
+      <td th:each="day, dayStat : ${weekDays}">
+        <div th:text="${day.date}"></div>
+        <div th:if="${day.event != null}" th:text="${day.event}"></div>
+        <button type="button"
+          th:onclick="'window.location.href=\'/calendar/event?date=' + ${year} + '-' + ${month} + '-' + ${day.date} + '\''">
+          詳細・追加
+        </button>
+      </td>
+
+    </tr>
+  </table>
 </body>
 
 </html>

@@ -1,6 +1,7 @@
 package oit.is.hondaken.scheduler.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,39 +15,34 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import oit.is.hondaken.scheduler.model.EventMapper;
 import oit.is.hondaken.scheduler.model.day;
+import oit.is.hondaken.scheduler.model.event;
 import oit.is.hondaken.scheduler.model.week;
 
 @Controller
 public class scheduleController {
 
-   @Autowired
+  @Autowired
   private EventMapper eventMapper;
 
   @GetMapping("/calendar")
-  public String calendar() {
-    return "calendar.html";
-  }
-
-  @GetMapping("/calendar2")
-  public String calendar2(
+  public String calendar(
       @RequestParam(value = "year", required = false) Integer year,
       @RequestParam(value = "month", required = false) Integer month,
       Model model) {
 
     final Calendar calendar = Calendar.getInstance();
 
-    // If no parameters are provided, use the current year and month
+
     if (year == null || month == null) {
       year = calendar.get(Calendar.YEAR);
       month = calendar.get(Calendar.MONTH);
     } else {
-      // Correct for 1-based month input by subtracting 1 (if the month param is 10
-      // for October)
-      month--; // Adjust to zero-based indexing for Calendar class
-      if (month < 0) { // Roll back to December of the previous year if month is below 0
+
+      month--;
+      if (month < 0) {
         month = 11;
         year--;
-      } else if (month > 11) { // Move forward to January of the next year if month exceeds 11
+      } else if (month > 11) {
         month = 0;
         year++;
       }
@@ -55,7 +51,7 @@ public class scheduleController {
     calendar.clear();
     calendar.set(year, month, 1);
 
-    // Get the first and last days of the calendar display range
+
     final Calendar firstDayOfCalendar = (Calendar) calendar.clone();
     firstDayOfCalendar.add(Calendar.DATE, Calendar.SUNDAY - firstDayOfCalendar.get(Calendar.DAY_OF_WEEK));
 
@@ -71,7 +67,7 @@ public class scheduleController {
       for (int i = 0; i < 7; i++) {
         day currentDay = new day(day.get(Calendar.DAY_OF_MONTH));
 
-        // Fetch event title if it exists
+
         String eventTitle = eventMapper.getEventTitleForDate(
             day.get(Calendar.YEAR),
             day.get(Calendar.MONTH) + 1,
@@ -89,7 +85,54 @@ public class scheduleController {
     model.addAttribute("week", week);
     model.addAttribute("year", year);
     model.addAttribute("month", month + 1);
-    return "calendar2.html";
+    return "calendar.html";
   }
 
+  @GetMapping("/calendar/event")
+  public String eventDetails(
+      @RequestParam("date") String date,
+      Model model) {
+
+    String[] dateParts = date.split("-");
+    int year = Integer.parseInt(dateParts[0]);
+    int month = Integer.parseInt(dateParts[1]);
+    int day = Integer.parseInt(dateParts[2]);
+
+    List<event> events = eventMapper.getEventsForDate(year, month, day);
+
+    model.addAttribute("events", events);
+    model.addAttribute("selectedDate", date);
+
+    return "eventDetails.html";
+  }
+
+  @PostMapping("/calendar/addEvent")
+  public String addEvent(
+      @RequestParam("date") String date,
+      @RequestParam("title") String title,
+      @RequestParam("description") String description,
+      @RequestParam(value = "start_time", required = false) String startTime,
+      @RequestParam(value = "end_time", required = false) String endTime,
+      @RequestParam(value = "location", required = false) String location,
+      @RequestParam(value = "is_all_day", required = false, defaultValue = "false") boolean isAllDay
+) {
+
+    String[] dateParts = date.split("-");
+    int startYear = Integer.parseInt(dateParts[0]);
+    int startMonth = Integer.parseInt(dateParts[1]);
+    int startDay = Integer.parseInt(dateParts[2]);
+    event event = new event();
+    event.setStartYear(startYear);
+    event.setStartMonth(startMonth);
+    event.setStartDay(startDay);
+    event.setTitle(title);
+    event.setDescription(description);
+    event.setStartTime(startTime);
+    event.setEndTime(endTime);
+    event.setLocation(location);
+    event.setAllDay(isAllDay);
+    eventMapper.addEvent(event);
+
+    return "redirect:/calendar";
+  }
 }

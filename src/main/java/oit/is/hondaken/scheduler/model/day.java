@@ -1,4 +1,5 @@
 package oit.is.hondaken.scheduler.model;
+
 public class day {
   private int date;
   private String event;
