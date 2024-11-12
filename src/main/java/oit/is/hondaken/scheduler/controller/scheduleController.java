@@ -19,6 +19,7 @@ import oit.is.hondaken.scheduler.model.EventMapper;
 import oit.is.hondaken.scheduler.model.day;
 import oit.is.hondaken.scheduler.model.event;
 import oit.is.hondaken.scheduler.model.timeTable;
+import oit.is.hondaken.scheduler.model.userSetting;
 import oit.is.hondaken.scheduler.model.userSettingMapper;
 import oit.is.hondaken.scheduler.model.week;
 
@@ -151,5 +152,22 @@ public class scheduleController {
     model.addAttribute("id", id);
     model.addAttribute("timeTable", timeTable);
     return "timetable.html";
+  }
+
+  @GetMapping("/register")
+  public String goreg() {
+    return "register.html";
+  }
+
+  @PostMapping("/regfin")
+  public String regfin(@RequestParam String gakuseki, @RequestParam String mail, @RequestParam String pass,
+      ModelMap model) {
+    userSetting user = new userSetting();
+    user.setNamber(gakuseki);
+    user.setMail(mail);
+    user.setMyPass(pass);
+    userSettingMapper.insertuserSetting(user);
+    model.addAttribute(user);
+    return "register.html";
   }
 }
