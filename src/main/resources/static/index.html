@@ -37,7 +37,8 @@
       padding: 10px 20px;
       background-color: rgba(206, 207, 167, 0.7);
       display: flex;
-      justify-content: flex-end; /* ログインボタンを右端に配置 */
+      justify-content: flex-end;
+      /* ログインボタンを右端に配置 */
       align-items: center;
       z-index: 1;
     }
@@ -52,19 +53,35 @@
     }
 
     .login-link:hover {
-      color: #000000; /* ホバー時の文字色 */
+      color: #000000;
+      /* ホバー時の文字色 */
+    }
+
+    /* 新規登録リンクのスタイル */
+    .register-link {
+      color: rgb(255, 255, 255);
+      font-size: 20px;
+      text-decoration: none;
+      margin-right: 40px;
+      transition: color 0.3s;
+    }
+
+    .register-link:hover {
+      color: #000000;
+      /* ホバー時の文字色 */
     }
   </style>
-  </head>
+</head>
 
-  <body>
-    <!-- Webページ全体に表示する動画 -->
-    <video src="Title.mp4" autoplay muted></video>
+<body>
+  <!-- Webページ全体に表示する動画 -->
+  <video src="Title.mp4" autoplay muted></video>
 
-    <!-- メニューバー -->
-    <div class="navbar">
-      <a href="/calendar" class="login-link">ログイン</a>
-    </div>
+  <!-- メニューバー -->
+  <div class="navbar">
+    <a href="/register" class="register-link">新規登録</a>
+    <a href="/calendar" class="login-link">ログイン</a>
+  </div>
 </body>
 
 </html>
