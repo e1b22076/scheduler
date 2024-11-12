@@ -168,6 +168,6 @@ public class scheduleController {
     user.setMyPass(pass);
     userSettingMapper.insertuserSetting(user);
     model.addAttribute(user);
-    return "register.html";
+    return "regfin.html";
   }
 }
