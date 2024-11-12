@@ -53,3 +53,37 @@ CREATE TABLE userSetting(
   myPass VARCHAR NOT NULL
   --パスワード
 );
+CREATE TABLE timeTable(
+  id INT PRIMARY KEY,
+  mon1 VARCHAR,
+  mon2 VARCHAR,
+  mon3 VARCHAR,
+  mon4 VARCHAR,
+  mon5 VARCHAR,
+  tue1 VARCHAR,
+  tue2 VARCHAR,
+  tue3 VARCHAR,
+  tue4 VARCHAR,
+  tue5 VARCHAR,
+  wed1 VARCHAR,
+  wed2 VARCHAR,
+  wed3 VARCHAR,
+  wed4 VARCHAR,
+  wed5 VARCHAR,
+  thu1 VARCHAR,
+  thu2 VARCHAR,
+  thu3 VARCHAR,
+  thu4 VARCHAR,
+  thu5 VARCHAR,
+  fri1 VARCHAR,
+  fri2 VARCHAR,
+  fri3 VARCHAR,
+  fri4 VARCHAR,
+  fri5 VARCHAR,
+  sat1 VARCHAR,
+  sat2 VARCHAR,
+  sat3 VARCHAR,
+  sat4 VARCHAR,
+  sat5 VARCHAR,
+  FOREIGN KEY(id) REFERENCES userSetting(id)
+  );

@@ -19,6 +19,7 @@ import oit.is.hondaken.scheduler.model.EventMapper;
 import oit.is.hondaken.scheduler.model.day;
 import oit.is.hondaken.scheduler.model.event;
 import oit.is.hondaken.scheduler.model.timeTable;
+import oit.is.hondaken.scheduler.model.userSettingMapper;
 import oit.is.hondaken.scheduler.model.week;
 
 @Controller
@@ -26,6 +27,9 @@ public class scheduleController {
 
   @Autowired
   private EventMapper eventMapper;
+
+  @Autowired
+  private userSettingMapper userSettingMapper;
 
   @GetMapping("/calendar")
   public String calendar(
@@ -137,9 +141,14 @@ public class scheduleController {
 
   @GetMapping("/timetable")
   public String gotle(ModelMap model, Principal prin) {
-    
+
     timeTable timeTable = new timeTable();
 
+    String loginUser = prin.getName();
+    int id = userSettingMapper.selectIdByName(loginUser);
+
+    model.addAttribute("loginUser", loginUser);
+    model.addAttribute("id", id);
     model.addAttribute("timeTable", timeTable);
     return "timetable.html";
   }
