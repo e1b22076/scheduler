@@ -32,7 +32,6 @@ public class scheduleController {
 
     final Calendar calendar = Calendar.getInstance();
 
-
     if (year == null || month == null) {
       year = calendar.get(Calendar.YEAR);
       month = calendar.get(Calendar.MONTH);
@@ -51,7 +50,6 @@ public class scheduleController {
     calendar.clear();
     calendar.set(year, month, 1);
 
-
     final Calendar firstDayOfCalendar = (Calendar) calendar.clone();
     firstDayOfCalendar.add(Calendar.DATE, Calendar.SUNDAY - firstDayOfCalendar.get(Calendar.DAY_OF_WEEK));
 
@@ -66,7 +64,6 @@ public class scheduleController {
       final List<day> weekDays = new ArrayList<>();
       for (int i = 0; i < 7; i++) {
         day currentDay = new day(day.get(Calendar.DAY_OF_MONTH));
-
 
         String eventTitle = eventMapper.getEventTitleForDate(
             day.get(Calendar.YEAR),
@@ -114,8 +111,7 @@ public class scheduleController {
       @RequestParam(value = "start_time", required = false) String startTime,
       @RequestParam(value = "end_time", required = false) String endTime,
       @RequestParam(value = "location", required = false) String location,
-      @RequestParam(value = "is_all_day", required = false, defaultValue = "false") boolean isAllDay
-) {
+      @RequestParam(value = "is_all_day", required = false, defaultValue = "false") boolean isAllDay) {
 
     String[] dateParts = date.split("-");
     int startYear = Integer.parseInt(dateParts[0]);
@@ -134,5 +130,11 @@ public class scheduleController {
     eventMapper.addEvent(event);
 
     return "redirect:/calendar";
+  }
+
+  @GetMapping("/timetable")
+  public String gotimetable() {
+
+    return "timetable.html";
   }
 }

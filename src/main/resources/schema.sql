@@ -41,3 +41,15 @@ CREATE TABLE events (
     location VARCHAR(255),
     is_all_day BOOLEAN DEFAULT FALSE
 );
+CREATE TABLE userSetting(
+  id IDENTITY,
+  --一意識別可能なID
+  namber VARCHAR NOT NULL,
+  --学籍番号
+  userName VARCHAR,
+  --ユーザーネーム
+  mail VARCHAR NOT NULL,
+  --メールアドレス
+  myPass VARCHAR NOT NULL
+  --パスワード
+);

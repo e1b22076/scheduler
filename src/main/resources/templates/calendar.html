@@ -26,10 +26,45 @@
       background-color: blue;
       color: white;
     }
+
+    /* ログインリンクのスタイル */
+    .login-link {
+      color: rgb(255, 255, 255);
+      font-size: 20px;
+      text-decoration: none;
+      margin-right: 40px;
+      transition: color 0.3s;
+    }
+
+    .login-link:hover {
+      color: #000000;
+      /* ホバー時の文字色 */
+    }
+
+    /* メニューバー */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 10px 20px;
+      background-color: rgba(206, 207, 167, 0.7);
+      display: flex;
+      justify-content: flex-end;
+      /* 時間割ボタンを右端に配置 */
+      align-items: center;
+      z-index: 1;
+    }
   </style>
 </head>
 
 <body>
+  <!-- メニューバー -->
+  <div class="navbar">
+    <a href="/timetable" class="login-link">時間割</a>
+  </div>
+
+  <br>
+
   <h1>カレンダー</h1>
   <div>
     <!-- Previous Year Button -->
