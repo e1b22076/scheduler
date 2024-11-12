@@ -32,6 +32,11 @@ public class scheduleController {
   @Autowired
   private userSettingMapper userSettingMapper;
 
+  @RequestMapping("/")
+  public String home() {
+    return "redirect:/index.html"; // `/index.html` を表示
+  }
+
   @GetMapping("/calendar")
   public String calendar(
       @RequestParam(value = "year", required = false) Integer year,
@@ -162,12 +167,21 @@ public class scheduleController {
   @PostMapping("/regfin")
   public String regfin(@RequestParam String gakuseki, @RequestParam String mail, @RequestParam String pass,
       ModelMap model) {
+    ArrayList<String> Numbers = userSettingMapper.selectByNamber();
+    boolean flag = true;
+    for (String num : Numbers) {
+      if (gakuseki.equals(num)) {
+        flag = false;
+      }
+    }
     userSetting user = new userSetting();
     user.setNamber(gakuseki);
     user.setMail(mail);
     user.setMyPass(pass);
     userSettingMapper.insertuserSetting(user);
-    model.addAttribute(user);
+    model.addAttribute("user", user);
+    model.addAttribute("flag", flag);
     return "regfin.html";
+
   }
 }
