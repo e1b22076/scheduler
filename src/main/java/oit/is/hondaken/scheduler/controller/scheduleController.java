@@ -1,5 +1,6 @@
 package oit.is.hondaken.scheduler.controller;
 
+import java.security.Principal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -10,12 +11,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import oit.is.hondaken.scheduler.model.EventMapper;
 import oit.is.hondaken.scheduler.model.day;
 import oit.is.hondaken.scheduler.model.event;
+import oit.is.hondaken.scheduler.model.timeTable;
 import oit.is.hondaken.scheduler.model.week;
 
 @Controller
@@ -133,8 +136,11 @@ public class scheduleController {
   }
 
   @GetMapping("/timetable")
-  public String gotimetable() {
+  public String gotle(ModelMap model, Principal prin) {
+    
+    timeTable timeTable = new timeTable();
 
+    model.addAttribute("timeTable", timeTable);
     return "timetable.html";
   }
 }

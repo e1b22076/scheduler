@@ -1031,3 +1031,4 @@ INSERT INTO schedule (id,department,className,attribute,continuous,credit,grade,
 VALUES ('1FBN11A0','IN','CSプロジェクト演習','choice',false,1,4,'Z','ZZZ',0,'0,0,0,0,1');
 
 --終わり
+INSERT INTO userSetting(namber,userName,mail ,myPass ) VALUES('B22999','ほんだ','e1b22999@oit.ac.jp','isdev');
