@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>新規登録</title>
+  <style>
+    .center {
+      width: fit-content;
+      margin: auto;
+    }
+
+    .center th {
+      text-align: left;
+      vertical-align: top;
+    }
+  </style>
+</head>
+
+<body>
+
+  <p>
+  <form class="center" action="/regfin" method="post" th:action="@{/regfin}">
+    <!-- CSRFトークンの追加 -->
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+
+    <table>
+      <tr>
+        <th><label for="gakuseki">学籍番号</label></th>
+        <td>
+          <input id="gakuseki" type="text" name="gakuseki" />
+        </td>
+      </tr>
+
+      <tr>
+        <th><label for="address">学校用メールアドレス</label></th>
+        <td>
+          <input type="email" name="mail" />
+        </td>
+      </tr>
+
+      <tr>
+        <th><label for="password">パスワード</label></th>
+        <td>
+          <input type="password" name="pass" /><br>
+        </td>
+      </tr>
+    </table>
+    <input type="submit" value="登録"><input type="reset" value="リセット">
+
+  </form>
+  </p>
+
+
+
+</body>
+
+</html>
