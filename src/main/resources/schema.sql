@@ -28,3 +28,16 @@ CREATE TABLE schedule (
     --1なら履修可。0なら履修不可。
     --他学科履修可能をどうやって表現する？
 );
+
+CREATE TABLE events (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    start_year INT NOT NULL,
+    start_month INT NOT NULL,
+    start_day INT NOT NULL,
+    start_time TIME,
+    end_time TIME,
+    location VARCHAR(255),
+    is_all_day BOOLEAN DEFAULT FALSE
+);
