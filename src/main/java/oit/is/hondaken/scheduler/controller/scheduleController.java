@@ -1,5 +1,6 @@
 package oit.is.hondaken.scheduler.controller;
 
+import java.security.Principal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -10,12 +11,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import oit.is.hondaken.scheduler.model.EventMapper;
 import oit.is.hondaken.scheduler.model.day;
 import oit.is.hondaken.scheduler.model.event;
+import oit.is.hondaken.scheduler.model.timeTable;
+import oit.is.hondaken.scheduler.model.userSettingMapper;
 import oit.is.hondaken.scheduler.model.week;
 
 @Controller
@@ -24,6 +28,9 @@ public class scheduleController {
   @Autowired
   private EventMapper eventMapper;
 
+  @Autowired
+  private userSettingMapper userSettingMapper;
+
   @GetMapping("/calendar")
   public String calendar(
       @RequestParam(value = "year", required = false) Integer year,
@@ -31,7 +38,6 @@ public class scheduleController {
       Model model) {
 
     final Calendar calendar = Calendar.getInstance();
-
 
     if (year == null || month == null) {
       year = calendar.get(Calendar.YEAR);
@@ -51,7 +57,6 @@ public class scheduleController {
     calendar.clear();
     calendar.set(year, month, 1);
 
-
     final Calendar firstDayOfCalendar = (Calendar) calendar.clone();
     firstDayOfCalendar.add(Calendar.DATE, Calendar.SUNDAY - firstDayOfCalendar.get(Calendar.DAY_OF_WEEK));
 
@@ -66,7 +71,6 @@ public class scheduleController {
       final List<day> weekDays = new ArrayList<>();
       for (int i = 0; i < 7; i++) {
         day currentDay = new day(day.get(Calendar.DAY_OF_MONTH));
-
 
         String eventTitle = eventMapper.getEventTitleForDate(
             day.get(Calendar.YEAR),
@@ -114,8 +118,7 @@ public class scheduleController {
       @RequestParam(value = "start_time", required = false) String startTime,
       @RequestParam(value = "end_time", required = false) String endTime,
       @RequestParam(value = "location", required = false) String location,
-      @RequestParam(value = "is_all_day", required = false, defaultValue = "false") boolean isAllDay
-) {
+      @RequestParam(value = "is_all_day", required = false, defaultValue = "false") boolean isAllDay) {
 
     String[] dateParts = date.split("-");
     int startYear = Integer.parseInt(dateParts[0]);
@@ -134,5 +137,19 @@ public class scheduleController {
     eventMapper.addEvent(event);
 
     return "redirect:/calendar";
+  }
+
+  @GetMapping("/timetable")
+  public String gotle(ModelMap model, Principal prin) {
+
+    timeTable timeTable = new timeTable();
+
+    String loginUser = prin.getName();
+    int id = userSettingMapper.selectIdByName(loginUser);
+
+    model.addAttribute("loginUser", loginUser);
+    model.addAttribute("id", id);
+    model.addAttribute("timeTable", timeTable);
+    return "timetable.html";
   }
 }
