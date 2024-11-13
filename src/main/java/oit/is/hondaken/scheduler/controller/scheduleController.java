@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import oit.is.hondaken.scheduler.model.EventMapper;
 import oit.is.hondaken.scheduler.model.day;
 import oit.is.hondaken.scheduler.model.event;
+import oit.is.hondaken.scheduler.model.scheduleMapper;
 import oit.is.hondaken.scheduler.model.timeTable;
+import oit.is.hondaken.scheduler.model.TimeTableRecord;
+import oit.is.hondaken.scheduler.model.timeTableMapper;
 import oit.is.hondaken.scheduler.model.userSetting;
 import oit.is.hondaken.scheduler.model.userSettingMapper;
 import oit.is.hondaken.scheduler.model.week;
@@ -27,7 +30,13 @@ import oit.is.hondaken.scheduler.model.week;
 public class scheduleController {
 
   @Autowired
+  private scheduleMapper scheduleMapper;
+
+  @Autowired
   private EventMapper eventMapper;
+
+  @Autowired
+  private timeTableMapper timeTableMapper;
 
   @Autowired
   private userSettingMapper userSettingMapper;
@@ -148,14 +157,15 @@ public class scheduleController {
   @GetMapping("/timetable")
   public String gotle(ModelMap model, Principal prin) {
 
-    timeTable timeTable = new timeTable();
-
     String loginUser = prin.getName();
+
     int id = userSettingMapper.selectIdByName(loginUser);
+    timeTable timeTable = timeTableMapper.selectAllById(id);
+    TimeTableRecord timeTableRecord = new TimeTableRecord(timeTable, scheduleMapper);
 
     model.addAttribute("loginUser", loginUser);
     model.addAttribute("id", id);
-    model.addAttribute("timeTable", timeTable);
+    model.addAttribute("timeTableRecord", timeTableRecord);
     return "timetable.html";
   }
 
