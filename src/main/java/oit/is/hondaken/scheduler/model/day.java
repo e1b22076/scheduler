@@ -1,13 +1,16 @@
 package oit.is.hondaken.scheduler.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class day {
   private int date;
-  private String event;
+  private List<String> events;
 
   // コンストラクタ
   public day(int date) {
     this.date = date;
-    this.event = null; // 初期値はnull
+    this.events = new ArrayList<>(); // 空のリストで初期化
   }
 
   // ゲッターとセッター
@@ -19,11 +22,11 @@ public class day {
     this.date = date;
   }
 
-  public String getEvent() {
-    return event;
+  public List<String> getEvents() {
+    return events;
   }
 
-  public void setEvent(String event) {
-    this.event = event;
+  public void addEvent(String event) {
+    this.events.add(event);
   }
 }

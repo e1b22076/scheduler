@@ -1,5 +1,7 @@
 package oit.is.hondaken.scheduler.model;
 
+import java.sql.Time;
+
 public class event {
 
   private int id;
@@ -8,10 +10,9 @@ public class event {
   private int startYear;
   private int startMonth;
   private int startDay;
-  private String startTime;
-  private String endTime;
+  private Time startTime;
+  private Time endTime;
   private String location;
-  private boolean isAllDay;
 
   // Getters and Setters
 
@@ -63,20 +64,19 @@ public class event {
     this.startDay = startDay;
   }
 
-  public String getStartTime() {
+  public Time getStartTime() {
     return startTime;
   }
 
-  public void setStartTime(String startTime) {
+  public void setStartTime(Time startTime) {
     this.startTime = startTime;
   }
 
-
-  public String getEndTime() {
+  public Time getEndTime() {
     return endTime;
   }
 
-  public void setEndTime(String endTime) {
+  public void setEndTime(Time endTime) {
     this.endTime = endTime;
   }
 
@@ -86,13 +86,5 @@ public class event {
 
   public void setLocation(String location) {
     this.location = location;
-  }
-
-  public boolean isAllDay() {
-    return isAllDay;
-  }
-
-  public void setAllDay(boolean isAllDay) {
-    this.isAllDay = isAllDay;
   }
 }

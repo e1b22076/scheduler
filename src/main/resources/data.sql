@@ -1,7 +1,7 @@
-INSERT INTO events (title, description, start_year, start_month, start_day, start_time, end_time, location, is_all_day) VALUES
-('会議', '新しいプロジェクトのキックオフミーティング', 2024, 11, 10, '10:00:00', '11:00:00', '会議室A', FALSE),
-('勉強会', 'データベースの正規化に関する勉強会', 2024, 11, 12, '14:00:00', NULL, NULL, FALSE),
-('出張', '東京でのクライアント訪問', 2024, 11, 15, NULL, NULL, '東京オフィス', TRUE);
+INSERT INTO events (title, description, startYear, startMonth, startDay, startTime, endTime, location) VALUES
+('会議', '新しいプロジェクトのキックオフミーティング', 2024, 11, 10, '10:00', '11:00', '会議室A'),
+('勉強会', 'データベースの正規化に関する勉強会', 2024, 11, 12, '14:00', NULL, NULL),
+('出張', '東京でのクライアント訪問', 2024, 11, 15, NULL, NULL, '東京オフィス');
 
 --人文社会学系 Humanities
 
