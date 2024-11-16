@@ -45,7 +45,6 @@ public class scheduleController {
   @Autowired
   private EventMapper eventMapper;
 
-
   @Autowired
   private timeTableMapper timeTableMapper;
 
@@ -204,19 +203,28 @@ public class scheduleController {
   @PostMapping("/regfin")
   public String regfin(@RequestParam String gakuseki, @RequestParam String mail, @RequestParam String pass,
       ModelMap model) {
-    ArrayList<String> Numbers = userSettingMapper.selectByNamber();
-    boolean flag = true;
+    ArrayList<String> Numbers = userSettingMapper.selectNumber();
+    ArrayList<String> Mails = userSettingMapper.selectMail();
+
+    int flag = 0;
     for (String num : Numbers) {
       if (gakuseki.equals(num)) {
-        flag = false;
+        flag = 1;
       }
     }
-    userSetting user = new userSetting();
-    user.setNamber(gakuseki);
-    user.setMail(mail);
-    user.setMyPass(pass);
-    userSettingMapper.insertuserSetting(user);
-    model.addAttribute("user", user);
+    for (String addr : Mails) {
+      if (mail.equals(addr)) {
+        flag=2;
+      }
+    }
+    if (flag == 0) {
+      userSetting user = new userSetting();
+      user.setNamber(gakuseki);
+      user.setMail(mail);
+      user.setMyPass(pass);
+      userSettingMapper.insertuserSetting(user);
+      model.addAttribute("user", user);
+    }
     model.addAttribute("flag", flag);
     return "regfin.html";
 

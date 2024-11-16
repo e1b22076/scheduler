@@ -13,7 +13,10 @@ public interface userSettingMapper {
   int selectIdByName(String name);
 
   @Select("select myNumber from userSetting")
-  ArrayList<String> selectByNamber();
+  ArrayList<String> selectNumber();
+
+  @Select("select mail from userSetting")
+  ArrayList<String> selectMail();
 
   @Insert("INSERT INTO userSetting (myNumber,mail,myPass) VALUES (#{myNumber},#{mail},#{myPass});")
   @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
