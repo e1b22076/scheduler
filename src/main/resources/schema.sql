@@ -30,16 +30,15 @@ CREATE TABLE schedule (
 );
 
 CREATE TABLE events (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id IDENTITY,
     title VARCHAR(255) NOT NULL,
     description TEXT,
-    start_year INT NOT NULL,
-    start_month INT NOT NULL,
-    start_day INT NOT NULL,
-    start_time TIME,
-    end_time TIME,
-    location VARCHAR(255),
-    is_all_day BOOLEAN DEFAULT FALSE
+    startYear INT NOT NULL,
+    startMonth INT NOT NULL,
+    startDay INT NOT NULL,
+    startTime Time,
+    endTime Time,
+    location VARCHAR(255)
 );
 CREATE TABLE userSetting(
   id IDENTITY,
@@ -117,3 +116,10 @@ CREATE TABLE timeTable(
   FOREIGN KEY(sat5) REFERENCES schedule(id),
   FOREIGN KEY(id) REFERENCES userSetting(id)
   );
+
+  CREATE TABLE todos (
+    id IDENTITY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    completed BOOLEAN DEFAULT FALSE
+);

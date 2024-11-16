@@ -1,7 +1,11 @@
 package oit.is.hondaken.scheduler.controller;
 
 import java.security.Principal;
+import java.sql.Time;
+
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
@@ -10,12 +14,17 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import oit.is.hondaken.scheduler.model.EventMapper;
+import oit.is.hondaken.scheduler.model.Todo;
+import oit.is.hondaken.scheduler.model.TodoMapper;
 import oit.is.hondaken.scheduler.model.day;
 import oit.is.hondaken.scheduler.model.event;
 import oit.is.hondaken.scheduler.model.scheduleMapper;
@@ -28,6 +37,7 @@ import oit.is.hondaken.scheduler.model.week;
 
 @Controller
 public class scheduleController {
+  private static final Logger logger = LoggerFactory.getLogger(scheduleController.class);
 
   @Autowired
   private scheduleMapper scheduleMapper;
@@ -35,11 +45,15 @@ public class scheduleController {
   @Autowired
   private EventMapper eventMapper;
 
+
   @Autowired
   private timeTableMapper timeTableMapper;
 
   @Autowired
   private userSettingMapper userSettingMapper;
+
+  @Autowired
+  TodoMapper todoMapper;
 
   @RequestMapping("/")
   public String home() {
@@ -68,7 +82,15 @@ public class scheduleController {
         year++;
       }
     }
+    // 現在の日付を today 変数に設定
+    Calendar today = Calendar.getInstance();
+    int currentYear = today.get(Calendar.YEAR);
+    int currentMonth = today.get(Calendar.MONTH) + 1; // 1月が0として扱われるため+1
+    int toDay = today.get(Calendar.DAY_OF_MONTH);
 
+    model.addAttribute("todayYear", currentYear);
+    model.addAttribute("todayMonth", currentMonth);
+    model.addAttribute("todayDay", toDay);
     calendar.clear();
     calendar.set(year, month, 1);
 
@@ -87,11 +109,13 @@ public class scheduleController {
       for (int i = 0; i < 7; i++) {
         day currentDay = new day(day.get(Calendar.DAY_OF_MONTH));
 
-        String eventTitle = eventMapper.getEventTitleForDate(
+        List<String> eventTitles = eventMapper.getEventTitleForDate(
             day.get(Calendar.YEAR),
             day.get(Calendar.MONTH) + 1,
             day.get(Calendar.DAY_OF_MONTH));
-        currentDay.setEvent(eventTitle);
+        for (String title : eventTitles) {
+          currentDay.addEvent(title);
+        }
 
         weekDays.add(currentDay);
         day.add(Calendar.DATE, 1);
@@ -126,14 +150,14 @@ public class scheduleController {
   }
 
   @PostMapping("/calendar/addEvent")
+  @Transactional
   public String addEvent(
       @RequestParam("date") String date,
       @RequestParam("title") String title,
       @RequestParam("description") String description,
-      @RequestParam(value = "start_time", required = false) String startTime,
-      @RequestParam(value = "end_time", required = false) String endTime,
-      @RequestParam(value = "location", required = false) String location,
-      @RequestParam(value = "is_all_day", required = false, defaultValue = "false") boolean isAllDay) {
+      @RequestParam(value = "startTime", required = false) String startTime,
+      @RequestParam(value = "endTime", required = false) String endTime,
+      @RequestParam(value = "location", required = false) String location) {
 
     String[] dateParts = date.split("-");
     int startYear = Integer.parseInt(dateParts[0]);
@@ -145,10 +169,13 @@ public class scheduleController {
     event.setStartDay(startDay);
     event.setTitle(title);
     event.setDescription(description);
-    event.setStartTime(startTime);
-    event.setEndTime(endTime);
+
+    logger.info(startTime);
+
+    event.setStartTime(Time.valueOf(startTime + ":00")); // 時間のフォーマットを "HH:mm:ss" に変更
+    event.setEndTime(Time.valueOf(endTime + ":00")); // 時間のフォーマットを "HH:mm:ss" に変更
+
     event.setLocation(location);
-    event.setAllDay(isAllDay);
     eventMapper.addEvent(event);
 
     return "redirect:/calendar";
@@ -194,4 +221,35 @@ public class scheduleController {
     return "regfin.html";
 
   }
+
+  @GetMapping("/todolist")
+  public String getTodoList(Model model, Principal prin) {
+
+    List<Todo> todos = todoMapper.getAllTodos();
+    model.addAttribute("todos", todos);
+    model.addAttribute("newTodo", new Todo());
+    return "todolist.html";
+  }
+
+  @PostMapping("/todolist/add")
+  public String addTodo(@ModelAttribute Todo todo) {
+    todoMapper.insertTodo(todo);
+    return "redirect:/todolist";
+  }
+
+  @PostMapping("/todolist/update/{id}")
+  public String updateTodoCompleted(@PathVariable int id, @RequestParam boolean completed) {
+    Todo todo = new Todo();
+    todo.setId(id);
+    todo.setCompleted(completed); // completedの値を設定
+    todoMapper.updateTodoCompleted(todo); // DB更新
+    return "redirect:/todolist";
+  }
+
+  @PostMapping("/todolist/delete/{id}")
+  public String deleteTodo(@PathVariable int id) {
+    todoMapper.deleteTodoById(id); // DB削除処理
+    return "redirect:/todolist"; // 削除後、TODOリストにリダイレクト
+  }
+
 }
