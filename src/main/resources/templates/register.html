@@ -14,13 +14,17 @@
       text-align: left;
       vertical-align: top;
     }
+
+    #gakuseki_chk,
+    #mail_chk {
+      display: none;
+      color: red;
+    }
   </style>
 </head>
 
 <body>
-
-  <p>
-  <form class="center" action="/regfin" method="post" th:action="@{/regfin}">
+  <form class="center" action="/regfin" method="post" th:action="@{/regfin}" novalidate>
     <!-- CSRFトークンの追加 -->
     <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
 
@@ -28,31 +32,89 @@
       <tr>
         <th><label for="gakuseki">学籍番号</label></th>
         <td>
-          <input id="gakuseki" type="text" name="gakuseki" />
+          <input id="gakuseki" type="text" placeholder="A12345" name="gakuseki" />
+        </td>
+        <td id="gakuseki_chk">
+          学籍番号の形式が違います
         </td>
       </tr>
 
       <tr>
-        <th><label for="address">学校用メールアドレス</label></th>
+        <th><label for="mail">学校用メールアドレス</label></th>
         <td>
-          <input type="email" name="mail" />
+          <input id="mail" type="email" placeholder="e1a12345@oit.ac.jp" name="mail" />
+        </td>
+        <td id="mail_chk">
+          メールアドレスの形式が違います
         </td>
       </tr>
 
       <tr>
         <th><label for="password">パスワード</label></th>
         <td>
-          <input type="password" name="pass" /><br>
+          <input id="password" type="password" name="pass" />
         </td>
       </tr>
     </table>
-    <input type="submit" value="登録"><input type="reset" value="リセット">
-
+    <input type="submit" value="登録" id="touroku">
+    <input type="reset" value="リセット">
   </form>
-  </p>
 
+  <script>
+    // フォームのバリデーション
+    window.onload = function () {
+      document.getElementById("touroku").addEventListener("click", function (event) {
+        const gakuseki = document.getElementById("gakuseki").value;
+        const mail = document.getElementById("mail").value;
+        const password = document.getElementById("password").value;
 
+        let hasError = false;
 
+        // 必須項目のチェック
+        if (gakuseki.trim().length === 0) {
+          alert('学籍番号を入力してください。');
+          hasError = true;
+        }
+
+        if (mail.trim().length === 0) {
+          alert('メールアドレスを入力してください。');
+          hasError = true;
+        }
+
+        if (password.trim().length === 0) {
+          alert('パスワードを入力してください。');
+          hasError = true;
+        }
+
+        // 入力形式のチェック
+        let formatError = false;
+
+        // 学籍番号の形式チェック
+        const gakusekiRegex = /^[A-Z]\d{5}$/;
+        if (!gakusekiRegex.test(gakuseki)) {
+          document.getElementById('gakuseki_chk').style.display = "block";
+          formatError = true;
+        } else {
+          document.getElementById('gakuseki_chk').style.display = "none";
+        }
+
+        // メールアドレスの形式チェック
+        const mailRegex = /^e1[a-z]\d{5}@oit\.ac\.jp$/;
+        if (!mailRegex.test(mail)) {
+          document.getElementById('mail_chk').style.display = "block";
+          formatError = true;
+        } else {
+          document.getElementById('mail_chk').style.display = "none";
+        }
+
+        // エラーがある場合はフォーム送信を停止
+        if (hasError || formatError) {
+          event.preventDefault();
+          return false;
+        }
+      });
+    };
+  </script>
 </body>
 
 </html>

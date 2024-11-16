@@ -22,11 +22,12 @@ CREATE TABLE schedule (
     --Mon,Tue,Wed,Thu,Fri,Sat,ZZZ(期間外)
     DayTime Int NOT NULL,
     --何時間目か。連続科目は始まる時間を(期間外は0)
-    otherClass VARCHAR NOT NULL
+    otherClass VARCHAR NOT NULL,
     --'ID,IC,IS,IM,IN'で記述していく。1or0で。
     --自分自身は1で。
     --1なら履修可。0なら履修不可。
     --他学科履修可能をどうやって表現する？
+    syllabusURL VARCHAR NOT NULL
 );
 
 CREATE TABLE events (
@@ -43,7 +44,7 @@ CREATE TABLE events (
 CREATE TABLE userSetting(
   id IDENTITY,
   --一意識別可能なID
-  namber VARCHAR NOT NULL,
+  myNumber VARCHAR NOT NULL,
   --学籍番号
   userName VARCHAR,
   --ユーザーネーム
