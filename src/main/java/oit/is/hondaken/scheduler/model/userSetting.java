@@ -2,17 +2,17 @@ package oit.is.hondaken.scheduler.model;
 
 public class userSetting {
   int id;// 一位識別可能なid
-  String namber;// 学籍番号
+  String myNumber;// 学籍番号
   String userName;// 名前
   String mail;// メアド
   String myPass;// パスワード
 
   public String getNamber() {
-    return namber;
+    return myNumber;
   }
 
-  public void setNamber(String namber) {
-    this.namber = namber;
+  public void setNamber(String myNumber) {
+    this.myNumber = myNumber;
   }
 
   public String getUserName() {

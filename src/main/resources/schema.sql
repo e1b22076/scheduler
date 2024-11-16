@@ -44,7 +44,7 @@ CREATE TABLE events (
 CREATE TABLE userSetting(
   id IDENTITY,
   --一意識別可能なID
-  namber VARCHAR NOT NULL,
+  myNumber VARCHAR NOT NULL,
   --学籍番号
   userName VARCHAR,
   --ユーザーネーム

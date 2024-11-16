@@ -12,10 +12,10 @@ public interface userSettingMapper {
   @Select("select id from userSetting where userName = #{name}")
   int selectIdByName(String name);
 
-  @Select("select namber from userSetting")
+  @Select("select myNumber from userSetting")
   ArrayList<String> selectByNamber();
 
-  @Insert("INSERT INTO userSetting (namber,mail,myPass) VALUES (#{namber},#{mail},#{myPass});")
+  @Insert("INSERT INTO userSetting (myNumber,mail,myPass) VALUES (#{myNumber},#{mail},#{myPass});")
   @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
   void insertuserSetting(userSetting user);
 }
