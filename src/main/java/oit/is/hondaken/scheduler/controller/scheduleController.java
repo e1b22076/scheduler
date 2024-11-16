@@ -27,7 +27,10 @@ import oit.is.hondaken.scheduler.model.Todo;
 import oit.is.hondaken.scheduler.model.TodoMapper;
 import oit.is.hondaken.scheduler.model.day;
 import oit.is.hondaken.scheduler.model.event;
+import oit.is.hondaken.scheduler.model.scheduleMapper;
 import oit.is.hondaken.scheduler.model.timeTable;
+import oit.is.hondaken.scheduler.model.TimeTableRecord;
+import oit.is.hondaken.scheduler.model.timeTableMapper;
 import oit.is.hondaken.scheduler.model.userSetting;
 import oit.is.hondaken.scheduler.model.userSettingMapper;
 import oit.is.hondaken.scheduler.model.week;
@@ -37,7 +40,14 @@ public class scheduleController {
   private static final Logger logger = LoggerFactory.getLogger(scheduleController.class);
 
   @Autowired
-  private EventMapper EventMapper;
+  private scheduleMapper scheduleMapper;
+
+  @Autowired
+  private EventMapper eventMapper;
+
+
+  @Autowired
+  private timeTableMapper timeTableMapper;
 
   @Autowired
   private userSettingMapper userSettingMapper;
@@ -99,7 +109,7 @@ public class scheduleController {
       for (int i = 0; i < 7; i++) {
         day currentDay = new day(day.get(Calendar.DAY_OF_MONTH));
 
-        List<String> eventTitles = EventMapper.getEventTitleForDate(
+        List<String> eventTitles = eventMapper.getEventTitleForDate(
             day.get(Calendar.YEAR),
             day.get(Calendar.MONTH) + 1,
             day.get(Calendar.DAY_OF_MONTH));
@@ -131,7 +141,7 @@ public class scheduleController {
     int month = Integer.parseInt(dateParts[1]);
     int day = Integer.parseInt(dateParts[2]);
 
-    List<event> events = EventMapper.getEventsForDate(year, month, day);
+    List<event> events = eventMapper.getEventsForDate(year, month, day);
 
     model.addAttribute("events", events);
     model.addAttribute("selectedDate", date);
@@ -166,7 +176,7 @@ public class scheduleController {
     event.setEndTime(Time.valueOf(endTime + ":00")); // 時間のフォーマットを "HH:mm:ss" に変更
 
     event.setLocation(location);
-    EventMapper.addEvent(event);
+    eventMapper.addEvent(event);
 
     return "redirect:/calendar";
   }
@@ -174,14 +184,15 @@ public class scheduleController {
   @GetMapping("/timetable")
   public String gotle(ModelMap model, Principal prin) {
 
-    timeTable timeTable = new timeTable();
-
     String loginUser = prin.getName();
+
     int id = userSettingMapper.selectIdByName(loginUser);
+    timeTable timeTable = timeTableMapper.selectAllById(id);
+    TimeTableRecord timeTableRecord = new TimeTableRecord(timeTable, scheduleMapper);
 
     model.addAttribute("loginUser", loginUser);
     model.addAttribute("id", id);
-    model.addAttribute("timeTable", timeTable);
+    model.addAttribute("timeTableRecord", timeTableRecord);
     return "timetable.html";
   }
 

@@ -3,11 +3,206 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>カレンダー</title>
+  <title>時間割</title>
+
+  <style>
+    /* 画面中央に配置 */
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+      margin: 0;
+      background-color: #f7f9fc;
+      font-family: Arial, sans-serif;
+    }
+
+    /* 表のスタイル */
+    table {
+      width: 80%;
+      border-collapse: collapse;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      background-color: #ffffff;
+      margin: 20px auto;
+    }
+
+    th,
+    td {
+      padding: 15px;
+      text-align: center;
+      border: 1px solid #dddddd;
+      font-size: 1em;
+      width: 14.28%;
+      height: 80px;
+      cursor: pointer;
+      /* クリック可能なカーソル */
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    /* 空欄のマスも均等に表示 */
+    td:empty {
+      height: 50px;
+      /* 任意の高さ */
+    }
+
+    /* ヘッダー行をスタイルアップ */
+    tr:first-child th {
+      background-color: #007373;
+      color: white;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+
+    /* メニューバー */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 10px 20px;
+      background-color: rgba(206, 207, 167, 0.7);
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      z-index: 1;
+    }
+
+    /* 戻るリンクのスタイル */
+    .calendar-back-link {
+      color: rgb(255, 255, 255);
+      font-size: 20px;
+      text-decoration: none;
+      margin-right: 40px;
+      transition: color 0.3s;
+    }
+
+    .title-container {
+      width: 100%;
+      text-align: center;
+      margin-top: 60px; /* メニューバー分のスペースを確保 */
+    }
+
+    .title {
+      color: #333;
+      font-size: 2em;
+      margin: 0;
+    }
+
+    .calendar-back-link:hover {
+      color: #000000;
+    }
+
+    /* モーダルのスタイル */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* モーダル内容のスタイル */
+    .modal-content {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      width: 50%;
+      max-width: 600px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      text-align: left;
+      position: relative;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    /* 閉じるボタンのスタイル */
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 32px;
+      font-weight: bold;
+      color: #aaa;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .close:hover {
+      color: #333;
+    }
+
+    /* 見出しのスタイル */
+    #modal-title {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    /* 内容の区分スタイル */
+    .modal-section {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: #f7f9fc;
+    }
+
+    .modal-section p {
+      margin: 5px 0;
+    }
+
+    .modal-section strong {
+      color: #4CAF50;
+      font-weight: bold;
+    }
+
+    /* アニメーション */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 今日の曜日の強調スタイル */
+    .highlight-odd {
+      background-color: #e6f6be;
+      /* 目立つ黄色背景 */
+    }
+
+    .highlight-even {
+      background-color: #efffc5;
+      /* 目立つ黄色背景 */
+    }
+  </style>
 </head>
 
 <body>
-  <table border="1">
+  <!-- メニューバーに戻るリンク -->
+  <div class="navbar">
+    <a href="calendar" class="calendar-back-link">戻る</a>
+  </div>
+
+  <div class="title-container">
+    <h1 class="title">時間割</h1>
+  <table id="scheduleTable">
     <tr>
       <th>＼</th>
       <th>月</th>
@@ -15,45 +210,128 @@
       <th>水</th>
       <th>木</th>
       <th>金</th>
-      <th class="saturday">土</th>
+      <th>土</th>
     </tr>
-    <tr><th>1限目</th><td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td></tr>
 
-    <tr><th>2限目</th><td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td></tr>
+    <!--1限目-->
+    <tr>
+      <th>1限目</th>
+      <td th:text="${timeTableRecord.monday[0]}" data-day="月" data-period="1限目" onclick="openModal(this)"></td>
+      <td th:text="${timeTableRecord.tuesday[0]}" data-day="火" data-period="1限目" onclick="openModal(this)"></td>
+      <td th:text="${timeTableRecord.wednesday[0]}" data-day="水" data-period="1限目" onclick="openModal(this)"></td>
+      <td th:text="${timeTableRecord.thursday[0]}" data-day="木" data-period="1限目" onclick="openModal(this)"></td>
+      <td th:text="${timeTableRecord.friday[0]}" data-day="金" data-period="1限目" onclick="openModal(this)"></td>
+      <td th:text="${timeTableRecord.saturday[0]}" data-day="土" data-period="1限目" onclick="openModal(this)"></td>
+    </tr>
+    <!--2限目-->
+    <tr>
+      <th>2限目</th>
+      <td th:text="${timeTableRecord.monday[1]}" data-day="月" data-period="2限目" onclick="openModal(this)"></td>
+      <td th:text="${timeTableRecord.tuesday[1]}" data-day="火" data-period="2限目" onclick="openModal(this)"></td>
+      <td th:text="${timeTableRecord.wednesday[1]}" data-day="水" data-period="2限目" onclick="openModal(this)"></td>
+      <td th:text="${timeTableRecord.thursday[1]}" data-day="木" data-period="2限目" onclick="openModal(this)"></td>
+      <td th:text="${timeTableRecord.friday[1]}" data-day="金" data-period="2限目" onclick="openModal(this)"></td>
+      <td th:text="${timeTableRecord.saturday[1]}" data-day="土" data-period="2限目" onclick="openModal(this)"></td>
+    </tr>
 
-    <tr><th>3限目</th><td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td></tr>
+    <!--3限目-->
+    <tr>
+      <th>3限目</th>
+      <td th:text="${timeTableRecord.monday[2]}" data-day="月" data-period="3限目" onclick="openModal(this)"></td>
+      <td th:text="${timeTableRecord.tuesday[2]}" data-day="火" data-period="3限目" onclick="openModal(this)"></td>
+      <td th:text="${timeTableRecord.wednesday[2]}" data-day="水" data-period="3限目" onclick="openModal(this)"></td>
+      <td th:text="${timeTableRecord.thursday[2]}" data-day="木" data-period="3限目" onclick="openModal(this)"></td>
+      <td th:text="${timeTableRecord.friday[2]}" data-day="金" data-period="3限目" onclick="openModal(this)"></td>
+      <td th:text="${timeTableRecord.saturday[2]}" data-day="土" data-period="3限目" onclick="openModal(this)"></td>
+    </tr>
 
-    <tr><th>4限目</th><td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td></tr>
+    <!-- 4限目 -->
+    <tr>
+      <th>4限目</th>
+      <td th:text="${timeTableRecord.monday[3]}" data-day="月" data-period="4限目" onclick="openModal(this)"></td>
+      <td th:text="${timeTableRecord.tuesday[3]}" data-day="火" data-period="4限目" onclick="openModal(this)"></td>
+      <td th:text="${timeTableRecord.wednesday[3]}" data-day="水" data-period="4限目" onclick="openModal(this)"></td>
+      <td th:text="${timeTableRecord.thursday[3]}" data-day="木" data-period="4限目" onclick="openModal(this)"></td>
+      <td th:text="${timeTableRecord.friday[3]}" data-day="金" data-period="4限目" onclick="openModal(this)"></td>
+      <td th:text="${timeTableRecord.saturday[3]}" data-day="土" data-period="4限目" onclick="openModal(this)"></td>
+    </tr>
 
-    <tr><th>5限目</th><td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td></tr>
-
-
+    <!-- 5限目 -->
+    <tr>
+      <th>5限目</th>
+      <td th:text="${timeTableRecord.monday[4]}" data-day="月" data-period="5限目" onclick="openModal(this)"></td>
+      <td th:text="${timeTableRecord.tuesday[4]}" data-day="火" data-period="5限目" onclick="openModal(this)"></td>
+      <td th:text="${timeTableRecord.wednesday[4]}" data-day="水" data-period="5限目" onclick="openModal(this)"></td>
+      <td th:text="${timeTableRecord.thursday[4]}" data-day="木" data-period="5限目" onclick="openModal(this)"></td>
+      <td th:text="${timeTableRecord.friday[4]}" data-day="金" data-period="5限目" onclick="openModal(this)"></td>
+      <td th:text="${timeTableRecord.saturday[4]}" data-day="土" data-period="5限目" onclick="openModal(this)"></td>
+    </tr>
   </table>
+  </div>
+
+  <script>
+    // 今日の曜日を取得
+    const today = new Date().getDay();
+
+    // 曜日を月曜日(1)から日曜日(7)に変換
+    const todayColumnIndex = (today === 0) ? 6 : today - 1;
+
+    // 日曜日の場合は6 (土曜日) に変換
+    const table = document.getElementById("scheduleTable");
+
+    // 強調クラスを追加
+    const columnCells = table.querySelectorAll(`td:nth-child(${todayColumnIndex + 2})`); // ヘッダーは除外するため +2
+    columnCells.forEach(cell => {
+      // 奇数行・偶数行に応じて色を付ける
+      if (cell.parentElement.rowIndex % 2 === 0) {
+        cell.classList.add("highlight-even"); // 偶数行
+      } else {
+        cell.classList.add("highlight-odd"); // 奇数行
+      }
+    });
+  </script>
+
+  <!-- モーダル -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <p id="modal-title"></p>
+      <p id="modal-classname"></p>
+      <div>
+        <p><strong>課題:</strong></p>
+        <p id="modal-assignment">-</p>
+      </div>
+      <div>
+        <p><strong>テスト日程:</strong></p>
+        <p id="modal-test-schedule">-</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openModal(tdElement) {
+      const className = tdElement.textContent.trim();
+      if (className === "") {
+        // 授業名がない場合はモーダルを表示しない
+        return;
+      }
+
+      const day = tdElement.getAttribute('data-day');
+      const period = tdElement.getAttribute('data-period');
+
+      document.getElementById("modal-title").innerText = `${day} ${period}: ${className}`;
+
+      // 課題とテスト日程の初期値（後でDBと連携可能）
+      document.getElementById("modal-assignment").innerText = "特定の課題がありません";
+      document.getElementById("modal-test-schedule").innerText = "テスト日程は未定です";
+
+      document.getElementById("myModal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("myModal").style.display = "none";
+    }
+  </script>
 </body>
 
 </html>

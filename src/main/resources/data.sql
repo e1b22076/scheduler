@@ -1030,9 +1030,33 @@ VALUES ('1FAN09A0','IN','ネットワーク・セキュリティ演習','normal'
 INSERT INTO schedule (id,department,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass)
 VALUES ('1FBN11A0','IN','CSプロジェクト演習','choice',false,1,4,'Z','ZZZ',0,'0,0,0,0,1');
 
---終わり
+
+--ユーザー情報
 INSERT INTO userSetting(namber,userName,mail ,myPass ) VALUES('B22999','ほんだ','e1b22999@oit.ac.jp','isdev');
+
 
 INSERT INTO todos (
     title ,description ,
     completed ) VALUES ('研究発表',NULL,FALSE);
+
+
+--各ユーザーの時間割
+INSERT INTO timeTable (
+  id, mon1, mon2, mon3, mon4, mon5,
+  tue1, tue2, tue3, tue4, tue5,
+  wed1, wed2, wed3, wed4, wed5,
+  thu1, thu2, thu3, thu4, thu5,
+  fri1, fri2, fri3, fri4, fri5,
+  sat1, sat2, sat3, sat4, sat5
+) VALUES (
+  1, NULL, NULL, NULL, NULL, NULL, --月
+  '1BCA09A0', NULL, '1BBN09A0', '1BBN09A0', NULL, --火
+  '1BAL27A0', NULL, NULL, NULL, NULL, --水
+  NULL, NULL, '1BCM23A0', '1BAL29A0', NULL, --木
+  NULL, NULL, NULL, NULL, NULL, --金
+  NULL, NULL, NULL, NULL, NULL --土
+);
+
+
+--終わり
+
