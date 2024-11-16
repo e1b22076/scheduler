@@ -1032,3 +1032,7 @@ VALUES ('1FBN11A0','IN','CSプロジェクト演習','choice',false,1,4,'Z','ZZZ
 
 --終わり
 INSERT INTO userSetting(namber,userName,mail ,myPass ) VALUES('B22999','ほんだ','e1b22999@oit.ac.jp','isdev');
+
+INSERT INTO todos (
+    title ,description ,
+    completed ) VALUES ('研究発表',NULL,FALSE);

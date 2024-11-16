@@ -86,3 +86,10 @@ CREATE TABLE timeTable(
   sat5 VARCHAR,
   FOREIGN KEY(id) REFERENCES userSetting(id)
   );
+
+  CREATE TABLE todos (
+    id IDENTITY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    completed BOOLEAN DEFAULT FALSE
+);

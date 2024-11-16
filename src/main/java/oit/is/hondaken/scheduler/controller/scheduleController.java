@@ -4,6 +4,8 @@ import java.security.Principal;
 import java.sql.Time;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
@@ -21,6 +23,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import oit.is.hondaken.scheduler.model.EventMapper;
+import oit.is.hondaken.scheduler.model.Todo;
+import oit.is.hondaken.scheduler.model.TodoMapper;
 import oit.is.hondaken.scheduler.model.day;
 import oit.is.hondaken.scheduler.model.event;
 import oit.is.hondaken.scheduler.model.timeTable;
@@ -37,6 +41,9 @@ public class scheduleController {
 
   @Autowired
   private userSettingMapper userSettingMapper;
+
+  @Autowired
+  TodoMapper todoMapper;
 
   @RequestMapping("/")
   public String home() {
@@ -126,7 +133,6 @@ public class scheduleController {
 
     List<event> events = EventMapper.getEventsForDate(year, month, day);
 
-
     model.addAttribute("events", events);
     model.addAttribute("selectedDate", date);
 
@@ -204,4 +210,35 @@ public class scheduleController {
     return "regfin.html";
 
   }
+
+  @GetMapping("/todolist")
+  public String getTodoList(Model model, Principal prin) {
+
+    List<Todo> todos = todoMapper.getAllTodos();
+    model.addAttribute("todos", todos);
+    model.addAttribute("newTodo", new Todo());
+    return "todolist.html";
+  }
+
+  @PostMapping("/todolist/add")
+  public String addTodo(@ModelAttribute Todo todo) {
+    todoMapper.insertTodo(todo);
+    return "redirect:/todolist";
+  }
+
+  @PostMapping("/todolist/update/{id}")
+  public String updateTodoCompleted(@PathVariable int id, @RequestParam boolean completed) {
+    Todo todo = new Todo();
+    todo.setId(id);
+    todo.setCompleted(completed); // completedの値を設定
+    todoMapper.updateTodoCompleted(todo); // DB更新
+    return "redirect:/todolist";
+  }
+
+  @PostMapping("/todolist/delete/{id}")
+  public String deleteTodo(@PathVariable int id) {
+    todoMapper.deleteTodoById(id); // DB削除処理
+    return "redirect:/todolist"; // 削除後、TODOリストにリダイレクト
+  }
+
 }
