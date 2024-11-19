@@ -11,16 +11,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import oit.is.hondaken.scheduler.model.userSettingMapper;
+import oit.is.hondaken.scheduler.model.UserSettingMapper;
 
 @Configuration
 @EnableWebSecurity
 public class CustomUserDetailsService implements UserDetailsService {
 
   @Autowired
-  userSettingMapper userSettingMapper;
+  UserSettingMapper userSettingMapper;
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

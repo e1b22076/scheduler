@@ -1,6 +1,6 @@
 package oit.is.hondaken.scheduler.model;
 
-public class timeTable {
+public class TimeTable {
   private int id;
   private String mon1;
   private String mon2;

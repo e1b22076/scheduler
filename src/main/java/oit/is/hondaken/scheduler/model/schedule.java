@@ -1,6 +1,6 @@
 package oit.is.hondaken.scheduler.model;
 
-public class schedule {
+public class Schedule {
   String id; // 講義コード 主キーの役割を果たしている。
   String department; // 学科
   String className; // 講義名

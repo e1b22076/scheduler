@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Select;
 //import java.util.ArrayList;
 
 @Mapper
-public interface scheduleMapper {
+public interface ScheduleMapper {
   @Select("select className from schedule where id=#{id}")
   String selectClassNameById(String id);
 }

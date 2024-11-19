@@ -3,12 +3,12 @@ package oit.is.hondaken.scheduler.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class day {
+public class Day {
   private int date;
   private List<String> events;
 
   // コンストラクタ
-  public day(int date) {
+  public Day(int date) {
     this.date = date;
     this.events = new ArrayList<>(); // 空のリストで初期化
   }

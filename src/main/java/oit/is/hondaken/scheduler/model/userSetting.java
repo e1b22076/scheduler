@@ -1,6 +1,6 @@
 package oit.is.hondaken.scheduler.model;
 
-public class userSetting {
+public class UserSetting {
   int id;// 一位識別可能なid
   String myNumber;// 学籍番号
   String userName;// 名前

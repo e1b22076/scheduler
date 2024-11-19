@@ -17,9 +17,9 @@ public interface EventMapper {
       + "VALUES (#{title}, #{description}, #{startYear}, #{startMonth}, #{startDay}, #{startTime}, #{endTime}, #{location})")
   @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
   void addEvent(
-      event event);
+      Event event);
 
   @Select("SELECT * FROM events WHERE startYear = #{year} AND startMonth = #{month} AND startDay = #{day}")
-  List<event> getEventsForDate(@Param("year") int year, @Param("month") int month, @Param("day") int day);
+  List<Event> getEventsForDate(@Param("year") int year, @Param("month") int month, @Param("day") int day);
 
 }

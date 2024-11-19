@@ -25,32 +25,32 @@ import org.slf4j.LoggerFactory;
 import oit.is.hondaken.scheduler.model.EventMapper;
 import oit.is.hondaken.scheduler.model.Todo;
 import oit.is.hondaken.scheduler.model.TodoMapper;
-import oit.is.hondaken.scheduler.model.day;
-import oit.is.hondaken.scheduler.model.event;
-import oit.is.hondaken.scheduler.model.scheduleMapper;
-import oit.is.hondaken.scheduler.model.timeTable;
+import oit.is.hondaken.scheduler.model.Day;
+import oit.is.hondaken.scheduler.model.Event;
+import oit.is.hondaken.scheduler.model.ScheduleMapper;
+import oit.is.hondaken.scheduler.model.TimeTable;
 import oit.is.hondaken.scheduler.model.TimeTableRecord;
-import oit.is.hondaken.scheduler.model.timeTableMapper;
-import oit.is.hondaken.scheduler.model.userSetting;
-import oit.is.hondaken.scheduler.model.userSettingMapper;
-import oit.is.hondaken.scheduler.model.week;
+import oit.is.hondaken.scheduler.model.TimeTableMapper;
+import oit.is.hondaken.scheduler.model.UserSetting;
+import oit.is.hondaken.scheduler.model.UserSettingMapper;
+import oit.is.hondaken.scheduler.model.Week;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Controller
-public class scheduleController {
-  private static final Logger logger = LoggerFactory.getLogger(scheduleController.class);
+public class ScheduleController {
+  private static final Logger logger = LoggerFactory.getLogger(ScheduleController.class);
 
   @Autowired
-  private scheduleMapper scheduleMapper;
+  private ScheduleMapper scheduleMapper;
 
   @Autowired
   private EventMapper eventMapper;
 
   @Autowired
-  private timeTableMapper timeTableMapper;
+  private TimeTableMapper timeTableMapper;
 
   @Autowired
-  private userSettingMapper userSettingMapper;
+  private UserSettingMapper userSettingMapper;
 
   @Autowired
   TodoMapper todoMapper;
@@ -65,7 +65,6 @@ public class scheduleController {
       @RequestParam(value = "year", required = false) Integer year,
       @RequestParam(value = "month", required = false) Integer month,
       Model model) {
-
     final Calendar calendar = Calendar.getInstance();
 
     if (year == null || month == null) {
@@ -102,12 +101,12 @@ public class scheduleController {
     lastDayOfCalendar.add(Calendar.DATE, -1);
     lastDayOfCalendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
 
-    final List<List<day>> weekList = new ArrayList<>();
+    final List<List<Day>> weekList = new ArrayList<>();
     final Calendar day = (Calendar) firstDayOfCalendar.clone();
     while (day.compareTo(lastDayOfCalendar) <= 0) {
-      final List<day> weekDays = new ArrayList<>();
+      final List<Day> weekDays = new ArrayList<>();
       for (int i = 0; i < 7; i++) {
-        day currentDay = new day(day.get(Calendar.DAY_OF_MONTH));
+        Day currentDay = new Day(day.get(Calendar.DAY_OF_MONTH));
 
         List<String> eventTitles = eventMapper.getEventTitleForDate(
             day.get(Calendar.YEAR),
@@ -122,7 +121,7 @@ public class scheduleController {
       }
       weekList.add(weekDays);
     }
-    week week = new week();
+    Week week = new Week();
     week.setWeekList(weekList);
 
     model.addAttribute("week", week);
@@ -141,7 +140,7 @@ public class scheduleController {
     int month = Integer.parseInt(dateParts[1]);
     int day = Integer.parseInt(dateParts[2]);
 
-    List<event> events = eventMapper.getEventsForDate(year, month, day);
+    List<Event> events = eventMapper.getEventsForDate(year, month, day);
 
     model.addAttribute("events", events);
     model.addAttribute("selectedDate", date);
@@ -163,7 +162,7 @@ public class scheduleController {
     int startYear = Integer.parseInt(dateParts[0]);
     int startMonth = Integer.parseInt(dateParts[1]);
     int startDay = Integer.parseInt(dateParts[2]);
-    event event = new event();
+    Event event = new Event();
     event.setStartYear(startYear);
     event.setStartMonth(startMonth);
     event.setStartDay(startDay);
@@ -184,13 +183,13 @@ public class scheduleController {
   @GetMapping("/timetable")
   public String gotle(ModelMap model, Principal prin) {
 
-    String loginUser = prin.getName();
+    String myNumber = prin.getName();
 
-    int id = userSettingMapper.selectIdByName(loginUser);
-    timeTable timeTable = timeTableMapper.selectAllById(id);
+    int id = userSettingMapper.selectIdByNum(myNumber);
+    TimeTable timeTable = timeTableMapper.selectAllById(id);
     TimeTableRecord timeTableRecord = new TimeTableRecord(timeTable, scheduleMapper);
 
-    model.addAttribute("loginUser", loginUser);
+    model.addAttribute("loginUser", myNumber);
     model.addAttribute("id", id);
     model.addAttribute("timeTableRecord", timeTableRecord);
     return "timetable.html";
@@ -219,7 +218,7 @@ public class scheduleController {
       }
     }
     if (flag == 0) {
-      userSetting user = new userSetting();
+      UserSetting user = new UserSetting();
       user.setMyNumber(gakuseki);
       user.setMail(mail);
       BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
