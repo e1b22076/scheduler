@@ -23,7 +23,10 @@ public class Sample3AuthConfiguration {
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.formLogin(login -> login
-        .permitAll())
+        .loginPage("/login").permitAll()
+        .defaultSuccessUrl("/calendar")
+        .usernameParameter("accountId")
+        .passwordParameter("pw"))
         .logout(logout -> logout
             .logoutUrl("/logout")
             .logoutSuccessUrl("/")) // ログアウト後に / にリダイレクト
