@@ -1,18 +1,27 @@
 package oit.is.hondaken.scheduler.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import oit.is.hondaken.scheduler.model.userSettingMapper;
+
 @Configuration
 @EnableWebSecurity
-public class Sample3AuthConfiguration {
+public class CustomUserDetailsService implements UserDetailsService {
+
+  @Autowired
+  userSettingMapper userSettingMapper;
+
   /**
    * 認可処理に関する設定（認証されたユーザがどこにアクセスできるか）
    *
@@ -48,7 +57,7 @@ public class Sample3AuthConfiguration {
    *
    * @return
    */
-  @Bean
+  /*@Bean
   public InMemoryUserDetailsManager userDetailsService() {
 
     // ユーザ名，パスワード，ロールを指定してbuildする
@@ -84,6 +93,21 @@ public class Sample3AuthConfiguration {
         .password("{bcrypt}$2y$05$X.qMHDOJeMILsWk5tEN3E.gGZJnCd1NtbW1Tv1toR5oe0chHawGb2").roles("USER").build();
     // 生成したユーザをImMemoryUserDetailsManagerに渡す（いくつでも良い）
     return new InMemoryUserDetailsManager(user1, user2, admin, customer1, customer2, seller, honda, igaki);
-  }
+  }*/
 
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    // DBからパスワードを取得
+    String password = userSettingMapper.selectPassByNum(username);
+
+    if (password == null) {
+      throw new UsernameNotFoundException("User not found: " + username);
+    }
+
+    // ユーザー情報を生成
+    return User.withUsername(username)
+        .password("{noop}" + password) // パスワードがハッシュ化されていない場合は {noop}
+        .roles("USER") // 必要に応じてロールを設定
+        .build();
+  }
 }

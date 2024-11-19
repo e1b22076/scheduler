@@ -219,7 +219,7 @@ public class scheduleController {
     }
     if (flag == 0) {
       userSetting user = new userSetting();
-      user.setNamber(gakuseki);
+      user.setMyNumber(gakuseki);
       user.setMail(mail);
       user.setMyPass(pass);
       userSettingMapper.insertuserSetting(user);

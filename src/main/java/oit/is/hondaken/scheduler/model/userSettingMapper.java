@@ -21,4 +21,7 @@ public interface userSettingMapper {
   @Insert("INSERT INTO userSetting (myNumber,mail,myPass) VALUES (#{myNumber},#{mail},#{myPass});")
   @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
   void insertuserSetting(userSetting user);
+
+  @Select("select myPass from userSetting where myNumber = #{num}")
+  String selectPassByNum(String num);
 }
