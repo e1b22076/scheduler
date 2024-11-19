@@ -202,6 +202,7 @@ public class ScheduleController {
 
   @PostMapping("/regfin")
   public String regfin(@RequestParam String gakuseki, @RequestParam String mail, @RequestParam String pass,
+      @RequestParam String myname,
       ModelMap model) {
     ArrayList<String> Numbers = userSettingMapper.selectNumber();
     ArrayList<String> Mails = userSettingMapper.selectMail();
@@ -220,6 +221,7 @@ public class ScheduleController {
     if (flag == 0) {
       UserSetting user = new UserSetting();
       user.setMyNumber(gakuseki);
+      user.setUserName(myname);
       user.setMail(mail);
       BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
       String hashedPassword = encoder.encode(pass);

@@ -18,7 +18,7 @@ public interface UserSettingMapper {
   @Select("select mail from userSetting")
   ArrayList<String> selectMail();
 
-  @Insert("INSERT INTO userSetting (myNumber,userRole,mail,myPass) VALUES (#{myNumber},#{userRole},#{mail},#{myPass});")
+  @Insert("INSERT INTO userSetting (myNumber,userName,userRole,mail,myPass) VALUES (#{myNumber},#{userName},#{userRole},#{mail},#{myPass});")
   @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
   void insertuserSetting(UserSetting user);
 
