@@ -16,7 +16,8 @@
     }
 
     #gakuseki_chk,
-    #mail_chk {
+    #mail_chk,
+    #pass_chk {
       display: none;
       color: red;
     }
@@ -55,6 +56,16 @@
           <input id="password" type="password" name="pass" />
         </td>
       </tr>
+
+      <tr>
+        <th><label for="repassword">パスワード再入力</label></th>
+        <td>
+          <input id="repassword" type="password" name="repass" />
+        </td>
+        <td id="pass_chk">
+          パスワードが違います
+        </td>
+      </tr>
     </table>
     <input type="submit" value="登録" id="touroku">
     <input type="reset" value="リセット">
@@ -67,6 +78,7 @@
         const gakuseki = document.getElementById("gakuseki").value;
         const mail = document.getElementById("mail").value;
         const password = document.getElementById("password").value;
+        const repassword = document.getElementById("repassword").value;
 
         let hasError = false;
 
@@ -83,6 +95,10 @@
 
         if (password.trim().length === 0) {
           alert('パスワードを入力してください。');
+          hasError = true;
+        }
+        if (repassword.trim().length === 0) {
+          alert('パスワードを再入力してください。');
           hasError = true;
         }
 
@@ -102,6 +118,14 @@
         const mailRegex = /^e1[a-z]\d{5}@oit\.ac\.jp$/;
         if (!mailRegex.test(mail)) {
           document.getElementById('mail_chk').style.display = "block";
+          formatError = true;
+        } else {
+          document.getElementById('mail_chk').style.display = "none";
+        }
+
+        //パスワードのチェック
+        if (password != repassword) {
+          document.getElementById('pass_chk').style.display = "block";
           formatError = true;
         } else {
           document.getElementById('mail_chk').style.display = "none";
