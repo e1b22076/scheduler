@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>認証</title>
+  <style>
+    .center {
+      width: fit-content;
+      margin: auto;
+    }
+
+    .center th {
+      text-align: left;
+      vertical-align: top;
+    }
+
+    body,
+    html {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+    }
+
+    .center-links {
+      text-align: center;
+    }
+
+    .center-links a {
+      margin: 0 10px;
+    }
+
+    #code_chk {
+      display: none;
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="content">
+    <!-- flagがfalseの場合に表示 -->
+    <div th:if="${flag ==1}">
+      <div class="center-links"></div>
+      <h1 class="center">その学籍番号は既に使われています。</h1>
+      <br>
+      <a class="center" href="/register">新規登録画面へ</a>
+      &nbsp;
+      <a href="/calendar">ログイン画面へ</a>
+      &nbsp;
+      <a href="/">TOPへ</a>
+
+    </div>
+
+    <div id="content">
+      <!-- flagがfalseの場合に表示 -->
+      <div th:if="${flag ==2}">
+        <div class="center-links"></div>
+        <h1 class="center">そのメールアドレスは既に使われています。</h1>
+        <br>
+        <a class="center" href="/register">新規登録画面へ</a>
+        &nbsp;
+        <a href="/calendar">ログイン画面へ</a>
+        &nbsp;
+        <a href="/">TOPへ</a>
+
+      </div>
+
+      <div th:if="${flag==0}">
+        <form class="center" action="/regfin" method="post" th:action="@{/regfin}" novalidate>
+          <!-- CSRFトークンの追加 -->
+          <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+
+          <table>
+            <tr>
+              <th><label for="code">認証コード</label></th>
+              <td>
+                <input id="code" type="text" name="code" />
+              </td>
+              <td id="code_chk">
+                認証コードが違います
+              </td>
+            </tr>
+          </table>
+          <!-- admin_codeをhiddenフィールドで渡す -->
+          <input type="hidden" id="admin_code" th:value="${admin_code}" />
+          <input type="hidden" name="gakuseki" th:value="${gakuseki}" />
+          <input type="hidden" name="mail" th:value="${mail}" />
+          <input type="hidden" name="pass" th:value="${pass}" />
+          <input type="hidden" name="myname" th:value="${myname}" />
+
+          <input type="submit" value="入力完了" id="touroku">
+        </form>
+      </div>
+    </div>
+    <script>
+      window.onload = function () {
+        document.getElementById("touroku").addEventListener("click", function (event) {
+          const code = document.getElementById("code").value;
+          const adminCode = document.getElementById("admin_code").value;  // admin_codeを取得
+
+          let hasError = false;
+
+          // 必須項目のチェック
+          if (code.trim().length === 0) {
+            alert('認証コードを入力してください。');
+            hasError = true;
+          }
+
+          // 認証コードのチェック
+          if (code !== adminCode) {
+            document.getElementById("code_chk").style.display = "block";  // エラーメッセージ表示
+            hasError = true;
+          } else {
+            document.getElementById("code_chk").style.display = "none";  // エラーメッセージ非表示
+          }
+
+          // エラーがある場合はフォーム送信を停止
+          if (hasError) {
+            event.preventDefault();
+            return false;
+          }
+        });
+      };
+    </script>
+</body>
+
+</html>

@@ -25,9 +25,7 @@
 </head>
 
 <body>
-  <form class="center" action="/regfin" method="post" th:action="@{/regfin}" novalidate>
-    <!-- CSRFトークンの追加 -->
-    <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+  <form class="center" action="/register" method="post" th:action="@{/register}" novalidate>
 
     <table>
       <tr>
@@ -135,7 +133,7 @@
           document.getElementById('pass_chk').style.display = "block";
           formatError = true;
         } else {
-          document.getElementById('mail_chk').style.display = "none";
+          document.getElementById('pass_chk').style.display = "none";
         }
 
         // エラーがある場合はフォーム送信を停止

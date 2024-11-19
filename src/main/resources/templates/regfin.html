@@ -41,44 +41,13 @@
 </head>
 
 <body>
-  <div id="content">
-    <!-- flagがfalseの場合に表示 -->
-    <div th:if="${flag ==1}">
-      <div class="center-links"></div>
-      <h1 class="center">その学籍番号は既に使われています。</h1>
-      <br>
-      <a class="center" href="/register">新規登録画面へ</a>
-      &nbsp;
-      <a href="/calendar">ログイン画面へ</a>
-      &nbsp;
-      <a href="/">TOPへ</a>
-
-    </div>
-
-    <div id="content">
-      <!-- flagがfalseの場合に表示 -->
-      <div th:if="${flag ==2}">
-        <div class="center-links"></div>
-        <h1 class="center">そのメールアドレスは既に使われています。</h1>
-        <br>
-        <a class="center" href="/register">新規登録画面へ</a>
-        &nbsp;
-        <a href="/calendar">ログイン画面へ</a>
-        &nbsp;
-        <a href="/">TOPへ</a>
-
-      </div>
-      <!--flagがtrueの場合に表示 -->
-      <div th:if="${flag==0}">
-        <div class="center-links">
-          <h1 class="center">新規登録完了しました</h1>
-          <br>
-          <a class="center" href="/calendar">ログイン画面へ</a>
-          &nbsp;
-          <a href="/">TOPへ</a>
-        </div>
-      </div>
-    </div>
+  <div class="center-links">
+    <h1 class="center">新規登録完了しました</h1>
+    <br>
+    <a class="center" href="/calendar">ログイン画面へ</a>
+    &nbsp;
+    <a href="/">TOPへ</a>
+  </div>
 </body>
 
 </html>

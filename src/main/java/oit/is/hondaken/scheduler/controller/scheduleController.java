@@ -13,12 +13,15 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
+import org.springframework.mail.MailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,6 +38,9 @@ import oit.is.hondaken.scheduler.model.UserSetting;
 import oit.is.hondaken.scheduler.model.UserSettingMapper;
 import oit.is.hondaken.scheduler.model.Week;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import org.springframework.mail.SimpleMailMessage;
+import java.util.Random;
 
 @Controller
 public class ScheduleController {
@@ -54,6 +60,9 @@ public class ScheduleController {
 
   @Autowired
   TodoMapper todoMapper;
+
+  @Autowired
+  MailSender mailSender;
 
   @RequestMapping("/")
   public String home() {
@@ -200,8 +209,8 @@ public class ScheduleController {
     return "register.html";
   }
 
-  @PostMapping("/regfin")
-  public String regfin(@RequestParam String gakuseki, @RequestParam String mail, @RequestParam String pass,
+  @PostMapping("/register")
+  public String codechk(@RequestParam String gakuseki, @RequestParam String mail, @RequestParam String pass,
       @RequestParam String myname,
       ModelMap model) {
     ArrayList<String> Numbers = userSettingMapper.selectNumber();
@@ -219,18 +228,48 @@ public class ScheduleController {
       }
     }
     if (flag == 0) {
-      UserSetting user = new UserSetting();
-      user.setMyNumber(gakuseki);
-      user.setUserName(myname);
-      user.setMail(mail);
-      BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-      String hashedPassword = encoder.encode(pass);
-      user.setMyPass(hashedPassword);
-      user.setUserRole("STUDENT");
-      userSettingMapper.insertuserSetting(user);
-      model.addAttribute("user", user);
+
+      Random rnd = new Random();
+      int admin_code = rnd.nextInt(1000000);
+      SimpleMailMessage message = new SimpleMailMessage();
+      message.setTo(mail);
+      message.setFrom("e1b22076@oit.ac.jp");
+      message.setSubject("scheduler認証コードをお送りいたします。");
+      message.setText("認証コード:" + admin_code);
+
+      // メール送信を実施する。
+      try {
+        model.addAttribute("admin_code", admin_code);
+        model.addAttribute("gakuseki", gakuseki);
+        model.addAttribute("mail", mail);
+        model.addAttribute("pass", pass);
+        model.addAttribute("myname", myname);
+        mailSender.send(message);
+      } catch (MailException e) {
+        e.printStackTrace(); // または、ロギングを使って詳細を記録
+        model.addAttribute("error", "メール送信に失敗しました。");
+      }
     }
     model.addAttribute("flag", flag);
+    return "codechk.html";
+  }
+
+  @PostMapping("/regfin")
+  public String regfin(@RequestParam String gakuseki, @RequestParam String mail, @RequestParam String pass,
+      @RequestParam String myname,
+      ModelMap model) {
+
+    UserSetting user = new UserSetting();
+    user.setMyNumber(gakuseki);
+    user.setUserName(myname);
+    user.setMail(mail);
+    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    String hashedPassword = encoder.encode(pass);
+    user.setMyPass(hashedPassword);
+    user.setUserRole("STUDENT");
+    userSettingMapper.insertuserSetting(user);
+    model.addAttribute("user", user);
+
     return "regfin.html";
 
   }
