@@ -11,7 +11,7 @@ public class TimeTableRecord {
   private List<String> friday;
   private List<String> saturday;
 
-  public TimeTableRecord(timeTable tt, scheduleMapper scheduleMapper) {
+  public TimeTableRecord(TimeTable tt, ScheduleMapper scheduleMapper) {
     this.monday = new ArrayList<>();
     this.tuesday = new ArrayList<>();
     this.wednesday = new ArrayList<>();

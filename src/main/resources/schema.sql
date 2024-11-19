@@ -48,6 +48,8 @@ CREATE TABLE userSetting(
   --学籍番号
   userName VARCHAR,
   --ユーザーネーム
+  userRole varchar(50) NOT NULL,
+  --ユーザーロール
   mail VARCHAR NOT NULL,
   --メールアドレス
   myPass VARCHAR NOT NULL

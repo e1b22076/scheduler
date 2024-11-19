@@ -8,9 +8,9 @@ import org.apache.ibatis.annotations.Insert;
 import java.util.ArrayList;
 
 @Mapper
-public interface userSettingMapper {
-  @Select("select id from userSetting where userName = #{name}")
-  int selectIdByName(String name);
+public interface UserSettingMapper {
+  @Select("select id from userSetting where myNumber = #{myNum}")
+  int selectIdByNum(String myNum);
 
   @Select("select myNumber from userSetting")
   ArrayList<String> selectNumber();
@@ -18,7 +18,10 @@ public interface userSettingMapper {
   @Select("select mail from userSetting")
   ArrayList<String> selectMail();
 
-  @Insert("INSERT INTO userSetting (myNumber,mail,myPass) VALUES (#{myNumber},#{mail},#{myPass});")
+  @Insert("INSERT INTO userSetting (myNumber,userRole,mail,myPass) VALUES (#{myNumber},#{userRole},#{mail},#{myPass});")
   @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
-  void insertuserSetting(userSetting user);
+  void insertuserSetting(UserSetting user);
+
+  @Select("select myPass from userSetting where myNumber = #{num}")
+  String selectPassByNum(String num);
 }

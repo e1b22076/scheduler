@@ -1032,7 +1032,7 @@ INSERT INTO schedule (id,department,className,attribute,continuous,credit,grade,
 VALUES ('1FBN11A0','IN','CSプロジェクト演習','choice',false,1,4,'Z','ZZZ',0,'0,0,0,0,1','https://www.portal.oit.ac.jp/CAMJWEB/slbssbdr.do?value(risyunen)=2024&value(semekikn)=1&value(kougicd)=1FBN11A0&value(crclumcd)=10201401');
 
 --ユーザー情報
-INSERT INTO userSetting(myNumber,userName,mail ,myPass ) VALUES('B22999','ほんだ','e1b22999@oit.ac.jp','isdev');
+INSERT INTO userSetting(myNumber,userName,userRole,mail,myPass ) VALUES('B22999','ほんだ','STUDENT','e1b22999@oit.ac.jp','$2y$05$2okqcneYBBlPb39NXazmKuuLby7vb8Cp3wTAebrhEVCrydKwxB2R6');
 
 
 INSERT INTO todos (

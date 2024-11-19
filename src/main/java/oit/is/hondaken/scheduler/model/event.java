@@ -2,7 +2,7 @@ package oit.is.hondaken.scheduler.model;
 
 import java.sql.Time;
 
-public class event {
+public class Event {
 
   private int id;
   private String title;
