@@ -9,9 +9,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import oit.is.hondaken.scheduler.model.userSettingMapper;
 
@@ -22,13 +22,6 @@ public class CustomUserDetailsService implements UserDetailsService {
   @Autowired
   userSettingMapper userSettingMapper;
 
-  /**
-   * 認可処理に関する設定（認証されたユーザがどこにアクセスできるか）
-   *
-   * @param http
-   * @return
-   * @throws Exception
-   */
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.formLogin(login -> login
@@ -52,49 +45,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     return http.build();
   }
 
-  /**
-   * 認証処理に関する設定（誰がどのようなロールでログインできるか）
-   *
-   * @return
-   */
-  /*@Bean
-  public InMemoryUserDetailsManager userDetailsService() {
-
-    // ユーザ名，パスワード，ロールを指定してbuildする
-    // このときパスワードはBCryptでハッシュ化されているため，{bcrypt}とつける
-    // ハッシュ化せずに平文でパスワードを指定する場合は{noop}をつける
-    // user1/p@ss,user2/p@ss,admin/p@ss
-
-    UserDetails user1 = User.withUsername("user1")
-        .password("{bcrypt}$2y$10$ngxCDmuVK1TaGchiYQfJ1OAKkd64IH6skGsNw1sLabrTICOHPxC0e").roles("USER").build();
-    UserDetails user2 = User.withUsername("user2")
-        .password("{bcrypt}$2y$10$ngxCDmuVK1TaGchiYQfJ1OAKkd64IH6skGsNw1sLabrTICOHPxC0e").roles("USER").build();
-    UserDetails admin = User.withUsername("admin")
-        .password("{bcrypt}$2y$10$ngxCDmuVK1TaGchiYQfJ1OAKkd64IH6skGsNw1sLabrTICOHPxC0e").roles("ADMIN").build();
-    // $ sshrun htpasswd -nbBC 10 customer1 p@ss
-    UserDetails customer1 = User.withUsername("customer1")
-        .password("{bcrypt}$2y$10$ngxCDmuVK1TaGchiYQfJ1OAKkd64IH6skGsNw1sLabrTICOHPxC0e")
-        .roles("CUSTOMER")
-        .build();
-    // $ sshrun htpasswd -nbBC 10 customer2 p@ss
-    UserDetails customer2 = User.withUsername("customer2")
-        .password("{bcrypt}$2y$10$ngxCDmuVK1TaGchiYQfJ1OAKkd64IH6skGsNw1sLabrTICOHPxC0e")
-        .roles("CUSTOMER")
-        .build();
-    // $ sshrun htpasswd -nbBC 10 seller p@ss
-    UserDetails seller = User.withUsername("seller")
-        .password("{bcrypt}$2y$10$ngxCDmuVK1TaGchiYQfJ1OAKkd64IH6skGsNw1sLabrTICOHPxC0e")
-        .roles("SELLER")
-        .build();
-    UserDetails honda = User.withUsername("ほんだ")
-        .password("{bcrypt}$2y$05$X.qMHDOJeMILsWk5tEN3E.gGZJnCd1NtbW1Tv1toR5oe0chHawGb2").roles("USER").build();
-
-    UserDetails igaki = User.withUsername("いがき")
-        .password("{bcrypt}$2y$05$X.qMHDOJeMILsWk5tEN3E.gGZJnCd1NtbW1Tv1toR5oe0chHawGb2").roles("USER").build();
-    // 生成したユーザをImMemoryUserDetailsManagerに渡す（いくつでも良い）
-    return new InMemoryUserDetailsManager(user1, user2, admin, customer1, customer2, seller, honda, igaki);
-  }*/
-
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     // DBからパスワードを取得
@@ -103,10 +53,12 @@ public class CustomUserDetailsService implements UserDetailsService {
     if (password == null) {
       throw new UsernameNotFoundException("User not found: " + username);
     }
+    // BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    // String hashedPassword = encoder.encode(password);
 
     // ユーザー情報を生成
     return User.withUsername(username)
-        .password("{noop}" + password) // パスワードがハッシュ化されていない場合は {noop}
+        .password("{bcrypt}" + password)
         .roles("USER") // 必要に応じてロールを設定
         .build();
   }

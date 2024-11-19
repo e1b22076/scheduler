@@ -34,6 +34,7 @@ import oit.is.hondaken.scheduler.model.timeTableMapper;
 import oit.is.hondaken.scheduler.model.userSetting;
 import oit.is.hondaken.scheduler.model.userSettingMapper;
 import oit.is.hondaken.scheduler.model.week;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Controller
 public class scheduleController {
@@ -214,14 +215,17 @@ public class scheduleController {
     }
     for (String addr : Mails) {
       if (mail.equals(addr)) {
-        flag=2;
+        flag = 2;
       }
     }
     if (flag == 0) {
       userSetting user = new userSetting();
       user.setMyNumber(gakuseki);
       user.setMail(mail);
-      user.setMyPass(pass);
+      BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+      String hashedPassword = encoder.encode(pass);
+      user.setMyPass(hashedPassword);
+      user.setUserRole("STUDENT");
       userSettingMapper.insertuserSetting(user);
       model.addAttribute("user", user);
     }
