@@ -2,9 +2,18 @@ package oit.is.hondaken.scheduler.model;
 
 public class Todo {
   private int id;
+  private String myNumber;
   private String title;
   private String description;
   private boolean completed;
+
+  public String getMyNumber() {
+    return myNumber;
+  }
+
+  public void setMyNumber(String myNumber) {
+    this.myNumber = myNumber;
+  }
 
   public int getId() {
     return id;

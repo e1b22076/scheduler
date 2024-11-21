@@ -30,21 +30,10 @@ CREATE TABLE schedule (
     syllabusURL VARCHAR NOT NULL
 );
 
-CREATE TABLE events (
-    id IDENTITY,
-    title VARCHAR(255) NOT NULL,
-    description TEXT,
-    startYear INT NOT NULL,
-    startMonth INT NOT NULL,
-    startDay INT NOT NULL,
-    startTime Time,
-    endTime Time,
-    location VARCHAR(255)
-);
 CREATE TABLE userSetting(
   id IDENTITY,
   --一意識別可能なID
-  myNumber VARCHAR NOT NULL,
+  myNumber VARCHAR NOT NULL UNIQUE,
   --学籍番号
   userName VARCHAR,
   --ユーザーネーム
@@ -55,6 +44,23 @@ CREATE TABLE userSetting(
   myPass VARCHAR NOT NULL
   --パスワード
 );
+
+
+CREATE TABLE events (
+    id IDENTITY,
+    myNumber VARCHAR ,
+    -- userSetting の myNumber を主キーかつ外部キーとして使用,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    startYear INT NOT NULL,
+    startMonth INT NOT NULL,
+    startDay INT NOT NULL,
+    startTime Time,
+    endTime Time,
+    location VARCHAR(255),
+    FOREIGN KEY (myNumber) REFERENCES userSetting(myNumber) ON DELETE CASCADE
+);
+
 CREATE TABLE timeTable(
   id INT PRIMARY KEY,
   mon1 VARCHAR,
@@ -122,7 +128,9 @@ CREATE TABLE timeTable(
 
   CREATE TABLE todos (
     id IDENTITY,
+    myNumber VARCHAR ,
     title VARCHAR(255) NOT NULL,
     description TEXT,
-    completed BOOLEAN DEFAULT FALSE
+    completed BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (myNumber) REFERENCES userSetting(myNumber) ON DELETE CASCADE
 );

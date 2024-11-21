@@ -64,7 +64,7 @@ public class ScheduleController {
   public String calendar(
       @RequestParam(value = "year", required = false) Integer year,
       @RequestParam(value = "month", required = false) Integer month,
-      Model model) {
+      Model model, Principal prin) {
     final Calendar calendar = Calendar.getInstance();
 
     if (year == null || month == null) {
@@ -105,13 +105,14 @@ public class ScheduleController {
     final Calendar day = (Calendar) firstDayOfCalendar.clone();
     while (day.compareTo(lastDayOfCalendar) <= 0) {
       final List<Day> weekDays = new ArrayList<>();
+      String myNumber = prin.getName();
       for (int i = 0; i < 7; i++) {
         Day currentDay = new Day(day.get(Calendar.DAY_OF_MONTH));
 
-        List<String> eventTitles = eventMapper.getEventTitleForDate(
+        List<String> eventTitles = eventMapper.getEventTitleForDateOnlyMe(
             day.get(Calendar.YEAR),
             day.get(Calendar.MONTH) + 1,
-            day.get(Calendar.DAY_OF_MONTH));
+            day.get(Calendar.DAY_OF_MONTH), myNumber);
         for (String title : eventTitles) {
           currentDay.addEvent(title);
         }
@@ -133,14 +134,14 @@ public class ScheduleController {
   @GetMapping("/calendar/event")
   public String eventDetails(
       @RequestParam("date") String date,
-      Model model) {
+      Model model, Principal prin) {
 
     String[] dateParts = date.split("-");
     int year = Integer.parseInt(dateParts[0]);
     int month = Integer.parseInt(dateParts[1]);
     int day = Integer.parseInt(dateParts[2]);
-
-    List<Event> events = eventMapper.getEventsForDate(year, month, day);
+    String myNumber = prin.getName();
+    List<Event> events = eventMapper.getEventsForDateOnlyMe(year, month, day, myNumber);
 
     model.addAttribute("events", events);
     model.addAttribute("selectedDate", date);
@@ -156,13 +157,14 @@ public class ScheduleController {
       @RequestParam("description") String description,
       @RequestParam(value = "startTime", required = false) String startTime,
       @RequestParam(value = "endTime", required = false) String endTime,
-      @RequestParam(value = "location", required = false) String location) {
-
+      @RequestParam(value = "location", required = false) String location, Principal prin) {
+    String myNumber = prin.getName();
     String[] dateParts = date.split("-");
     int startYear = Integer.parseInt(dateParts[0]);
     int startMonth = Integer.parseInt(dateParts[1]);
     int startDay = Integer.parseInt(dateParts[2]);
     Event event = new Event();
+    event.setMyNumber(myNumber);
     event.setStartYear(startYear);
     event.setStartMonth(startMonth);
     event.setStartDay(startDay);
@@ -235,22 +237,26 @@ public class ScheduleController {
 
   @GetMapping("/todolist")
   public String getTodoList(Model model, Principal prin) {
-
-    List<Todo> todos = todoMapper.getAllTodos();
+    String myNuber = prin.getName();
+    List<Todo> todos = todoMapper.getTodosByMyNuber(myNuber);
     model.addAttribute("todos", todos);
     model.addAttribute("newTodo", new Todo());
     return "todolist.html";
   }
 
   @PostMapping("/todolist/add")
-  public String addTodo(@ModelAttribute Todo todo) {
+  public String addTodo(@ModelAttribute Todo todo, Principal prin) {
+    String myNuber = prin.getName();
+    todo.setMyNumber(myNuber);
     todoMapper.insertTodo(todo);
     return "redirect:/todolist";
   }
 
   @PostMapping("/todolist/update/{id}")
-  public String updateTodoCompleted(@PathVariable int id, @RequestParam boolean completed) {
+  public String updateTodoCompleted(@PathVariable int id, @RequestParam boolean completed, Principal prin) {
+    String myNuber = prin.getName();
     Todo todo = new Todo();
+    todo.setMyNumber(myNuber);
     todo.setId(id);
     todo.setCompleted(completed); // completedの値を設定
     todoMapper.updateTodoCompleted(todo); // DB更新

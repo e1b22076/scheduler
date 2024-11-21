@@ -5,6 +5,7 @@ import java.sql.Time;
 public class Event {
 
   private int id;
+  private String myNumber;
   private String title;
   private String description;
   private int startYear;
@@ -15,13 +16,20 @@ public class Event {
   private String location;
 
   // Getters and Setters
-
   public int getId() {
     return id;
   }
 
   public void setId(int id) {
     this.id = id;
+  }
+
+  public String getMyNumber() {
+    return myNumber;
+  }
+
+  public void setMyNumber(String myNumber) {
+    this.myNumber = myNumber;
   }
 
   public String getTitle() {
