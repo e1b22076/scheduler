@@ -1042,14 +1042,14 @@ INSERT INTO todos (
 
 --各ユーザーの時間割
 INSERT INTO timeTable (
-  id, mon1, mon2, mon3, mon4, mon5,
+  myNumber, mon1, mon2, mon3, mon4, mon5,
   tue1, tue2, tue3, tue4, tue5,
   wed1, wed2, wed3, wed4, wed5,
   thu1, thu2, thu3, thu4, thu5,
   fri1, fri2, fri3, fri4, fri5,
   sat1, sat2, sat3, sat4, sat5
 ) VALUES (
-  1, NULL, NULL, NULL, NULL, NULL, --月
+  'B22999', NULL, NULL, NULL, NULL, NULL, --月
   '1BCA09A0', NULL, '1BBN09A0', '1BBN09A0', NULL, --火
   '1BAL27A0', NULL, NULL, NULL, NULL, --水
   NULL, NULL, '1BCM23A0', '1BAL29A0', NULL, --木

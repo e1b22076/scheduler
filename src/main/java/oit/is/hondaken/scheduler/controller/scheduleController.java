@@ -19,6 +19,8 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,6 +36,8 @@ import oit.is.hondaken.scheduler.model.TimeTableMapper;
 import oit.is.hondaken.scheduler.model.UserSetting;
 import oit.is.hondaken.scheduler.model.UserSettingMapper;
 import oit.is.hondaken.scheduler.model.Week;
+import oit.is.hondaken.scheduler.service.TimeTableService;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Controller
@@ -55,6 +59,9 @@ public class ScheduleController {
   @Autowired
   TodoMapper todoMapper;
 
+  @Autowired
+  private TimeTableService timeTableService;
+
   @RequestMapping("/")
   public String home() {
     return "redirect:/index.html"; // `/index.html` を表示
@@ -64,8 +71,9 @@ public class ScheduleController {
   public String calendar(
       @RequestParam(value = "year", required = false) Integer year,
       @RequestParam(value = "month", required = false) Integer month,
-      Model model) {
+      Model model, Principal prin) {
     final Calendar calendar = Calendar.getInstance();
+    String myNumber = prin.getName();
 
     if (year == null || month == null) {
       year = calendar.get(Calendar.YEAR);
@@ -124,6 +132,11 @@ public class ScheduleController {
     Week week = new Week();
     week.setWeekList(weekList);
 
+    // 新規ユーザーの時間割を作成
+    if (timeTableMapper.selectMyNumber(myNumber) == null) {
+      timeTableMapper.insertTimeTable(myNumber);
+    }
+
     model.addAttribute("week", week);
     model.addAttribute("year", year);
     model.addAttribute("month", month + 1);
@@ -181,18 +194,53 @@ public class ScheduleController {
   }
 
   @GetMapping("/timetable")
-  public String gotle(ModelMap model, Principal prin) {
+  public String timetable(ModelMap model, Principal prin, @ModelAttribute("message") String message) {
+    String myNumber = prin.getName();
+    TimeTable timeTable = timeTableMapper.selectByNum(myNumber);
+    TimeTableRecord timeTableRecord = new TimeTableRecord(timeTable, scheduleMapper);
+    boolean showSaturday = timeTableMapper.selectShowSaturday(myNumber);
+
+    System.out.println("message:" + message);
+
+    model.addAttribute("myNumber", myNumber);
+    model.addAttribute("timeTableRecord", timeTableRecord);
+    model.addAttribute("showSaturday", showSaturday);
+    model.addAttribute("message", message);
+
+    return "timetable.html";
+  }
+
+  @PostMapping("/saveSettings")
+  public String saveSettings(Principal prin,
+      @RequestParam(value = "toggleSaturday", required = false) Integer toggleSaturday, ModelMap model) {
+    String myNumber = prin.getName();
+
+    boolean showSaturday = false;
+    if (toggleSaturday == 1) {
+      showSaturday = true;
+    }
+
+    timeTableMapper.updateShowSaturday(myNumber, showSaturday);
+
+    model.addAttribute("showSaturday", showSaturday);
+
+    return "redirect:/timetable";
+  }
+
+  @PostMapping("/removeClass")
+  public String removeClass(@RequestParam("day") String day, @RequestParam("period") String period, @RequestParam("removeValue") String removeValue, RedirectAttributes redirectAttributes, Principal prin) {
 
     String myNumber = prin.getName();
 
-    int id = userSettingMapper.selectIdByNum(myNumber);
-    TimeTable timeTable = timeTableMapper.selectAllById(id);
-    TimeTableRecord timeTableRecord = new TimeTableRecord(timeTable, scheduleMapper);
+    // ログ確認用
+    System.out.println("day:" + day + ", period:" + period + ", removeValue:" + removeValue);
+    System.out.println(myNumber);
 
-    model.addAttribute("loginUser", myNumber);
-    model.addAttribute("id", id);
-    model.addAttribute("timeTableRecord", timeTableRecord);
-    return "timetable.html";
+    timeTableService.removeClass(myNumber, day, period);
+
+    redirectAttributes.addFlashAttribute("message", removeValue + "をコマから外しました");
+
+    return "redirect:/timetable";
   }
 
   @GetMapping("/register")
