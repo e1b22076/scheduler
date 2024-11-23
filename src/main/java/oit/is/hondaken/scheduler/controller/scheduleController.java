@@ -107,12 +107,13 @@ public class ScheduleController {
       final List<Day> weekDays = new ArrayList<>();
       String myNumber = prin.getName();
       for (int i = 0; i < 7; i++) {
-        Day currentDay = new Day(day.get(Calendar.DAY_OF_MONTH));
+        int dayYear = day.get(Calendar.YEAR);
+        int dayMonth = day.get(Calendar.MONTH) + 1; // 月を0から1ベースに修正
+        Day currentDay = new Day(day.get(Calendar.DAY_OF_MONTH), dayMonth, dayYear);
 
-        List<String> eventTitles = eventMapper.getEventTitleForDateOnlyMe(
-            day.get(Calendar.YEAR),
-            day.get(Calendar.MONTH) + 1,
-            day.get(Calendar.DAY_OF_MONTH), myNumber);
+        java.sql.Date sqlDate = new java.sql.Date(day.getTimeInMillis());
+        List<String> eventTitles = eventMapper.getEventTitleForDateOnlyMe(sqlDate, myNumber);
+
         for (String title : eventTitles) {
           currentDay.addEvent(title);
         }
@@ -136,13 +137,9 @@ public class ScheduleController {
       @RequestParam("date") String date,
       Model model, Principal prin) {
 
-    String[] dateParts = date.split("-");
-    int year = Integer.parseInt(dateParts[0]);
-    int month = Integer.parseInt(dateParts[1]);
-    int day = Integer.parseInt(dateParts[2]);
     String myNumber = prin.getName();
-    List<Event> events = eventMapper.getEventsForDateOnlyMe(year, month, day, myNumber);
-
+    java.sql.Date sqlDate = java.sql.Date.valueOf(date); // "YYYY-MM-DD" を直接 Date に変換
+    List<Event> events = eventMapper.getEventsForDateOnlyMe(sqlDate, myNumber);
     model.addAttribute("events", events);
     model.addAttribute("selectedDate", date);
 
@@ -152,22 +149,23 @@ public class ScheduleController {
   @PostMapping("/calendar/addEvent")
   @Transactional
   public String addEvent(
-      @RequestParam("date") String date,
+      @RequestParam("startDate") String startDate, // 開始日
+      @RequestParam("endDate") String endDate, // 終了
       @RequestParam("title") String title,
       @RequestParam("description") String description,
       @RequestParam(value = "startTime", required = false) String startTime,
       @RequestParam(value = "endTime", required = false) String endTime,
       @RequestParam(value = "location", required = false) String location, Principal prin) {
     String myNumber = prin.getName();
-    String[] dateParts = date.split("-");
-    int startYear = Integer.parseInt(dateParts[0]);
-    int startMonth = Integer.parseInt(dateParts[1]);
-    int startDay = Integer.parseInt(dateParts[2]);
+    java.sql.Date sqlStartDate = java.sql.Date.valueOf(startDate);
+    java.sql.Date sqlEndDate = (endDate == null || endDate.isEmpty())
+        ? sqlStartDate
+        : java.sql.Date.valueOf(endDate);
+
     Event event = new Event();
     event.setMyNumber(myNumber);
-    event.setStartYear(startYear);
-    event.setStartMonth(startMonth);
-    event.setStartDay(startDay);
+    event.setStartDate(sqlStartDate);
+    event.setEndDate(sqlEndDate);
     event.setTitle(title);
     event.setDescription(description);
 
@@ -180,6 +178,15 @@ public class ScheduleController {
     eventMapper.addEvent(event);
 
     return "redirect:/calendar";
+  }
+
+  @PostMapping("/calendar/deleteEvent")
+  @Transactional
+  public String deleteEvent(@RequestParam("eventId") int eventId,@RequestParam("date") String date, Principal prin) {
+    // イベントの削除
+    eventMapper.deleteEventById(eventId);
+
+    return "redirect:/calendar/event?date="+date;
   }
 
   @GetMapping("/timetable")

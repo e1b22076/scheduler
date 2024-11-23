@@ -1,6 +1,9 @@
 package oit.is.hondaken.scheduler.model;
 
+import java.sql.Date;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
@@ -10,24 +13,28 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface EventMapper {
 
-  @Select("SELECT title FROM events WHERE startDay = #{date} AND startMonth = #{month} AND startYear = #{year}")
-  List<String> getEventTitleForDate(@Param("year") int year, @Param("month") int month, @Param("date") int date);
+  // 指定された日付のイベントタイトルを取得
+  @Select("SELECT title FROM events WHERE startDate = #{date}")
+  List<String> getEventTitleForDate(@Param("date") Date date);
 
-  @Insert("INSERT INTO events(myNumber,title, description, startYear, startMonth, startDay, startTime, endTime, location)"
-      + "VALUES (#{myNumber},#{title}, #{description}, #{startYear}, #{startMonth}, #{startDay}, #{startTime}, #{endTime}, #{location})")
+  // イベントを追加
+  @Insert("INSERT INTO events(myNumber, title, description, startDate, endDate, startTime, endTime, location) "
+      + "VALUES (#{myNumber}, #{title}, #{description}, #{startDate}, #{endDate}, #{startTime}, #{endTime}, #{location})")
   @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
-  void addEvent(
-      Event event);
+  void addEvent(Event event);
 
-  @Select("SELECT * FROM events WHERE startYear = #{year} AND startMonth = #{month} AND startDay = #{day}")
-  List<Event> getEventsForDate(@Param("year") int year, @Param("month") int month, @Param("day") int day);
+  // 指定された日付のイベントを取得
+  @Select("SELECT * FROM events WHERE startDate = #{date}")
+  List<Event> getEventsForDate(@Param("date") Date date);
 
-  @Select("SELECT * FROM events WHERE myNumber= #{myNumber} AND startYear = #{year} AND startMonth = #{month} AND startDay = #{day}")
-  List<Event> getEventsForDateOnlyMe(@Param("year") int year, @Param("month") int month, @Param("day") int day,
-      @Param("myNumber") String myNumber);
+  // 特定のユーザーの指定された日付のイベントを取得
+  @Select("SELECT * FROM events WHERE myNumber = #{myNumber} AND startDate <= #{date} AND endDate >= #{date}")
+  List<Event> getEventsForDateOnlyMe(@Param("date") Date date, @Param("myNumber") String myNumber);
 
-  @Select("SELECT title FROM events WHERE myNumber= #{myNumber} AND startDay = #{date} AND startMonth = #{month} AND startYear = #{year}")
-  List<String> getEventTitleForDateOnlyMe(@Param("year") int year, @Param("month") int month, @Param("date") int date,
-      @Param("myNumber") String myNumber);
+  // 特定のユーザーの指定された日付のイベントタイトルを取得
+  @Select("SELECT title FROM events WHERE myNumber = #{myNumber} AND startDate <= #{date} AND endDate >= #{date}")
+  List<String> getEventTitleForDateOnlyMe(@Param("date") Date date, @Param("myNumber") String myNumber);
 
+  @Delete("DELETE FROM events WHERE id = #{eventId}")
+    void deleteEventById(int eventId);
 }

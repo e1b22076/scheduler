@@ -49,14 +49,38 @@
       margin-bottom: 20px;
     }
 
-    /* 年・月切替ボタン */
-    .year-month-control {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 20px;
-      gap: 10px;
-    }
+    /* 年と月のボタン配置用 */
+.year-control, .month-control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* ボタンとテキストの間隔 */
+  margin-bottom: 20px;
+}
+
+/* 年の表示部分 */
+.year-display, .month-display {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #4a4e69;
+}
+
+/* ナビゲーションボタン */
+.nav-button {
+  padding: 8px 15px;
+  background-color: #4a90e2;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.nav-button:hover {
+  background-color: #357ab7;
+  transform: translateY(-3px);
+}
 
     /* カレンダー表のスタイル */
     table {
@@ -70,7 +94,8 @@
       overflow: hidden;
     }
 
-    th, td {
+    th,
+    td {
       text-align: center;
       vertical-align: top;
       padding: 15px;
@@ -98,33 +123,58 @@
     }
 
     /* イベントのスタイル */
-    .event {
-      background-color: #e1bee7;
-      color: #4a4e69;
-      padding: 3px;
-      border-radius: 4px;
-      margin-top: 5px;
-      font-size: 0.85em;
+    /* イベントスタイル（目立たせる） */
+.event {
+  background-color: #ffde59; /* 明るい黄色 */
+  color: #333; /* テキストを読みやすく */
+  padding: 3px;
+  border-radius: 5px;
+  margin-top: 5px;
+  font-size: 0.85em;
+  font-weight: bold;
+}
+
+
+    /* Form and label styling */
+    form label {
+      display: block;
+      margin-top: 10px;
     }
 
-    /* ボタンスタイル */
-    button {
-      padding: 6px 12px;
-      margin-top: 8px;
+    form input,
+    form textarea,
+    form button {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+ .add-button {
       background-color: #4a4e69;
       color: #f4f7f6;
       border: none;
-      border-radius: 6px;
+      padding: 10px;
       cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s;
-      font-size: 0.9em;
+      transition: background-color 0.3s;
     }
 
-    button:hover {
+   .add-button:hover {
       background-color: #b5838d;
-      transform: scale(1.05);
-    }
+   }
   </style>
+  <script>
+    function validateTime() {
+      const startTime = document.getElementById("startTime").value;
+      const endTime = document.getElementById("endTime").value;
+
+      if (startTime && endTime && endTime <= startTime) {
+        alert("終了時間は開始時間より後に設定してください。");
+        document.getElementById("endTime").value = ""; // Clear end time if invalid
+      }
+    }
+  </script>
 </head>
 
 <body>
@@ -137,40 +187,44 @@
   <br>
 
   <h1>カレンダー</h1>
-  <div>
-    <!-- Previous Year Button -->
+  <div class="year-control">
+    <!-- 前の年ボタン -->
     <form th:action="@{/calendar}" method="get" style="display: inline;">
       <input type="hidden" name="year" th:value="${year - 1}" />
       <input type="hidden" name="month" th:value="${month}" />
-      <button type="submit">前の年</button>
+      <button type="submit" class="nav-button">前の年</button>
     </form>
 
-    <!-- Display Current Year -->
-    <span>[[${year}]]年</span>
+    <!-- 現在の年 -->
+    <span class="year-display">[[${year}]]</span>
 
-    <!-- Next Year Button -->
+    <!-- 次の年ボタン -->
     <form th:action="@{/calendar}" method="get" style="display: inline;">
       <input type="hidden" name="year" th:value="${year + 1}" />
       <input type="hidden" name="month" th:value="${month}" />
-      <button type="submit">次の年</button>
+      <button type="submit" class="nav-button">次の年</button>
     </form>
   </div>
 
-  <div>
+  <div class="month-control">
+    <!-- 前の月ボタン -->
     <form th:action="@{/calendar}" method="get" style="display: inline;">
       <input type="hidden" name="year" th:value="${year}" />
       <input type="hidden" name="month" th:value="${month - 1}" />
-      <button type="submit">前の月</button>
+      <button type="submit" class="nav-button">前の月</button>
     </form>
 
-    <span>[[${month}]]月</span>
+    <!-- 現在の月 -->
+    <span class="month-display">[[${month}]]月</span>
 
+    <!-- 次の月ボタン -->
     <form th:action="@{/calendar}" method="get" style="display: inline;">
       <input type="hidden" name="year" th:value="${year}" />
       <input type="hidden" name="month" th:value="${month + 1}" />
-      <button type="submit">次の月</button>
+      <button type="submit" class="nav-button">次の月</button>
     </form>
   </div>
+
 
   <table border="1">
     <tr>
@@ -183,21 +237,49 @@
       <td class="saturday">土</td>
     </tr>
     <tr th:each="weekDays : ${week.weekList}">
-      <td th:each="day, dayStat : ${weekDays}" th:classappend="${year == todayYear && month == todayMonth && day.date == todayDay ? 'current-date' : ''}">
+      <td th:each="day, dayStat : ${weekDays}"
+        th:classappend="${year == todayYear && month == todayMonth && day.date == todayDay ? 'current-date' : ''}">
 
         <div th:text="${day.date}"></div>
         <div th:each="event : ${day.events}">
           <span th:text="${event}"></span>
         </div>
         <button type="button"
-          th:onclick="'window.location.href=\'/calendar/event?date=' + ${year} + '-' + ${month} + '-' + ${day.date} + '\''">
+          th:onclick="'window.location.href=\'/calendar/event?date=' + ${day.year} + '-' + ${day.month} + '-' + ${day.date} + '\''">
           詳細
         </button>
+
       </td>
 
 
     </tr>
   </table>
+
+  <h2>予定の追加</h2>
+  <form th:action="@{/calendar/addEvent}" method="post">
+    <label for="startDate">開始日(必須):</label>
+    <input type="date" id="startDate" name="startDate" required>
+
+    <label for="endDate">終了日:</label>
+    <input type="date" id="endDate" name="endDate">
+
+    <label for="title">予定タイトル (必須):</label>
+    <input type="text" id="title" name="title" required />
+
+    <label for="description">詳細:</label>
+    <textarea id="description" name="description"></textarea>
+
+    <label for="startTime">開始時間 (必須):</label>
+    <input type="time" id="startTime" name="startTime" required onchange="validateTime()" />
+
+    <label for="endTime">終了時間 (必須):</label>
+    <input type="time" id="endTime" name="endTime" required onchange="validateTime()" />
+
+    <label for="location">場所:</label>
+    <input type="text" id="location" name="location" />
+
+    <button type="submit" class="add-button">追加</button>
+  </form>
 </body>
 
 </html>

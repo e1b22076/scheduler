@@ -1051,9 +1051,9 @@ INSERT INTO timeTable (
   NULL, NULL, NULL, NULL, NULL --土
 );
 
-INSERT INTO events (myNumber,title, description, startYear, startMonth, startDay, startTime, endTime, location) VALUES
-('B22999','会議', '新しいプロジェクトのキックオフミーティング', 2024, 11, 10,'10:00', '11:00', '会議室A'),
-('B22999','勉強会', 'データベースの正規化に関する勉強会', 2024, 11, 12,'14:00', NULL, NULL),
-('B22999','出張', '東京でのクライアント訪問', 2024, 11, 15, NULL, NULL, '東京オフィス');
+INSERT INTO events (myNumber, title, description, startDate, endDate, startTime, endTime, location) VALUES
+('B22999','会議', '新しいプロジェクトのキックオフミーティング', '2024-11-10','2024-11-10', '10:00:00', '11:00:00', '会議室A'),
+('B22999','勉強会', 'データベースの正規化に関する勉強会', '2024-11-12', '2024-11-12','14:00:00', '15:30:00', NULL),
+('B22999','出張', '東京でのクライアント訪問', '2024-11-15','2024-11-16', '10:00:00', '10:30:00', '東京オフィス');
 
 --終わり

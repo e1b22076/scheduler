@@ -52,9 +52,8 @@ CREATE TABLE events (
     -- userSetting の myNumber を主キーかつ外部キーとして使用,
     title VARCHAR(255) NOT NULL,
     description TEXT,
-    startYear INT NOT NULL,
-    startMonth INT NOT NULL,
-    startDay INT NOT NULL,
+    startDate DATE NOT NULL, -- 開始日 (年月日を1つにまとめる)
+    endDate DATE NOT NULL, -- 終了日 (年月日を1つにまとめる)
     startTime Time,
     endTime Time,
     location VARCHAR(255),

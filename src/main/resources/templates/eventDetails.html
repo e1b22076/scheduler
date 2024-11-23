@@ -25,36 +25,6 @@
       border-radius: 8px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
-
-    /* Form and label styling */
-    form label {
-      display: block;
-      margin-top: 10px;
-    }
-
-    form input,
-    form textarea,
-    form button {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
-
-    form button {
-      background-color: #4a4e69;
-      color: #f4f7f6;
-      border: none;
-      padding: 10px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    form button:hover {
-      background-color: #b5838d;
-    }
-
     .back-button {
       margin-top: 20px;
       padding: 8px 15px;
@@ -70,17 +40,7 @@
     }
 
   </style>
-  <script>
-    function validateTime() {
-      const startTime = document.getElementById("startTime").value;
-      const endTime = document.getElementById("endTime").value;
 
-      if (startTime && endTime && endTime <= startTime) {
-        alert("終了時間は開始時間より後に設定してください。");
-        document.getElementById("endTime").value = ""; // Clear end time if invalid
-      }
-    }
-  </script>
 </head>
 
 <body>
@@ -92,35 +52,32 @@
       <li th:each="event : ${events}" class="event-item">
         <h3 th:text="${event.title}"></h3>
         <p th:text="${event.description}"></p>
-        <p th:if="${event.startTime != null}">開始時間: <span th:text="${event.startTime}"></span></p>
-        <p th:if="${event.endTime != null}">終了時間: <span th:text="${event.endTime}"></span></p>
+        <p th:if="${event.startDate != null}">
+          開始:
+          <span th:text="${event.startDate}"></span>
+          <span th:if="${event.startTime != null}" th:text="${event.startTime}"></span>
+        </p>
+        <p th:if="${event.endDate != null}">
+          終了:
+          <span th:text="${event.endDate}"></span>
+          <span th:if="${event.endTime != null}" th:text="${event.endTime}"></span>
+        </p>
         <p th:if="${event.location != null}">場所: <span th:text="${event.location}"></span></p>
+
+        <!-- 削除ボタン -->
+        <form th:action="@{/calendar/deleteEvent}" method="post" style="display: inline;">
+          <input type="hidden" name="eventId" th:value="${event.id}" />
+          <input type="hidden" name="date" th:value="${selectedDate}" />
+          <button type="submit" onclick="return confirm('本当に削除しますか？');" class="back-button"
+            style="background-color: #ff6b6b;">削除</button>
+
+        </form>
       </li>
+
     </ul>
   </div>
 
-  <h2>予定の追加</h2>
-  <form th:action="@{/calendar/addEvent}" method="post">
-    <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
-    <input type="hidden" name="date" th:value="${selectedDate}" />
 
-    <label for="title">予定タイトル (必須):</label>
-    <input type="text" id="title" name="title" required />
-
-    <label for="description">詳細:</label>
-    <textarea id="description" name="description"></textarea>
-
-    <label for="startTime">開始時間 (必須):</label>
-    <input type="time" id="startTime" name="startTime" required onchange="validateTime()" />
-
-    <label for="endTime">終了時間 (必須):</label>
-    <input type="time" id="endTime" name="endTime" required onchange="validateTime()" />
-
-    <label for="location">場所:</label>
-    <input type="text" id="location" name="location" />
-
-    <button type="submit">追加</button>
-  </form>
 
   <button class="back-button" onclick="location.href='/calendar'">戻る</button>
 </body>

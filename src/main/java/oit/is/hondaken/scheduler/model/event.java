@@ -1,5 +1,6 @@
 package oit.is.hondaken.scheduler.model;
 
+import java.sql.Date;
 import java.sql.Time;
 
 public class Event {
@@ -8,9 +9,8 @@ public class Event {
   private String myNumber;
   private String title;
   private String description;
-  private int startYear;
-  private int startMonth;
-  private int startDay;
+  private Date startDate;
+  private Date endDate;
   private Time startTime;
   private Time endTime;
   private String location;
@@ -48,28 +48,20 @@ public class Event {
     this.description = description;
   }
 
-  public int getStartYear() {
-    return startYear;
+  public Date getStartDate() {
+    return startDate;
   }
 
-  public void setStartYear(int startYear) {
-    this.startYear = startYear;
+  public void setStartDate(Date startDate) {
+    this.startDate = startDate;
   }
 
-  public int getStartMonth() {
-    return startMonth;
+  public Date getEndDate() {
+    return endDate;
   }
 
-  public void setStartMonth(int startMonth) {
-    this.startMonth = startMonth;
-  }
-
-  public int getStartDay() {
-    return startDay;
-  }
-
-  public void setStartDay(int startDay) {
-    this.startDay = startDay;
+  public void setEndDate(Date endDate) {
+    this.endDate = endDate;
   }
 
   public Time getStartTime() {
