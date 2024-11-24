@@ -1,9 +1,3 @@
-INSERT INTO events (title, description, startYear, startMonth, startDay, startTime, endTime, location) VALUES
-('会議', '新しいプロジェクトのキックオフミーティング', 2024, 11, 10, '10:00', '11:00', '会議室A'),
-('勉強会', 'データベースの正規化に関する勉強会', 2024, 11, 12, '14:00', NULL, NULL),
-('出張', '東京でのクライアント訪問', 2024, 11, 15, NULL, NULL, '東京オフィス');
-
-
 --人文社会学系 Humanities
 
 INSERT INTO schedule (id,department,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass,syllabusURL)
@@ -1035,9 +1029,9 @@ VALUES ('1FBN11A0','IN','CSプロジェクト演習','choice',false,1,4,'Z','ZZZ
 INSERT INTO userSetting(myNumber,userName,userRole,mail,myPass ) VALUES('B22999','ほんだ','STUDENT','e1b22999@oit.ac.jp','$2y$05$2okqcneYBBlPb39NXazmKuuLby7vb8Cp3wTAebrhEVCrydKwxB2R6');
 
 
-INSERT INTO todos (
+INSERT INTO todos (myNumber,
     title ,description ,
-    completed ) VALUES ('研究発表',NULL,FALSE);
+    completed ) VALUES ('B22999','研究発表',NULL,FALSE);
 
 
 --各ユーザーの時間割
@@ -1057,5 +1051,9 @@ INSERT INTO timeTable (
   NULL, NULL, NULL, NULL, NULL --土
 );
 
+INSERT INTO events (myNumber, title, description, startDate, endDate, startTime, endTime, location) VALUES
+('B22999','会議', '新しいプロジェクトのキックオフミーティング', '2024-11-10','2024-11-10', '10:00:00', '11:00:00', '会議室A'),
+('B22999','勉強会', 'データベースの正規化に関する勉強会', '2024-11-12', '2024-11-12','14:00:00', '15:30:00', NULL),
+('B22999','出張', '東京でのクライアント訪問', '2024-11-15','2024-11-16', '10:00:00', '10:30:00', '東京オフィス');
 
 --終わり
