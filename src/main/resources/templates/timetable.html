@@ -88,7 +88,7 @@
       width: 100%;
       text-align: center;
       margin-top: 60px;
-      /* メニューバー分のスペースを確保 */
+      position: relative;
     }
 
     .title {
@@ -233,18 +233,21 @@
 
     /* 設定ボタンのスタイル */
     .settings-button {
-      background-color: #4CAF50;
+      position: absolute;
+      top: 10px; /* 上から10px */
+      right: 50px; /* 右から10px */
+      padding: 10px 20px;
+      background-color: #4a4e69;
       color: white;
       border: none;
-      padding: 10px 20px;
-      font-size: 1.1em;
-      cursor: pointer;
       border-radius: 5px;
+      cursor: pointer;
       transition: background-color 0.3s;
+      font-size: 18px;
     }
 
     .settings-button:hover {
-      background-color: #45a049;
+      background-color: #b5838d;
     }
 
     /* 変更を送信するボタン */
@@ -358,10 +361,9 @@
     });
   </script>
 
-  <!-- メニューバーにカレンダーリンク -->
+  <!-- メニューバー -->
   <div class="navbar">
     <a href="calendar" class="calendar-back-link">カレンダー</a>
-    <button id="settingsButton" class="settings-button" onclick="toggleSettingsModal()">時間割設定</button>
   </div>
 
   <div id="settingsModal" class="modal">
@@ -414,6 +416,9 @@
 
   <div class="title-container" th:attr="data-show-saturday=${showSaturday}">
     <h1 class="title">時間割</h1>
+
+    <button id="settingsButton" class="settings-button" onclick="toggleSettingsModal()">土曜日設定</button>
+
     <table id="scheduleTable">
       <tr>
         <th>＼</th>
@@ -435,6 +440,7 @@
         <td td class="schedule-cell" th:text="${timeTableRecord.friday[0]}" data-day="金" data-period="1限目"></td>
         <td td class="schedule-cell" th:text="${timeTableRecord.saturday[0]}" data-day="土" data-period="1限目"></td>
       </tr>
+
       <!--2限目-->
       <tr>
         <th>2限目</th>
@@ -578,6 +584,7 @@
   <!-- 授業を外すモーダル -->
   <div id="removeModal" class="modal">
     <div class="modal-content">
+      <p>本当にこの授業をコマから外しますか？</p>
       <form th:action="@{/removeClass}" method="post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         <input type="hidden" id="removeDay" name="day" value="">
@@ -640,7 +647,7 @@
 
         // 'removeModal'を開くとき
         else if (modalId === "removeModal") {
-          const removeButton = tdElement; // tdElementはメニューから呼ばれる
+          const removeButton = tdElement;
           document.getElementById("removeDay").value = removeButton.getAttribute('data-day');
           document.getElementById("removePeriod").value = removeButton.getAttribute('data-period');
           document.getElementById("removeValue").value = removeButton.getAttribute('data-className');

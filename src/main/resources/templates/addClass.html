@@ -71,6 +71,19 @@
     tr:hover {
       background-color: #f1f1f1;
     }
+
+    /* 授業名リンクのスタイル */
+    .class-link {
+      color: #4a90e2; /* 青色 */
+      font-weight: bold; /* 太字 */
+      font-size: 16px; /* フォントサイズ */
+      text-decoration: none; /* 下線を削除 */
+      transition: color 0.3s ease; /* ホバー時に色が変わるようにする */
+    }
+
+    .class-link:hover {
+      color: #ff6347; /* ホバー時に色を変える */
+    }
   </style>
 </head>
 
@@ -99,7 +112,9 @@
       </thead>
       <tbody>
         <tr th:each="class : ${targetClasses}">
-          <td th:text="${class.className}">授業名</td>
+          <td>
+            <a th:href="${class.syllabusURL}" target="_blank" th:text="${class.className}" class="class-link">授業名</a>
+          </td>
           <td th:text="${class.grade}">履修可能最低年次</td>
           <td class="department-cell" th:text="${class.department}">学科</td>
           <td class="attribute-cell" th:text="${class.attribute}">科目属性</td>
