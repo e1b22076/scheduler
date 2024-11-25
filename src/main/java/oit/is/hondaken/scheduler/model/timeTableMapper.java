@@ -29,4 +29,11 @@ public interface TimeTableMapper {
 
   @Update("UPDATE timeTable SET ${field} = NULL WHERE myNumber = #{myNumber}")
   void clearField(String myNumber, String field);
+
+  @Update("UPDATE timeTable SET ${field} = #{classId} WHERE myNumber = #{myNumber}")
+  void updateField(String myNumber, String field, String classId);
+
+  @Select("SELECT ${day} from timeTable where myNumber = #{myNumber}")
+  String selectClassId(String day, String myNumber);
+
 }

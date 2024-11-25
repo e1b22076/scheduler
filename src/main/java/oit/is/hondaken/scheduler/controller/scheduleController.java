@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
+import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import oit.is.hondaken.scheduler.model.EventMapper;
+import oit.is.hondaken.scheduler.model.Schedule;
 import oit.is.hondaken.scheduler.model.Todo;
 import oit.is.hondaken.scheduler.model.TodoMapper;
 import oit.is.hondaken.scheduler.model.Day;
@@ -228,17 +231,67 @@ public class ScheduleController {
   }
 
   @PostMapping("/removeClass")
-  public String removeClass(@RequestParam("day") String day, @RequestParam("period") String period, @RequestParam("removeValue") String removeValue, RedirectAttributes redirectAttributes, Principal prin) {
+  public String removeClass(
+      @RequestParam("day") String day,
+      @RequestParam("period") String period,
+      @RequestParam("removeValue") String removeValue, RedirectAttributes redirectAttributes, Principal prin) {
+
+    String myNumber = prin.getName();
+    String message = timeTableService.removeClass(myNumber, day, period);
+    redirectAttributes.addFlashAttribute("message", removeValue + message);
+
+    return "redirect:/timetable";
+  }
+
+  @GetMapping("/timetable/addClass")
+  public String addClass(@RequestParam("day") String day, @RequestParam("period") String period, ModelMap model, Principal prin) {
 
     String myNumber = prin.getName();
 
-    // ログ確認用
-    System.out.println("day:" + day + ", period:" + period + ", removeValue:" + removeValue);
-    System.out.println(myNumber);
+    // 学年の計算
+    int myGrade = Integer.parseInt(myNumber.substring(1, 3));
+    LocalDate currentDate = LocalDate.now();
+    int currentYear = currentDate.getYear();
+    int currentMonth = currentDate.getMonthValue();
 
-    timeTableService.removeClass(myNumber, day, period);
+    if (currentMonth >= 1 && currentMonth <= 3) {
+      currentYear--;
+    }
+    myGrade = currentYear - 2000 - myGrade + 1;
 
-    redirectAttributes.addFlashAttribute("message", removeValue + "をコマから外しました");
+    String department = Map.of(
+        'B', "IS",
+        'Q', "IC",
+        'N', "IN",
+        'J', "ID",
+        'C', "IM"
+    ).getOrDefault(myNumber.charAt(0), "");
+
+    List<Schedule> targetClasses = timeTableService.getTargetClasses(period, day, department, myGrade);
+    timeTableService.addClassesByContinuous(targetClasses, true, period, day, department, myGrade);
+    timeTableService.addClassesByDepartment(targetClasses, period, day, "English", myGrade);
+    timeTableService.addClassesByDepartment(targetClasses, period, day, "Science", myGrade);
+    timeTableService.addClassesByDepartment(targetClasses, period, day, "Humanities", myGrade);
+    timeTableService.addClassesByDepartment(targetClasses, period, day, "Career", myGrade);
+    timeTableService.addClassesByDepartment(targetClasses, period, day, "Sports", myGrade);
+
+    model.addAttribute("targetClasses", targetClasses);
+    model.addAttribute("day", day);
+    model.addAttribute("period", period);
+
+    return "addClass.html";
+  }
+
+  @PostMapping("/timetable/registerClass")
+  public String registerClass(
+      @RequestParam("classId") String classId,
+      @RequestParam("day") String day,
+      @RequestParam("period") String period,
+      RedirectAttributes redirectAttributes, Principal prin) {
+
+    String myNumber = prin.getName();
+    String message = timeTableService.registerClass(myNumber, day, period, classId);
+    redirectAttributes.addFlashAttribute("message", scheduleMapper.selectClassNameById(classId) + message);
 
     return "redirect:/timetable";
   }
