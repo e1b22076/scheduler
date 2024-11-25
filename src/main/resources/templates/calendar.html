@@ -174,21 +174,30 @@
       const startTime = document.getElementById("startTime").value;
       const endTime = document.getElementById("endTime").value;
 
-      if (startTime && endTime && endTime <= startTime) {
+      if (startTime && endTime && endTime < startTime) {
         alert("終了時間は開始時間より後に設定してください。");
         document.getElementById("endTime").value = ""; // Clear end time if invalid
       }
     }
 
-      function validateDate() {
+     function validateForm() {
+        // 日付検証
         const startDate = document.getElementById("startDate").value;
         const endDate = document.getElementById("endDate").value;
-
-        // 日付を比較（終了日が開始日より前の場合）
         if (startDate && endDate && endDate < startDate) {
           alert("終了日は開始日より後の日にちを設定してください。");
-          document.getElementById("endDate").value = ""; // 終了日をクリア
+          return false; // 検証失敗
         }
+
+        // 時間検証
+        const startTime = document.getElementById("startTime").value;
+        const endTime = document.getElementById("endTime").value;
+        if (startTime && endTime && endTime < startTime) {
+          alert("終了時間は開始時間より後に設定してください。");
+          return false; // 検証失敗
+        }
+
+        return true; // 検証成功
       }
   </script>
 </head>
@@ -272,12 +281,12 @@
   </table>
 
   <h2>予定の追加</h2>
-  <form th:action="@{/calendar/addEvent}" method="post">
+  <form th:action="@{/calendar/addEvent}" method="post" onsubmit="return validateForm();">
     <label for="startDate">開始日(必須):</label>
-    <input type="date" id="startDate" name="startDate" onchange="validateDate()" required>
+    <input type="date" id="startDate" name="startDate" required>
 
     <label for="endDate">終了日:</label>
-    <input type="date" id="endDate" name="endDate" onchange="validateDate()">
+    <input type="date" id="endDate" name="endDate">
 
     <label for="title">予定タイトル (必須):</label>
     <input type="text" id="title" name="title" required />
@@ -286,10 +295,10 @@
     <textarea id="description" name="description"></textarea>
 
     <label for="startTime">開始時間 (必須):</label>
-    <input type="time" id="startTime" name="startTime" required onchange="validateTime()" />
+    <input type="time" id="startTime" name="startTime" required />
 
     <label for="endTime">終了時間 (必須):</label>
-    <input type="time" id="endTime" name="endTime" required onchange="validateTime()" />
+    <input type="time" id="endTime" name="endTime" required />
 
     <label for="location">場所:</label>
     <input type="text" id="location" name="location" />
