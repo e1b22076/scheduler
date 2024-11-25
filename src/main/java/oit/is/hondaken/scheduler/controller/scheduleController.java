@@ -116,7 +116,6 @@ public class ScheduleController {
     final Calendar day = (Calendar) firstDayOfCalendar.clone();
     while (day.compareTo(lastDayOfCalendar) <= 0) {
       final List<Day> weekDays = new ArrayList<>();
-      String myNumber = prin.getName();
       for (int i = 0; i < 7; i++) {
         int dayYear = day.get(Calendar.YEAR);
         int dayMonth = day.get(Calendar.MONTH) + 1; // 月を0から1ベースに修正

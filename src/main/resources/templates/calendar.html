@@ -50,37 +50,40 @@
     }
 
     /* 年と月のボタン配置用 */
-.year-control, .month-control {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px; /* ボタンとテキストの間隔 */
-  margin-bottom: 20px;
-}
+    .year-control,
+    .month-control {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      /* ボタンとテキストの間隔 */
+      margin-bottom: 20px;
+    }
 
-/* 年の表示部分 */
-.year-display, .month-display {
-  font-size: 1.5em;
-  font-weight: bold;
-  color: #4a4e69;
-}
+    /* 年の表示部分 */
+    .year-display,
+    .month-display {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #4a4e69;
+    }
 
-/* ナビゲーションボタン */
-.nav-button {
-  padding: 8px 15px;
-  background-color: #4a90e2;
-  color: #ffffff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.9em;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
+    /* ナビゲーションボタン */
+    .nav-button {
+      padding: 8px 15px;
+      background-color: #4a90e2;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9em;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
 
-.nav-button:hover {
-  background-color: #357ab7;
-  transform: translateY(-3px);
-}
+    .nav-button:hover {
+      background-color: #357ab7;
+      transform: translateY(-3px);
+    }
 
     /* カレンダー表のスタイル */
     table {
@@ -124,15 +127,17 @@
 
     /* イベントのスタイル */
     /* イベントスタイル（目立たせる） */
-.event {
-  background-color: #ffde59; /* 明るい黄色 */
-  color: #333; /* テキストを読みやすく */
-  padding: 3px;
-  border-radius: 5px;
-  margin-top: 5px;
-  font-size: 0.85em;
-  font-weight: bold;
-}
+    .event {
+      background-color: #ffde59;
+      /* 明るい黄色 */
+      color: #333;
+      /* テキストを読みやすく */
+      padding: 3px;
+      border-radius: 5px;
+      margin-top: 5px;
+      font-size: 0.85em;
+      font-weight: bold;
+    }
 
 
     /* Form and label styling */
@@ -151,7 +156,7 @@
       border-radius: 5px;
     }
 
- .add-button {
+    .add-button {
       background-color: #4a4e69;
       color: #f4f7f6;
       border: none;
@@ -160,9 +165,9 @@
       transition: background-color 0.3s;
     }
 
-   .add-button:hover {
+    .add-button:hover {
       background-color: #b5838d;
-   }
+    }
   </style>
   <script>
     function validateTime() {
@@ -174,6 +179,17 @@
         document.getElementById("endTime").value = ""; // Clear end time if invalid
       }
     }
+
+      function validateDate() {
+        const startDate = document.getElementById("startDate").value;
+        const endDate = document.getElementById("endDate").value;
+
+        // 日付を比較（終了日が開始日より前の場合）
+        if (startDate && endDate && endDate < startDate) {
+          alert("終了日は開始日より後の日にちを設定してください。");
+          document.getElementById("endDate").value = ""; // 終了日をクリア
+        }
+      }
   </script>
 </head>
 
@@ -258,10 +274,10 @@
   <h2>予定の追加</h2>
   <form th:action="@{/calendar/addEvent}" method="post">
     <label for="startDate">開始日(必須):</label>
-    <input type="date" id="startDate" name="startDate" required>
+    <input type="date" id="startDate" name="startDate" onchange="validateDate()" required>
 
     <label for="endDate">終了日:</label>
-    <input type="date" id="endDate" name="endDate">
+    <input type="date" id="endDate" name="endDate" onchange="validateDate()">
 
     <label for="title">予定タイトル (必須):</label>
     <input type="text" id="title" name="title" required />
