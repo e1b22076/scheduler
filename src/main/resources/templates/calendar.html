@@ -50,37 +50,40 @@
     }
 
     /* 年と月のボタン配置用 */
-.year-control, .month-control {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px; /* ボタンとテキストの間隔 */
-  margin-bottom: 20px;
-}
+    .year-control,
+    .month-control {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      /* ボタンとテキストの間隔 */
+      margin-bottom: 20px;
+    }
 
-/* 年の表示部分 */
-.year-display, .month-display {
-  font-size: 1.5em;
-  font-weight: bold;
-  color: #4a4e69;
-}
+    /* 年の表示部分 */
+    .year-display,
+    .month-display {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #4a4e69;
+    }
 
-/* ナビゲーションボタン */
-.nav-button {
-  padding: 8px 15px;
-  background-color: #4a90e2;
-  color: #ffffff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.9em;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
+    /* ナビゲーションボタン */
+    .nav-button {
+      padding: 8px 15px;
+      background-color: #4a90e2;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9em;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
 
-.nav-button:hover {
-  background-color: #357ab7;
-  transform: translateY(-3px);
-}
+    .nav-button:hover {
+      background-color: #357ab7;
+      transform: translateY(-3px);
+    }
 
     /* カレンダー表のスタイル */
     table {
@@ -124,15 +127,17 @@
 
     /* イベントのスタイル */
     /* イベントスタイル（目立たせる） */
-.event {
-  background-color: #ffde59; /* 明るい黄色 */
-  color: #333; /* テキストを読みやすく */
-  padding: 3px;
-  border-radius: 5px;
-  margin-top: 5px;
-  font-size: 0.85em;
-  font-weight: bold;
-}
+    .event {
+      background-color: #ffde59;
+      /* 明るい黄色 */
+      color: #333;
+      /* テキストを読みやすく */
+      padding: 3px;
+      border-radius: 5px;
+      margin-top: 5px;
+      font-size: 0.85em;
+      font-weight: bold;
+    }
 
 
     /* Form and label styling */
@@ -151,7 +156,7 @@
       border-radius: 5px;
     }
 
- .add-button {
+    .add-button {
       background-color: #4a4e69;
       color: #f4f7f6;
       border: none;
@@ -160,20 +165,40 @@
       transition: background-color 0.3s;
     }
 
-   .add-button:hover {
+    .add-button:hover {
       background-color: #b5838d;
-   }
+    }
   </style>
   <script>
     function validateTime() {
       const startTime = document.getElementById("startTime").value;
       const endTime = document.getElementById("endTime").value;
 
-      if (startTime && endTime && endTime <= startTime) {
+      if (startTime && endTime && endTime < startTime) {
         alert("終了時間は開始時間より後に設定してください。");
         document.getElementById("endTime").value = ""; // Clear end time if invalid
       }
     }
+
+     function validateForm() {
+        // 日付検証
+        const startDate = document.getElementById("startDate").value;
+        const endDate = document.getElementById("endDate").value;
+        if (startDate && endDate && endDate < startDate) {
+          alert("終了日は開始日より後の日にちを設定してください。");
+          return false; // 検証失敗
+        }
+
+        // 時間検証
+        const startTime = document.getElementById("startTime").value;
+        const endTime = document.getElementById("endTime").value;
+        if (startTime && endTime && endTime < startTime) {
+          alert("終了時間は開始時間より後に設定してください。");
+          return false; // 検証失敗
+        }
+
+        return true; // 検証成功
+      }
   </script>
 </head>
 
@@ -256,7 +281,7 @@
   </table>
 
   <h2>予定の追加</h2>
-  <form th:action="@{/calendar/addEvent}" method="post">
+  <form th:action="@{/calendar/addEvent}" method="post" onsubmit="return validateForm();">
     <label for="startDate">開始日(必須):</label>
     <input type="date" id="startDate" name="startDate" required>
 
@@ -270,10 +295,10 @@
     <textarea id="description" name="description"></textarea>
 
     <label for="startTime">開始時間 (必須):</label>
-    <input type="time" id="startTime" name="startTime" required onchange="validateTime()" />
+    <input type="time" id="startTime" name="startTime" required />
 
     <label for="endTime">終了時間 (必須):</label>
-    <input type="time" id="endTime" name="endTime" required onchange="validateTime()" />
+    <input type="time" id="endTime" name="endTime" required />
 
     <label for="location">場所:</label>
     <input type="text" id="location" name="location" />
