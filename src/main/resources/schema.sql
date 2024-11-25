@@ -61,7 +61,7 @@ CREATE TABLE events (
 );
 
 CREATE TABLE timeTable(
-  id INT PRIMARY KEY,
+  myNumber VARCHAR PRIMARY KEY, --学籍番号
   mon1 VARCHAR,
   mon2 VARCHAR,
   mon3 VARCHAR,
@@ -92,6 +92,7 @@ CREATE TABLE timeTable(
   sat3 VARCHAR,
   sat4 VARCHAR,
   sat5 VARCHAR,
+  showSaturday BOOLEAN DEFAULT TRUE, -- 土曜日表示の設定
   FOREIGN KEY(mon1) REFERENCES schedule(id),
   FOREIGN KEY(mon2) REFERENCES schedule(id),
   FOREIGN KEY(mon3) REFERENCES schedule(id),
@@ -122,7 +123,7 @@ CREATE TABLE timeTable(
   FOREIGN KEY(sat3) REFERENCES schedule(id),
   FOREIGN KEY(sat4) REFERENCES schedule(id),
   FOREIGN KEY(sat5) REFERENCES schedule(id),
-  FOREIGN KEY(id) REFERENCES userSetting(id)
+  FOREIGN KEY(myNumber) REFERENCES userSetting(myNumber)
   );
 
   CREATE TABLE todos (

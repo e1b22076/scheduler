@@ -14,6 +14,7 @@ public class Schedule {
   int DayTime;// 何時間目か
   String otherClass;
   // 他学科履修。'(ID,IC,IS,IM,IN)'の順。履修できるなら1出来ないなら0を入れている。departmentと同じ場合も1になっている
+  String syllabusURL;
 
   public String getId() {
     return id;
@@ -101,6 +102,14 @@ public class Schedule {
 
   public void setOtherClass(String otherClass) {
     this.otherClass = otherClass;
+  }
+
+  public String getSyllabusURL() {
+    return syllabusURL;
+  }
+
+  public void setSyllabusURL(String syllabusURL) {
+    this.syllabusURL = syllabusURL;
   }
 
 }

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>授業登録</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      height: 100vh;
+      margin: 0;
+      background-color: #f7f9fc;
+      font-family: Arial, sans-serif;
+    }
+
+    /* メニューバー */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 10px 20px;
+      background-color: #4a4e69;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      z-index: 1;
+    }
+
+    /* 戻るリンクのスタイル */
+    .timetable-back-link {
+      color: #f4f7f6;
+      font-size: 18px;
+      text-decoration: none;
+      margin-right: 20px;
+      padding: 5px 15px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .timetable-back-link:hover {
+      background-color: #b5838d;
+    }
+
+    /* コンテンツに余白を追加 */
+    .content {
+      padding-top: 60px; /* メニューバーの高さ分の余白 */
+      padding-left: 20px; /* 左端の余白 */
+      padding-right: 20px; /* 右端の余白 */
+      padding-bottom: 20px; /* 下端の余白 */
+      box-sizing: border-box; /* 余白の計算を含める */
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th,
+    td {
+      padding: 10px;
+      text-align: center; /* セル内のテキストを中央揃え */
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f4f4f4;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    /* 授業名リンクのスタイル */
+    .class-link {
+      color: #4a90e2; /* 青色 */
+      font-weight: bold; /* 太字 */
+      font-size: 16px; /* フォントサイズ */
+      text-decoration: none; /* 下線を削除 */
+      transition: color 0.3s ease; /* ホバー時に色が変わるようにする */
+    }
+
+    .class-link:hover {
+      color: #ff6347; /* ホバー時に色を変える */
+    }
+  </style>
+</head>
+
+<body>
+  <!-- メニューバー -->
+  <div class="navbar">
+    <a href="/timetable" class="timetable-back-link">戻る</a>
+  </div>
+
+  <!-- メニューバーの高さ分だけ余白を追加 -->
+  <div class="content">
+    <h1 th:text="'授業登録: ' + ${day} + ' ' + ${period}">授業登録</h1>
+    <p>以下のリストから授業を選択してください。</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>授業名</th>
+          <th>履修可能最低年次</th>
+          <th>学科</th>
+          <th>科目属性</th>
+          <th>連続科目</th>
+          <th>単位数</th>
+          <th>アクション</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="class : ${targetClasses}">
+          <td>
+            <a th:href="${class.syllabusURL}" target="_blank" th:text="${class.className}" class="class-link">授業名</a>
+          </td>
+          <td th:text="${class.grade}">履修可能最低年次</td>
+          <td class="department-cell" th:text="${class.department}">学科</td>
+          <td class="attribute-cell" th:text="${class.attribute}">科目属性</td>
+          <td>
+            <span th:if="${class.continuous}">
+              <span th:text="${class.DayTime}">時限</span>, <span th:text="${class.DayTime + 1}">次の時限</span>
+            </span>
+            <span th:if="${!class.continuous}"></span>
+          </td>
+          <td th:text="${class.credit}">単位数</td>
+          <td>
+            <form th:action="@{/timetable/registerClass}" method="post">
+              <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+              <input type="hidden" name="classId" th:value="${class.id}" />
+              <input type="hidden" name="day" th:value="${day}" />
+              <input type="hidden" name="period" th:value="${period}" />
+              <button type="submit">登録</button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const departmentTranslations = {
+      English: "外国語",
+      Science: "総合理学系",
+      Humanities: "人文社会科学",
+      Career: "キャリア科目",
+      Sports: "健康・スポーツ科学"
+    };
+
+    // 学科名の変換
+    document.querySelectorAll('.department-cell').forEach(cell => {
+      const englishDepartment = cell.textContent.trim();
+      cell.textContent = departmentTranslations[englishDepartment] || englishDepartment;
+    });
+
+    const attributeTranslations = {
+      required: "必修",
+      choice: "選択必修",
+      normal: "通常",
+      CSchoice: "CS選択必修",
+      ignore: "卒業単位数に含まない"
+    };
+
+    document.querySelectorAll('.attribute-cell').forEach(cell => {
+      const englishAttribute = cell.textContent.trim();
+      cell.textContent = attributeTranslations[englishAttribute] || "不明";
+    });
+  </script>
+</body>
+
+</html>

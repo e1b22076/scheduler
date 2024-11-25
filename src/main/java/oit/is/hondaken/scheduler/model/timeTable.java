@@ -1,7 +1,7 @@
 package oit.is.hondaken.scheduler.model;
 
 public class TimeTable {
-  private int id;
+  private String myNumber;
   private String mon1;
   private String mon2;
   private String mon3;
@@ -32,13 +32,15 @@ public class TimeTable {
   private String sat3;
   private String sat4;
   private String sat5;
+  private boolean showSaturday;
 
-  public int getId() {
-    return id;
+
+  public String getMyNumber() {
+    return myNumber;
   }
 
-  public void setId(int id) {
-    this.id = id;
+  public void setMyNumber(String myNumber) {
+    this.myNumber = myNumber;
   }
 
   public String getMon1() {
@@ -279,6 +281,14 @@ public class TimeTable {
 
   public void setSat5(String sat5) {
     this.sat5 = sat5;
+  }
+
+  public boolean isShowSaturday() {
+    return showSaturday;
+  }
+
+  public void setShowSaturday(boolean showSaturday) {
+    this.showSaturday = showSaturday;
   }
 
 }

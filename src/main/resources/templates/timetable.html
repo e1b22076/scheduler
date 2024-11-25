@@ -87,7 +87,8 @@
     .title-container {
       width: 100%;
       text-align: center;
-      margin-top: 60px; /* メニューバー分のスペースを確保 */
+      margin-top: 60px;
+      position: relative;
     }
 
     .title {
@@ -144,7 +145,14 @@
     }
 
     /* 見出しのスタイル */
-    #modal-title {
+    #infoModal-title {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    #addClassModal-title {
       font-size: 1.5em;
       font-weight: bold;
       color: #333;
@@ -191,92 +199,340 @@
       background-color: #efffc5;
       /* 目立つ黄色背景 */
     }
+
+    /* 設定メニュー */
+    .settings-menu {
+      display: none;
+      position: absolute;
+      top: 50px;
+      /* 設定ボタンのすぐ下に表示 */
+      right: 20px;
+      /* 右側に配置 */
+      background-color: rgba(206, 207, 167, 0.9);
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      text-align: left;
+      z-index: 10;
+      /* 他のコンテンツの上に表示 */
+    }
+
+    .setting-item {
+      margin-bottom: 10px;
+    }
+
+    .setting-item label {
+      font-size: 1em;
+      margin-right: 10px;
+    }
+
+    .setting-item input {
+      transform: scale(1.2);
+      /* チェックボックスを少し大きく */
+    }
+
+    /* 設定ボタンのスタイル */
+    .settings-button {
+      position: absolute;
+      top: 10px; /* 上から10px */
+      right: 50px; /* 右から10px */
+      padding: 10px 20px;
+      background-color: #4a4e69;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-size: 18px;
+    }
+
+    .settings-button:hover {
+      background-color: #b5838d;
+    }
+
+    /* 変更を送信するボタン */
+    .submit-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      font-size: 1.1em;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .submit-button:hover {
+      background-color: #45a049;
+    }
+
+    .saturday-column.hidden {
+      display: none !important;
+      /* 非表示 */
+    }
+
+    /* 3点リーダー（横向き）のスタイル */
+    .menu-wrapper {
+      position: absolute;
+      top: 4px;
+      left: 25px;
+      /* 左上に配置 */
+    }
+
+    .menu-icon {
+      font-size: 30px;
+      cursor: pointer;
+      transform: rotate(90deg);
+      /* 横向きにする */
+      display: inline-block;
+      color: #aaa;
+      font-family: 'Arial Rounded MT Bold', 'Quicksand', sans-serif;
+      font-weight: bold;
+    }
+
+
+    .menu-icon:hover {
+      color: #000;
+    }
+
+    .menu-dropdown {
+      display: none;
+      position: absolute;
+      left: 0;
+      /* 左揃え */
+      top: 20px;
+      /* アイコンの下に表示 */
+      background-color: white;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      z-index: 100;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .menu-dropdown div {
+      padding: 8px 12px;
+      cursor: pointer;
+      white-space: nowrap;
+      /* テキストを1行で表示する */
+    }
+
+    .menu-dropdown div:hover {
+      background-color: #f0f0f0;
+    }
+
+
+    .flash-message {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #576eb9;
+      color: white;
+      padding: 15px;
+      font-size: 20px;
+      border-radius: 5px;
+      display: none;
+      z-index: 9999;
+    }
   </style>
 </head>
 
 <body>
-  <!-- メニューバーに戻るリンク -->
-  <div class="navbar">
-    <a href="calendar" class="calendar-back-link">戻る</a>
-  </div>
-
-  <div class="title-container">
-    <h1 class="title">時間割</h1>
-  <table id="scheduleTable">
-    <tr>
-      <th>＼</th>
-      <th>月</th>
-      <th>火</th>
-      <th>水</th>
-      <th>木</th>
-      <th>金</th>
-      <th>土</th>
-    </tr>
-
-    <!--1限目-->
-    <tr>
-      <th>1限目</th>
-      <td th:text="${timeTableRecord.monday[0]}" data-day="月" data-period="1限目" onclick="openModal(this)"></td>
-      <td th:text="${timeTableRecord.tuesday[0]}" data-day="火" data-period="1限目" onclick="openModal(this)"></td>
-      <td th:text="${timeTableRecord.wednesday[0]}" data-day="水" data-period="1限目" onclick="openModal(this)"></td>
-      <td th:text="${timeTableRecord.thursday[0]}" data-day="木" data-period="1限目" onclick="openModal(this)"></td>
-      <td th:text="${timeTableRecord.friday[0]}" data-day="金" data-period="1限目" onclick="openModal(this)"></td>
-      <td th:text="${timeTableRecord.saturday[0]}" data-day="土" data-period="1限目" onclick="openModal(this)"></td>
-    </tr>
-    <!--2限目-->
-    <tr>
-      <th>2限目</th>
-      <td th:text="${timeTableRecord.monday[1]}" data-day="月" data-period="2限目" onclick="openModal(this)"></td>
-      <td th:text="${timeTableRecord.tuesday[1]}" data-day="火" data-period="2限目" onclick="openModal(this)"></td>
-      <td th:text="${timeTableRecord.wednesday[1]}" data-day="水" data-period="2限目" onclick="openModal(this)"></td>
-      <td th:text="${timeTableRecord.thursday[1]}" data-day="木" data-period="2限目" onclick="openModal(this)"></td>
-      <td th:text="${timeTableRecord.friday[1]}" data-day="金" data-period="2限目" onclick="openModal(this)"></td>
-      <td th:text="${timeTableRecord.saturday[1]}" data-day="土" data-period="2限目" onclick="openModal(this)"></td>
-    </tr>
-
-    <!--3限目-->
-    <tr>
-      <th>3限目</th>
-      <td th:text="${timeTableRecord.monday[2]}" data-day="月" data-period="3限目" onclick="openModal(this)"></td>
-      <td th:text="${timeTableRecord.tuesday[2]}" data-day="火" data-period="3限目" onclick="openModal(this)"></td>
-      <td th:text="${timeTableRecord.wednesday[2]}" data-day="水" data-period="3限目" onclick="openModal(this)"></td>
-      <td th:text="${timeTableRecord.thursday[2]}" data-day="木" data-period="3限目" onclick="openModal(this)"></td>
-      <td th:text="${timeTableRecord.friday[2]}" data-day="金" data-period="3限目" onclick="openModal(this)"></td>
-      <td th:text="${timeTableRecord.saturday[2]}" data-day="土" data-period="3限目" onclick="openModal(this)"></td>
-    </tr>
-
-    <!-- 4限目 -->
-    <tr>
-      <th>4限目</th>
-      <td th:text="${timeTableRecord.monday[3]}" data-day="月" data-period="4限目" onclick="openModal(this)"></td>
-      <td th:text="${timeTableRecord.tuesday[3]}" data-day="火" data-period="4限目" onclick="openModal(this)"></td>
-      <td th:text="${timeTableRecord.wednesday[3]}" data-day="水" data-period="4限目" onclick="openModal(this)"></td>
-      <td th:text="${timeTableRecord.thursday[3]}" data-day="木" data-period="4限目" onclick="openModal(this)"></td>
-      <td th:text="${timeTableRecord.friday[3]}" data-day="金" data-period="4限目" onclick="openModal(this)"></td>
-      <td th:text="${timeTableRecord.saturday[3]}" data-day="土" data-period="4限目" onclick="openModal(this)"></td>
-    </tr>
-
-    <!-- 5限目 -->
-    <tr>
-      <th>5限目</th>
-      <td th:text="${timeTableRecord.monday[4]}" data-day="月" data-period="5限目" onclick="openModal(this)"></td>
-      <td th:text="${timeTableRecord.tuesday[4]}" data-day="火" data-period="5限目" onclick="openModal(this)"></td>
-      <td th:text="${timeTableRecord.wednesday[4]}" data-day="水" data-period="5限目" onclick="openModal(this)"></td>
-      <td th:text="${timeTableRecord.thursday[4]}" data-day="木" data-period="5限目" onclick="openModal(this)"></td>
-      <td th:text="${timeTableRecord.friday[4]}" data-day="金" data-period="5限目" onclick="openModal(this)"></td>
-      <td th:text="${timeTableRecord.saturday[4]}" data-day="土" data-period="5限目" onclick="openModal(this)"></td>
-    </tr>
-  </table>
+  <!-- フラッシュメッセージ -->
+  <div th:if="${message}" class="flash-message" id="flashMessage">
+    <p th:text="${message}"></p>
   </div>
 
   <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const message = document.getElementById("flashMessage");
+
+      if (message && message.innerText.trim() !== "") {
+        // メッセージを表示
+        message.style.display = "block";
+
+        // 5秒後にメッセージを非表示にする
+        setTimeout(function () {
+          message.style.display = "none";
+        }, 4000);  // 4秒後に消える
+      }
+    });
+  </script>
+
+  <!-- メニューバー -->
+  <div class="navbar">
+    <a href="calendar" class="calendar-back-link">カレンダー</a>
+  </div>
+
+  <div id="settingsModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeSettingsModal()">&times;</span>
+      <h2>土曜日表示設定</h2>
+      <form th:action="@{/saveSettings}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <input type="hidden" id="toggleSaturdayHidden" name="toggleSaturday" value="-1">
+        <input type="checkbox" id="toggleSaturdayModal" name="toggleSaturday" th:checked="${showSaturday}" value="1">
+        <label for="toggleSaturdayModal">土曜日を表示する</label><br>
+        <button type="submit" class="submit-button">変更を保存</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const checkbox = document.getElementById('toggleSaturdayModal');
+      const hiddenInput = document.getElementById('toggleSaturdayHidden');
+
+      // チェックボックスの状態変更時にhiddenの値を上書き
+      checkbox.addEventListener('change', function () {
+        if (checkbox.checked) {
+          hiddenInput.value = '1'; // チェックされたら1に変更
+        } else {
+          hiddenInput.value = '-1'; // チェック外れたら-1に変更
+        }
+      });
+    });
+  </script>
+
+  <script>
+    // 設定モーダルを表示
+    function toggleSettingsModal() {
+      document.getElementById("settingsModal").style.display = "flex";
+    }
+
+    // 設定モーダルを閉じる
+    function closeSettingsModal() {
+      document.getElementById("settingsModal").style.display = "none";
+    }
+
+    // 変更を保存
+    function submitChanges() {
+      const form = document.getElementById("settingsForm");
+      form.submit();
+    }
+  </script>
+
+  <div class="title-container" th:attr="data-show-saturday=${showSaturday}">
+    <h1 class="title">時間割</h1>
+
+    <button id="settingsButton" class="settings-button" onclick="toggleSettingsModal()">土曜日設定</button>
+
+    <table id="scheduleTable">
+      <tr>
+        <th>＼</th>
+        <th>月</th>
+        <th>火</th>
+        <th>水</th>
+        <th>木</th>
+        <th>金</th>
+        <th class="saturday-column">土</th>
+      </tr>
+
+      <!--1限目-->
+      <tr>
+        <th>1限目</th>
+        <td td class="schedule-cell" th:text="${timeTableRecord.monday[0]}" data-day="月" data-period="1限目"></td>
+        <td td class="schedule-cell" th:text="${timeTableRecord.tuesday[0]}" data-day="火" data-period="1限目"></td>
+        <td td class="schedule-cell" th:text="${timeTableRecord.wednesday[0]}" data-day="水" data-period="1限目"></td>
+        <td td class="schedule-cell" th:text="${timeTableRecord.thursday[0]}" data-day="木" data-period="1限目"></td>
+        <td td class="schedule-cell" th:text="${timeTableRecord.friday[0]}" data-day="金" data-period="1限目"></td>
+        <td td class="schedule-cell" th:text="${timeTableRecord.saturday[0]}" data-day="土" data-period="1限目"></td>
+      </tr>
+
+      <!--2限目-->
+      <tr>
+        <th>2限目</th>
+        <td td class="schedule-cell" th:text="${timeTableRecord.monday[1]}" data-day="月" data-period="2限目"></td>
+        <td td class="schedule-cell" th:text="${timeTableRecord.tuesday[1]}" data-day="火" data-period="2限目"></td>
+        <td td class="schedule-cell" th:text="${timeTableRecord.wednesday[1]}" data-day="水" data-period="2限目"></td>
+        <td td class="schedule-cell" th:text="${timeTableRecord.thursday[1]}" data-day="木" data-period="2限目"></td>
+        <td td class="schedule-cell" th:text="${timeTableRecord.friday[1]}" data-day="金" data-period="2限目"></td>
+        <td td class="schedule-cell" th:text="${timeTableRecord.saturday[1]}" data-day="土" data-period="2限目"></td>
+      </tr>
+
+      <!--3限目-->
+      <tr>
+        <th>3限目</th>
+        <td td class="schedule-cell" th:text="${timeTableRecord.monday[2]}" data-day="月" data-period="3限目"></td>
+        <td td class="schedule-cell" th:text="${timeTableRecord.tuesday[2]}" data-day="火" data-period="3限目"></td>
+        <td td class="schedule-cell" th:text="${timeTableRecord.wednesday[2]}" data-day="水" data-period="3限目"></td>
+        <td td class="schedule-cell" th:text="${timeTableRecord.thursday[2]}" data-day="木" data-period="3限目"></td>
+        <td td class="schedule-cell" th:text="${timeTableRecord.friday[2]}" data-day="金" data-period="3限目"></td>
+        <td td class="schedule-cell" th:text="${timeTableRecord.saturday[2]}" data-day="土" data-period="3限目"></td>
+      </tr>
+
+      <!-- 4限目 -->
+      <tr>
+        <th>4限目</th>
+        <td td class="schedule-cell" th:text="${timeTableRecord.monday[3]}" data-day="月" data-period="4限目"></td>
+        <td td class="schedule-cell" th:text="${timeTableRecord.tuesday[3]}" data-day="火" data-period="4限目"></td>
+        <td td class="schedule-cell" th:text="${timeTableRecord.wednesday[3]}" data-day="水" data-period="4限目"></td>
+        <td td class="schedule-cell" th:text="${timeTableRecord.thursday[3]}" data-day="木" data-period="4限目"></td>
+        <td td class="schedule-cell" th:text="${timeTableRecord.friday[3]}" data-day="金" data-period="4限目"></td>
+        <td td class="schedule-cell" th:text="${timeTableRecord.saturday[3]}" data-day="土" data-period="4限目"></td>
+      </tr>
+
+      <!-- 5限目 -->
+      <tr>
+        <th>5限目</th>
+        <td td class="schedule-cell" th:text="${timeTableRecord.monday[4]}" data-day="月" data-period="5限目"></td>
+        <td td class="schedule-cell" th:text="${timeTableRecord.tuesday[4]}" data-day="火" data-period="5限目"></td>
+        <td td class="schedule-cell" th:text="${timeTableRecord.wednesday[4]}" data-day="水" data-period="5限目"></td>
+        <td td class="schedule-cell" th:text="${timeTableRecord.thursday[4]}" data-day="木" data-period="5限目"></td>
+        <td td class="schedule-cell" th:text="${timeTableRecord.friday[4]}" data-day="金" data-period="5限目"></td>
+        <td td class="schedule-cell" th:text="${timeTableRecord.saturday[4]}" data-day="土" data-period="5限目"></td>
+      </tr>
+    </table>
+  </div>
+
+  <script>
+    // 土曜日列全体を非表示にする
+    document.addEventListener("DOMContentLoaded", function () {
+      const titleContainer = document.querySelector(".title-container");
+      const showSaturday = titleContainer.getAttribute("data-show-saturday") === "true";
+
+      const saturdayColumns = document.querySelectorAll(".saturday-column");
+      const table = document.getElementById("scheduleTable");
+
+      if (!showSaturday) {
+        saturdayColumns.forEach(column => {
+          column.style.display = "none";
+        });
+        const rows = table.querySelectorAll("tr");
+        rows.forEach(row => {
+          const saturdayCell = row.querySelector("td:last-child, th:last-child");
+          if (saturdayCell) {
+            saturdayCell.style.display = "none";
+          }
+        });
+      } else {
+        saturdayColumns.forEach(column => {
+          column.style.display = "table-cell";
+        });
+
+        const rows = table.querySelectorAll("tr");
+        rows.forEach(row => {
+          const saturdayCell = row.querySelector("td:last-child, th:last-child");
+          if (saturdayCell) {
+            saturdayCell.style.display = "table-cell";
+          }
+        });
+      }
+    });
+  </script>
+
+  <script>
+    // 設定メニューを切り替える
+    function toggleSettingsMenu() {
+      const settingsMenu = document.getElementById("settingsMenu");
+      settingsMenu.style.display = settingsMenu.style.display === "block" ? "none" : "block";
+    }
+
     // 今日の曜日を取得
     const today = new Date().getDay();
-
-    // 曜日を月曜日(1)から日曜日(7)に変換
     const todayColumnIndex = (today === 0) ? 6 : today - 1;
-
-    // 日曜日の場合は6 (土曜日) に変換
     const table = document.getElementById("scheduleTable");
 
     // 強調クラスを追加
@@ -291,11 +547,28 @@
     });
   </script>
 
-  <!-- モーダル -->
-  <div id="myModal" class="modal">
+  <!-- 授業を登録するモーダル -->
+  <div id="addClassModal" class="modal" data-day="" data-period="">
     <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <p id="modal-title"></p>
+      <span class="close" onclick="closeModal('addClassModal')">&times;</span>
+      <p id="addClassModal-title">空きコマ</p>
+      <p>このコマに授業を登録しますか？</p>
+      <button onclick="redirectToAddClass()">授業を登録</button>
+    </div>
+  </div>
+
+  <!-- 授業情報を表示するモーダル -->
+  <div id="infoModal" class="modal">
+    <div class="modal-content">
+      <div class="menu-wrapper">
+        <span class="menu-icon" onclick="toggleMenu()">&#x22EE;</span>
+        <div id="menu-dropdown" class="menu-dropdown">
+          <div onclick="changeClassColor()">授業カラー</div>
+          <div onclick="openModal('removeModal', this)">授業をコマから外す</div>
+        </div>
+      </div>
+      <span class="close" onclick="closeModal('infoModal')">&times;</span>
+      <p id="infoModal-title">曜日、時限、授業名</p>
       <p id="modal-classname"></p>
       <div>
         <p><strong>課題:</strong></p>
@@ -308,29 +581,122 @@
     </div>
   </div>
 
+  <!-- 授業を外すモーダル -->
+  <div id="removeModal" class="modal">
+    <div class="modal-content">
+      <p>本当にこの授業をコマから外しますか？</p>
+      <form th:action="@{/removeClass}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <input type="hidden" id="removeDay" name="day" value="">
+        <input type="hidden" id="removePeriod" name="period" value="">
+        <input type="hidden" id="removeValue" name="removeValue" value="">
+        <button type="button" onclick="closeModal('removeModal')">キャンセル</button>
+        <button type="submit">授業を外す</button>
+      </form>
+    </div>
+  </div>
+
   <script>
-    function openModal(tdElement) {
-      const className = tdElement.textContent.trim();
-      if (className === "") {
-        // 授業名がない場合はモーダルを表示しない
-        return;
+    document.addEventListener("DOMContentLoaded", () => {
+      // 授業セルと空きコマセルのクリック処理を一括登録
+      document.querySelectorAll(".schedule-cell").forEach(cell => {
+        cell.addEventListener("click", () => {
+          const className = cell.textContent.trim(); // セルの内容を取得
+          const day = cell.getAttribute("data-day");
+          const period = cell.getAttribute("data-period");
+
+          // 空きコマの場合
+          if (!className) {
+            openModal("addClassModal", cell);
+          } else {
+            openModal("infoModal", cell);
+          }
+        });
+      });
+    });
+
+    // モーダルを開く関数
+    function openModal(modalId, tdElement) {
+      const modal = document.getElementById(modalId);
+
+      if (tdElement) {
+        const className = tdElement.textContent.trim();
+        const day = tdElement.getAttribute('data-day');
+        const period = tdElement.getAttribute('data-period');
+
+        // 空きコマの場合
+        if (modalId === "addClassModal") {
+          // 'addClassModal'用のデータ設定
+          document.getElementById("addClassModal-title").innerText = `${day} ${period}: 空きコマ`;
+          modal.setAttribute('data-day', day); // モーダルにデータ属性として保持
+          modal.setAttribute('data-period', period); // モーダルにデータ属性として保持
+        }
+
+        // 'infoModal'を開くとき
+        if (modalId === "infoModal") {
+          document.getElementById("infoModal-title").innerText = `${day} ${period}: ${className}`;
+          document.getElementById("modal-assignment").innerText = "特定の課題がありません";
+          document.getElementById("modal-test-schedule").innerText = "テスト日程は未定です";
+
+          // メニューの「授業をコマから外す」に授業情報を設定
+          const removeButton = document.querySelector('.menu-dropdown div:nth-child(2)');
+          removeButton.setAttribute('data-day', day);
+          removeButton.setAttribute('data-period', period);
+          removeButton.setAttribute('data-className', className);
+        }
+
+        // 'removeModal'を開くとき
+        else if (modalId === "removeModal") {
+          const removeButton = tdElement;
+          document.getElementById("removeDay").value = removeButton.getAttribute('data-day');
+          document.getElementById("removePeriod").value = removeButton.getAttribute('data-period');
+          document.getElementById("removeValue").value = removeButton.getAttribute('data-className');
+        }
       }
 
-      const day = tdElement.getAttribute('data-day');
-      const period = tdElement.getAttribute('data-period');
-
-      document.getElementById("modal-title").innerText = `${day} ${period}: ${className}`;
-
-      // 課題とテスト日程の初期値（後でDBと連携可能）
-      document.getElementById("modal-assignment").innerText = "特定の課題がありません";
-      document.getElementById("modal-test-schedule").innerText = "テスト日程は未定です";
-
-      document.getElementById("myModal").style.display = "flex";
+      modal.style.display = "flex"; // モーダルを表示
     }
 
-    function closeModal() {
-      document.getElementById("myModal").style.display = "none";
+    // 授業を登録するページに遷移
+    function redirectToAddClass() {
+        const modal = document.getElementById("addClassModal");
+        const day = modal.getAttribute('data-day'); // モーダルに設定されたデータを取得
+        const period = modal.getAttribute('data-period');
+
+        // URLクエリパラメータにデータを追加
+        window.location.href = `/timetable/addClass?day=${encodeURIComponent(day)}&period=${encodeURIComponent(period)}`;
     }
+
+    // メニュー内の「授業をコマから外す」クリック時
+    document.querySelector('.menu-dropdown div:nth-child(2)').addEventListener('click', function () {
+      openModal('removeModal', this);
+    });
+
+    // モーダルを閉じる関数
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      modal.style.display = "none";
+    }
+
+    // メニュー表示/非表示の切り替え
+    function toggleMenu() {
+      const menuDropdown = document.getElementById("menu-dropdown");
+      menuDropdown.style.display = menuDropdown.style.display === "block" ? "none" : "block";
+    }
+
+    // 授業名のセルクリック時の処理
+    document.querySelectorAll('.class-cell').forEach(cell => {
+      cell.addEventListener('click', function () {
+        openModal('infoModal', this);
+      });
+    });
+
+    window.onclick = function (event) {
+      const menuDropdown = document.getElementById("menu-dropdown");
+      if (!event.target.matches('.menu-icon')) {
+        menuDropdown.style.display = "none";
+      }
+    };
   </script>
 </body>
 
