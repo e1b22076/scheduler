@@ -28,6 +28,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         .defaultSuccessUrl("/calendar")
         .usernameParameter("accountId")
         .passwordParameter("pw"))
+
         .logout(logout -> logout
             .logoutUrl("/logout")
             .logoutSuccessUrl("/")) // ログアウト後に / にリダイレクト
