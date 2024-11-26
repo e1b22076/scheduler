@@ -222,18 +222,19 @@ public class ScheduleController {
   }
 
   @PostMapping("/saveSettings")
-  public String saveSettings(Principal prin,
-      @RequestParam(value = "toggleSaturday", required = false) Integer toggleSaturday, ModelMap model) {
+  public String saveSettings(
+        Principal prin,
+        @RequestParam(value = "toggleSaturday", required = false) Integer toggleSaturday,
+        RedirectAttributes redirectAttributes,
+        ModelMap model) {
     String myNumber = prin.getName();
 
-    boolean showSaturday = false;
-    if (toggleSaturday == 1) {
-      showSaturday = true;
-    }
+    boolean showSaturday = toggleSaturday != null && toggleSaturday == 1;
+    String message = showSaturday ? "土曜日を表示します" : "土曜日を非表示にします";
 
     timeTableMapper.updateShowSaturday(myNumber, showSaturday);
 
-    model.addAttribute("showSaturday", showSaturday);
+    redirectAttributes.addFlashAttribute("message", message);
 
     return "redirect:/timetable";
   }
