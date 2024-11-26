@@ -19,14 +19,14 @@ public interface UserSettingMapper {
   @Select("select mail from userSetting")
   ArrayList<String> selectMail();
 
-  @Insert("INSERT INTO userSetting (myNumber,userRole,mail,myPass) VALUES (#{myNumber},#{userRole},#{mail},#{myPass});")
+  @Insert("INSERT INTO userSetting (myNumber,userRole,mail,myPass,isActive) VALUES (#{myNumber},#{userRole},#{mail},#{myPass},#{isActive});")
   @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
   void insertuserSetting(UserSetting user);
 
   @Select("select myPass from userSetting where myNumber = #{num}")
   String selectPassByNum(String num);
 
-  @Update("UPDATE userSetting SET isActive=#{isActive},WHERE ID = #{accountId}")
-  void updateIsActive(String accountId, boolean isActive);
+  @Update("UPDATE userSetting SET isActive=#{isActive} WHERE ID = #{id}")
+  void updateIsActive(int id, boolean isActive);
 
 }

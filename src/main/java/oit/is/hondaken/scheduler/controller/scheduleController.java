@@ -342,7 +342,7 @@ public class ScheduleController {
     if (flag == 0) {// ここからメール送信
       // SimpleMailMessage message = new SimpleMailMessage();
       // message.setTo(mail);
-      // message.setFrom("e1b22076@oit.ac.jp");
+      // message.setFrom("");
       // // こことaporication propatoiesのメアドの入力を忘れないようにすること！
       // message.setSubject("認証コードをお送りします。");
       // message.setText("認証コード:" + admin_code);
@@ -373,6 +373,7 @@ public class ScheduleController {
     String hashedPassword = encoder.encode(pass);
     user.setMyPass(hashedPassword);
     user.setUserRole("STUDENT");
+    user.setActive(false);
     userSettingMapper.insertuserSetting(user);
     model.addAttribute("user", user);
     return "regfin.html";

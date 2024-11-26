@@ -1,5 +1,6 @@
 package oit.is.hondaken.scheduler.security;
 
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -56,6 +57,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     if (password == null) {
       throw new UsernameNotFoundException("User not found: " + username);
+    } else {
+      int Uid = userSettingMapper.selectIdByNum(username);
+      userSettingMapper.updateIsActive(Uid, true);
     }
     // BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     // String hashedPassword = encoder.encode(password);

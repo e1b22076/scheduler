@@ -7,6 +7,15 @@ public class UserSetting {
   String userRole;// ロール名
   String mail;// メアド
   String myPass;// パスワード
+  boolean isActive;
+
+  public boolean isActive() {
+    return isActive;
+  }
+
+  public void setActive(boolean isActive) {
+    this.isActive = isActive;
+  }
 
   public String getMyNumber() {
     return myNumber;
