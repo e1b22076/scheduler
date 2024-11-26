@@ -28,11 +28,16 @@ public class CustomUserDetailsService implements UserDetailsService {
         .defaultSuccessUrl("/calendar")
         .usernameParameter("accountId")
         .passwordParameter("pw"))
+
         .logout(logout -> logout
             .logoutUrl("/logout")
             .logoutSuccessUrl("/")) // ログアウト後に / にリダイレクト
         .authorizeHttpRequests(authz -> authz
             .requestMatchers(AntPathRequestMatcher.antMatcher("/calendar/**"))
+            .authenticated()
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/timetable/**"))
+            .authenticated()
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/todolist/**"))
             .authenticated()
             .requestMatchers(AntPathRequestMatcher.antMatcher("/**"))
             .permitAll())// 上記以外は全員アクセス可能
