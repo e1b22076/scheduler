@@ -43,6 +43,11 @@ import oit.is.hondaken.scheduler.service.TimeTableService;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+// import org.springframework.mail.MailSender;
+// import org.springframework.mail.SimpleMailMessage;
+
+import java.util.Random;
+
 @Controller
 public class ScheduleController {
   private static final Logger logger = LoggerFactory.getLogger(ScheduleController.class);
@@ -197,11 +202,11 @@ public class ScheduleController {
 
   @PostMapping("/calendar/deleteEvent")
   @Transactional
-  public String deleteEvent(@RequestParam("eventId") int eventId,@RequestParam("date") String date, Principal prin) {
+  public String deleteEvent(@RequestParam("eventId") int eventId, @RequestParam("date") String date, Principal prin) {
     // イベントの削除
     eventMapper.deleteEventById(eventId);
 
-    return "redirect:/calendar/event?date="+date;
+    return "redirect:/calendar/event?date=" + date;
   }
 
   @GetMapping("/timetable")
@@ -252,7 +257,8 @@ public class ScheduleController {
   }
 
   @GetMapping("/timetable/addClass")
-  public String addClass(@RequestParam("day") String day, @RequestParam("period") String period, ModelMap model, Principal prin) {
+  public String addClass(@RequestParam("day") String day, @RequestParam("period") String period, ModelMap model,
+      Principal prin) {
 
     String myNumber = prin.getName();
 
@@ -272,8 +278,7 @@ public class ScheduleController {
         'Q', "IC",
         'N', "IN",
         'J', "ID",
-        'C', "IM"
-    ).getOrDefault(myNumber.charAt(0), "");
+        'C', "IM").getOrDefault(myNumber.charAt(0), "");
 
     List<Schedule> targetClasses = timeTableService.getTargetClasses(period, day, department, myGrade);
     timeTableService.addClassesByContinuous(targetClasses, true, period, day, department, myGrade);
@@ -309,11 +314,19 @@ public class ScheduleController {
     return "register.html";
   }
 
-  @PostMapping("/regfin")
-  public String regfin(@RequestParam String gakuseki, @RequestParam String mail, @RequestParam String pass,
+  @GetMapping("/admin")
+  public String sending() {
+    return "codechk.html";
+  }
+
+  @PostMapping("/admin")
+  public String codechk(@RequestParam String gakuseki, @RequestParam String mail, @RequestParam String pass,
+      @RequestParam String myname,
       ModelMap model) {
+    Random rnd = new Random();
     ArrayList<String> Numbers = userSettingMapper.selectNumber();
     ArrayList<String> Mails = userSettingMapper.selectMail();
+    String admin_code = rnd.nextInt(1000000) + "";
 
     int flag = 0;
     for (String num : Numbers) {
@@ -326,20 +339,43 @@ public class ScheduleController {
         flag = 2;
       }
     }
-    if (flag == 0) {
-      UserSetting user = new UserSetting();
-      user.setMyNumber(gakuseki);
-      user.setMail(mail);
-      BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-      String hashedPassword = encoder.encode(pass);
-      user.setMyPass(hashedPassword);
-      user.setUserRole("STUDENT");
-      userSettingMapper.insertuserSetting(user);
-      model.addAttribute("user", user);
+    if (flag == 0) {// ここからメール送信
+      // SimpleMailMessage message = new SimpleMailMessage();
+      // message.setTo(mail);
+      // message.setFrom("e1b22076@oit.ac.jp");
+      // // こことaporication propatoiesのメアドの入力を忘れないようにすること！
+      // message.setSubject("認証コードをお送りします。");
+      // message.setText("認証コード:" + admin_code);
+      // // メール送信を実施する。
+      // mailSender.send(message);
+      // model.addAttribute("mail", mail);
+
+      model.addAttribute("gakuseki", gakuseki);
+      model.addAttribute("pass", pass);
+      model.addAttribute("myname", myname);
+      model.addAttribute("admin_code", admin_code);
     }
     model.addAttribute("flag", flag);
-    return "regfin.html";
 
+    return "codechk.html";
+  }
+
+  @PostMapping("/regfin")
+  public String regfin(@RequestParam String gakuseki, @RequestParam String mail, @RequestParam String pass,
+      @RequestParam String myname,
+      ModelMap model) {
+
+    UserSetting user = new UserSetting();
+    user.setMyNumber(gakuseki);
+    user.setUserName(myname);
+    user.setMail(mail);
+    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    String hashedPassword = encoder.encode(pass);
+    user.setMyPass(hashedPassword);
+    user.setUserRole("STUDENT");
+    userSettingMapper.insertuserSetting(user);
+    model.addAttribute("user", user);
+    return "regfin.html";
   }
 
   @GetMapping("/todolist")
