@@ -192,7 +192,13 @@
         // 時間検証
         const startTime = document.getElementById("startTime").value;
         const endTime = document.getElementById("endTime").value;
-        if (startTime && endTime && endTime < startTime) {
+         if (
+         startTime &&
+         endTime &&
+         endTime < startTime &&
+         (endDate == "" || // 終了日が存在する
+         startDate === endDate) // 開始日と終了日が異なる場合のみ検証
+       ) {
           alert("終了時間は開始時間より後に設定してください。");
           return false; // 検証失敗
         }
