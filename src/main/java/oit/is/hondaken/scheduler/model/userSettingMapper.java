@@ -3,6 +3,7 @@ package oit.is.hondaken.scheduler.model;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.Insert;
 
 import java.util.ArrayList;
@@ -24,4 +25,8 @@ public interface UserSettingMapper {
 
   @Select("select myPass from userSetting where myNumber = #{num}")
   String selectPassByNum(String num);
+
+  @Update("UPDATE userSetting SET isActive=#{isActive},WHERE ID = #{accountId}")
+  void updateIsActive(String accountId, boolean isActive);
+
 }

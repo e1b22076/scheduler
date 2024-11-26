@@ -345,7 +345,6 @@ VALUES ('B4C005A0','Career','グローバルテクノロジ論','normal',false,1
 INSERT INTO schedule (id,department,className,attribute,continuous,credit,grade,timing,DayofWeek,DayTime,otherClass,syllabusURL)
 VALUES ('B4C006A0','Career','OIT概論','normal',false,1,1,'Z','ZZZ',0,'1,1,1,1,1','https://www.portal.oit.ac.jp/CAMJWEB/slbssbdr.do?value(risyunen)=2024&value(semekikn)=1&value(kougicd)=B4C006A0&value(crclumcd)=10200ZZZ');
 
---グローバルテクノロジ論とOIT概論って卒業要件単位に含まれる？？？？？
 
 --以下学科別
 --データサイエンス学科 ID
@@ -1026,7 +1025,12 @@ INSERT INTO schedule (id,department,className,attribute,continuous,credit,grade,
 VALUES ('1FBN11A0','IN','CSプロジェクト演習','choice',false,1,4,'Z','ZZZ',0,'0,0,0,0,1','https://www.portal.oit.ac.jp/CAMJWEB/slbssbdr.do?value(risyunen)=2024&value(semekikn)=1&value(kougicd)=1FBN11A0&value(crclumcd)=10201401');
 
 --ユーザー情報
-INSERT INTO userSetting(myNumber,userName,userRole,mail,myPass ) VALUES('B22999','ほんだ','STUDENT','e1b22999@oit.ac.jp','$2y$05$2okqcneYBBlPb39NXazmKuuLby7vb8Cp3wTAebrhEVCrydKwxB2R6');
+INSERT INTO userSetting(myNumber,userName,userRole,mail,myPass,isActive ) VALUES('B22999','ほんだ1','STUDENT','e1b22999@oit.ac.jp','$2y$05$2okqcneYBBlPb39NXazmKuuLby7vb8Cp3wTAebrhEVCrydKwxB2R6',false);--isdev
+INSERT INTO userSetting(myNumber,userName,userRole,mail,myPass,isActive ) VALUES('B22000','ほんだ2','STUDENT','e1b22000@oit.ac.jp','$2y$05$2okqcneYBBlPb39NXazmKuuLby7vb8Cp3wTAebrhEVCrydKwxB2R6',false);
+INSERT INTO userSetting(myNumber,userName,userRole,mail,myPass,isActive ) VALUES('B00999','ほんだ3','TEACHER','e1b00999@oit.ac.jp','$2y$05$2okqcneYBBlPb39NXazmKuuLby7vb8Cp3wTAebrhEVCrydKwxB2R6',false);
+INSERT INTO userSetting(myNumber,userName,userRole,mail,myPass,isActive ) VALUES('B00000','ほんだ4','TEACHER','e1b00000@oit.ac.jp','$2y$05$2okqcneYBBlPb39NXazmKuuLby7vb8Cp3wTAebrhEVCrydKwxB2R6',false);
+INSERT INTO userSetting(myNumber,userName,userRole,mail,myPass,isActive) VALUES('B99999','ほんだ5','ADMIN','e1b99999@oit.ac.jp','$2y$05$2okqcneYBBlPb39NXazmKuuLby7vb8Cp3wTAebrhEVCrydKwxB2R6',false);
+INSERT INTO userSetting(myNumber,userName,userRole,mail,myPass,isActive ) VALUES('B99000','ほんだ6','ADMIN','e1b99000@oit.ac.jp','$2y$05$2okqcneYBBlPb39NXazmKuuLby7vb8Cp3wTAebrhEVCrydKwxB2R6',false);
 
 
 INSERT INTO todos (myNumber,

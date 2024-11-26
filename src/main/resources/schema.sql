@@ -41,8 +41,10 @@ CREATE TABLE userSetting(
   --ユーザーロール
   mail VARCHAR NOT NULL,
   --メールアドレス
-  myPass VARCHAR NOT NULL
+  myPass VARCHAR NOT NULL,
   --パスワード
+  isActive BOOLEAN
+  --オンライン状況
 );
 
 
