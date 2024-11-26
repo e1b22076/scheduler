@@ -35,6 +35,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         .authorizeHttpRequests(authz -> authz
             .requestMatchers(AntPathRequestMatcher.antMatcher("/calendar/**"))
             .authenticated()
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/timetable/**"))
+            .authenticated()
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/todolist/**"))
+            .authenticated()
             .requestMatchers(AntPathRequestMatcher.antMatcher("/**"))
             .permitAll())// 上記以外は全員アクセス可能
         .csrf(csrf -> csrf

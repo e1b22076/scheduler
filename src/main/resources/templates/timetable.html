@@ -364,6 +364,11 @@
   <!-- メニューバー -->
   <div class="navbar">
     <a href="calendar" class="calendar-back-link">カレンダー</a>
+    <a href="/todolist" class="login-link">やることリスト</a>
+    <form th:action="@{/logout}" method="post" style="display: inline;">
+      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+      <button type="submit" class="login-link" style="background: none; border: none; color: inherit; cursor: pointer;">
+        ログアウト</button>
   </div>
 
   <div id="settingsModal" class="modal">
