@@ -348,8 +348,7 @@ public class ScheduleController {
       // message.setText("認証コード:" + admin_code);
       // // メール送信を実施する。
       // mailSender.send(message);
-      // model.addAttribute("mail", mail);
-
+      model.addAttribute("mail", mail);
       model.addAttribute("gakuseki", gakuseki);
       model.addAttribute("pass", pass);
       model.addAttribute("myname", myname);
