@@ -136,3 +136,11 @@ CREATE TABLE timeTable(
     completed BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (myNumber) REFERENCES userSetting(myNumber) ON DELETE CASCADE
 );
+
+CREATE TABLE permissions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    requesterNumber VARCHAR, -- 許可をリクエストした人
+    targetNumber VARCHAR,    -- 許可対象の相手
+    isApproved BOOLEAN DEFAULT NULL, -- 許可状態
+    FOREIGN KEY (requesterNumber) REFERENCES userSetting(myNumber) ON DELETE CASCADE,FOREIGN KEY (targetNumber) REFERENCES userSetting(myNumber) ON DELETE CASCADE
+);

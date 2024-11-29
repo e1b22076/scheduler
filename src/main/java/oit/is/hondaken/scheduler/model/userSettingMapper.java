@@ -29,4 +29,7 @@ public interface UserSettingMapper {
   @Update("UPDATE userSetting SET isActive=#{isActive},WHERE ID = #{accountId}")
   void updateIsActive(String accountId, boolean isActive);
 
+  @Select("select * from userSetting where myNumber != #{myNumber}")
+  ArrayList<UserSetting> selectAllbymyNumber(String myNumber);
+
 }
