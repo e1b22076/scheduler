@@ -3,18 +3,21 @@ package oit.is.hondaken.scheduler.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Day {
+public class Day2 {
   private int date;
   private int month;
   private int year;
+  private List<Event> myevents;
   private List<Event> events;
 
   // コンストラクタ
-  public Day(int date, int month, int year) {
+  public Day2(int date, int month, int year) {
     this.date = date;
     this.month = month;
     this.year = year;
+    this.myevents = new ArrayList<>();
     this.events = new ArrayList<>();
+
   }
 
   // ゲッターとセッター
@@ -25,8 +28,6 @@ public class Day {
   public void setDate(int date) {
     this.date = date;
   }
-
-
 
   public int getMonth() {
     return month;
@@ -54,5 +55,18 @@ public class Day {
 
   public void addEvent(Event event) {
     this.events.add(event);
+  }
+
+  public void addmyEvent(Event event) {
+    this.myevents.add(event);
+  }
+
+
+  public List<Event> getMyevents() {
+    return myevents;
+  }
+
+  public void setMyevents(List<Event> myevents) {
+    this.myevents = myevents;
   }
 }
