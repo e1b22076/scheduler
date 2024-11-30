@@ -3,83 +3,52 @@
 
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Event Details</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f7f6;
-      color: #333;
-      padding: 20px;
-    }
-
-    h1,
-    h2 {
-      color: #4a4e69;
-    }
-
-    /* Event section styling */
-    .event-item {
-      background-color: #fff;
-      padding: 10px;
-      margin-bottom: 10px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    .back-button {
-      margin-top: 20px;
-      padding: 8px 15px;
-      color: #fff;
-      background-color: #4a4e69;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .back-button:hover {
-      background-color: #b5838d;
-    }
-
-  </style>
+  <link rel="stylesheet" th:href="@{/css/common.css}">
+  <link rel="stylesheet" th:href="@{/css/eventDetails.css}">
 
 </head>
 
 <body>
-  <h1>Events on [[${selectedDate}]]</h1>
-
-  <div th:if="${events != null && !events.isEmpty()}">
-    <h2>予定一覧</h2>
-    <ul>
-      <li th:each="event : ${events}" class="event-item">
-        <h3 th:text="${event.title}"></h3>
-        <p th:text="${event.description}"></p>
-        <p th:if="${event.startDate != null}">
-          開始:
-          <span th:text="${event.startDate}"></span>
-          <span th:if="${event.startTime != null}" th:text="${event.startTime}"></span>
-        </p>
-        <p th:if="${event.endDate != null}">
-          終了:
-          <span th:text="${event.endDate}"></span>
-          <span th:if="${event.endTime != null}" th:text="${event.endTime}"></span>
-        </p>
-        <p th:if="${event.location != null}">場所: <span th:text="${event.location}"></span></p>
-
-        <!-- 削除ボタン -->
-        <form th:action="@{/calendar/deleteEvent}" method="post" style="display: inline;">
-          <input type="hidden" name="eventId" th:value="${event.id}" />
-          <input type="hidden" name="date" th:value="${selectedDate}" />
-          <button type="submit" onclick="return confirm('本当に削除しますか？');" class="back-button"
-            style="background-color: #ff6b6b;">削除</button>
-
-        </form>
-      </li>
-
-    </ul>
+  <!-- メニューバー -->
+  <div class="navbar">
+    <a href="/calendar" class="link">戻る</a>
   </div>
 
+  <div class="title-container">
+    <h1>Events on [[${selectedDate}]]</h1>
 
+    <div th:if="${events != null && !events.isEmpty()}">
+      <h2>予定一覧</h2>
+      <ul>
+        <li th:each="event : ${events}" class="event-item">
+          <h3 th:text="${event.title}"></h3>
+          <p th:text="${event.description}"></p>
+          <p th:if="${event.startDate != null}">
+            開始:
+            <span th:text="${event.startDate}"></span>
+            <span th:if="${event.startTime != null}" th:text="${event.startTime}"></span>
+          </p>
+          <p th:if="${event.endDate != null}">
+            終了:
+            <span th:text="${event.endDate}"></span>
+            <span th:if="${event.endTime != null}" th:text="${event.endTime}"></span>
+          </p>
+          <p th:if="${event.location != null}">場所: <span th:text="${event.location}"></span></p>
 
-  <button class="back-button" onclick="location.href='/calendar'">戻る</button>
+          <!-- 削除ボタン -->
+          <form th:action="@{/calendar/deleteEvent}" method="post" style="display: inline;">
+            <input type="hidden" name="eventId" th:value="${event.id}" />
+            <input type="hidden" name="date" th:value="${selectedDate}" />
+            <button type="submit" onclick="return confirm('本当に削除しますか？');" class="back-button"
+              style="background-color: #ff6b6b;">削除</button>
+          </form>
+        </li>
+      </ul>
+    </div>
+  </div>
+
 </body>
 
 </html>

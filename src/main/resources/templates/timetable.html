@@ -3,343 +3,10 @@
 
 <head>
   <meta charset="UTF-8" />
-<style>
-  body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  height: 100vh;
-  margin: 0;
-  background-color: #f7f9fc;
-  font-family: Arial, sans-serif;
-  }
-
-  /* 表のスタイル */
-  table {
-  width: 80%;
-  border-collapse: collapse;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  background-color: #ffffff;
-  margin: 20px auto;
-  }
-
-  th,
-  td {
-  padding: 15px;
-  text-align: center;
-  border: 1px solid #dddddd;
-  font-size: 1em;
-  width: 14.28%;
-  height: 80px;
-  cursor: pointer;
-  /* クリック可能なカーソル */
-  }
-
-  th {
-  background-color: #4CAF50;
-  color: white;
-  }
-
-  tr:nth-child(even) {
-  background-color: #f2f2f2;
-  }
-
-  /* 空欄のマスも均等に表示 */
-  td:empty {
-  height: 50px;
-  /* 任意の高さ */
-  }
-
-  /* ヘッダー行をスタイルアップ */
-  tr:first-child th {
-  background-color: #007373;
-  color: white;
-  font-weight: bold;
-  font-size: 1.1em;
-  }
-
-  /* メニューバー */
-  .navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  padding: 10px 20px;
-  background-color: rgba(206, 207, 167, 0.7);
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  z-index: 1;
-  }
-
-  /* 戻るリンクのスタイル */
-  .calendar-back-link {
-  color: rgb(255, 255, 255);
-  font-size: 20px;
-  text-decoration: none;
-  margin-right: 40px;
-  transition: color 0.3s;
-  }
-
-  .title-container {
-  width: 100%;
-  text-align: center;
-  margin-top: 60px;
-  position: relative;
-  }
-
-  .title {
-  color: #333;
-  font-size: 2em;
-  margin: 0;
-  }
-
-  .calendar-back-link:hover {
-  color: #000000;
-  }
-
-  /* モーダルのスタイル */
-  .modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  justify-content: center;
-  align-items: center;
-  }
-
-  /* モーダル内容のスタイル */
-  .modal-content {
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 8px;
-  width: 50%;
-  max-width: 600px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  text-align: left;
-  position: relative;
-  animation: fadeIn 0.3s ease-in-out;
-  }
-
-  /* 閉じるボタンのスタイル */
-  .close {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 32px;
-  font-weight: bold;
-  color: #aaa;
-  cursor: pointer;
-  transition: color 0.3s ease;
-  }
-
-  .close:hover {
-  color: #333;
-  }
-
-  /* 見出しのスタイル */
-  #infoModal-title {
-  font-size: 1.5em;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 10px;
-  }
-
-  #addClassModal-title {
-  font-size: 1.5em;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 10px;
-  }
-
-  /* 内容の区分スタイル */
-  .modal-section {
-  margin-top: 15px;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #f7f9fc;
-  }
-
-  .modal-section p {
-  margin: 5px 0;
-  }
-
-  .modal-section strong {
-  color: #4CAF50;
-  font-weight: bold;
-  }
-
-  /* アニメーション */
-  @keyframes fadeIn {
-  from {
-  opacity: 0;
-  transform: translateY(-20px);
-  }
-
-  to {
-  opacity: 1;
-  transform: translateY(0);
-  }
-  }
-
-  /* 今日の曜日の強調スタイル */
-  .highlight-odd {
-  background-color: #e6f6be;
-  /* 目立つ黄色背景 */
-  }
-
-  .highlight-even {
-  background-color: #efffc5;
-  /* 目立つ黄色背景 */
-  }
-
-  /* 設定メニュー */
-  .settings-menu {
-  display: none;
-  position: absolute;
-  top: 50px;
-  /* 設定ボタンのすぐ下に表示 */
-  right: 20px;
-  /* 右側に配置 */
-  background-color: rgba(206, 207, 167, 0.9);
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  text-align: left;
-  z-index: 10;
-  /* 他のコンテンツの上に表示 */
-  }
-
-  .setting-item {
-  margin-bottom: 10px;
-  }
-
-  .setting-item label {
-  font-size: 1em;
-  margin-right: 10px;
-  }
-
-  .setting-item input {
-  transform: scale(1.2);
-  /* チェックボックスを少し大きく */
-  }
-
-  /* 設定ボタンのスタイル */
-  .settings-button {
-  position: absolute;
-  top: 10px;
-  /* 上から10px */
-  right: 50px;
-  /* 右から10px */
-  padding: 10px 20px;
-  background-color: #4a4e69;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  font-size: 18px;
-  }
-
-  .settings-button:hover {
-  background-color: #b5838d;
-  }
-
-  /* 変更を送信するボタン */
-  .submit-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  font-size: 1.1em;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s;
-  }
-
-  .submit-button:hover {
-  background-color: #45a049;
-  }
-
-  .saturday-column.hidden {
-  display: none !important;
-  /* 非表示 */
-  }
-
-  /* 3点リーダー（横向き）のスタイル */
-  .menu-wrapper {
-  position: absolute;
-  top: 4px;
-  left: 25px;
-  /* 左上に配置 */
-  }
-
-  .menu-icon {
-  font-size: 30px;
-  cursor: pointer;
-  transform: rotate(90deg);
-  /* 横向きにする */
-  display: inline-block;
-  color: #aaa;
-  font-family: 'Arial Rounded MT Bold', 'Quicksand', sans-serif;
-  font-weight: bold;
-  }
-
-
-  .menu-icon:hover {
-  color: #000;
-  }
-
-  .menu-dropdown {
-  display: none;
-  position: absolute;
-  left: 0;
-  /* 左揃え */
-  top: 20px;
-  /* アイコンの下に表示 */
-  background-color: white;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  z-index: 100;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  }
-
-  .menu-dropdown div {
-  padding: 8px 12px;
-  cursor: pointer;
-  white-space: nowrap;
-  /* テキストを1行で表示する */
-  }
-
-  .menu-dropdown div:hover {
-  background-color: #f0f0f0;
-  }
-
-
-  .flash-message {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #576eb9;
-  color: white;
-  padding: 15px;
-  font-size: 20px;
-  border-radius: 5px;
-  display: none;
-  z-index: 9999;
-  }
-</style>
-<!--
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>時間割</title>
-  <link rel="stylesheet" href="styles.css">-->
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/timetable.css">
 </head>
 
 <body>
@@ -366,13 +33,11 @@
 
   <!-- メニューバー -->
   <div class="navbar">
-    <a href="/calendar" class="calendar-back-link">カレンダー</a>
-    <a href="/todolist" class="login-link">やることリスト</a>
+    <a href="/calendar" class="link">カレンダー</a>
+    <a href="/todolist" class="link">やることリスト</a>
     <form id="logoutForm" th:action="@{/logout}" method="post" style="display: inline;">
       <input type="hidden" id="logoutCsrf" name="${_csrf.parameterName}" value="${_csrf.token}" />
-      <button type="submit" class="login-link" style="background: none; border: none; color: inherit; cursor: pointer;">
-        ログアウト
-      </button>
+      <button type="submit" class="link">ログアウト</button>
     </form>
   </div>
 
@@ -382,27 +47,27 @@
       <h2>土曜日表示設定</h2>
       <form id="settingsForm" th:action="@{/saveSettings}" method="post">
         <input type="hidden" id="settingsCsrf" name="${_csrf.parameterName}" value="${_csrf.token}" />
-        <input type="hidden" id="toggleSaturdayHidden" name="toggleSaturday" value="-1">
-        <input type="checkbox" id="toggleSaturdayModal" name="toggleSaturday" th:checked="${showSaturday}" value="1">
-        <label for="toggleSaturdayModal">土曜日を表示する</label><br>
+        <input type="hidden" id="toggleSaturdayHidden" name="toggleSaturday" th:value="${showSaturday ? 1 : -1}">
+        <label for="toggleSaturdayModal">
+          <input type="checkbox" id="toggleSaturdayModal" name="toggleSaturday" th:checked="${showSaturday}" value="1">
+          土曜日を表示する
+        </label><br>
         <button type="submit" class="submit-button">変更を保存</button>
       </form>
     </div>
   </div>
-
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const checkbox = document.getElementById('toggleSaturdayModal');
       const hiddenInput = document.getElementById('toggleSaturdayHidden');
 
+      // 初期状態でhiddenの値を設定
+      hiddenInput.value = checkbox.checked ? '1' : '-1';
+
       // チェックボックスの状態変更時にhiddenの値を上書き
       checkbox.addEventListener('change', function () {
-        if (checkbox.checked) {
-          hiddenInput.value = '1'; // チェックされたら1に変更
-        } else {
-          hiddenInput.value = '-1'; // チェック外れたら-1に変更
-        }
+        hiddenInput.value = checkbox.checked ? '1' : '-1';
       });
     });
   </script>
@@ -426,76 +91,78 @@
   </script>
 
   <div class="title-container" th:attr="data-show-saturday=${showSaturday}">
-    <h1 class="title">時間割</h1>
+    <h1>時間割</h1>
 
-    <button id="settingsButton" class="settings-button" onclick="toggleSettingsModal()">土曜日設定</button>
+    <div class="table-container">
+      <button id="settingsButton" class="settings-button" onclick="toggleSettingsModal()">土曜日設定</button>
 
-    <table id="scheduleTable">
-      <tr>
-        <th>＼</th>
-        <th>月</th>
-        <th>火</th>
-        <th>水</th>
-        <th>木</th>
-        <th>金</th>
-        <th class="saturday-column">土</th>
-      </tr>
+      <table id="scheduleTable">
+        <tr>
+          <th>＼</th>
+          <th>月</th>
+          <th>火</th>
+          <th>水</th>
+          <th>木</th>
+          <th>金</th>
+          <th class="saturday-column">土</th>
+        </tr>
 
-      <!--1限目-->
-      <tr>
-        <th>1限目</th>
-        <td td class="schedule-cell" th:text="${timeTableRecord.monday[0]}" data-day="月" data-period="1限目"></td>
-        <td td class="schedule-cell" th:text="${timeTableRecord.tuesday[0]}" data-day="火" data-period="1限目"></td>
-        <td td class="schedule-cell" th:text="${timeTableRecord.wednesday[0]}" data-day="水" data-period="1限目"></td>
-        <td td class="schedule-cell" th:text="${timeTableRecord.thursday[0]}" data-day="木" data-period="1限目"></td>
-        <td td class="schedule-cell" th:text="${timeTableRecord.friday[0]}" data-day="金" data-period="1限目"></td>
-        <td td class="schedule-cell" th:text="${timeTableRecord.saturday[0]}" data-day="土" data-period="1限目"></td>
-      </tr>
+        <!--1限目-->
+        <tr>
+          <th>1限目</th>
+          <td td class="schedule-cell" th:text="${timeTableRecord.monday[0]}" data-day="月" data-period="1限目" th:attr="data-classname=${timeTableRecord.monday[0]}"></td>
+          <td td class="schedule-cell" th:text="${timeTableRecord.tuesday[0]}" data-day="火" data-period="1限目" th:attr="data-classname=${timeTableRecord.tuesday[0]}"></td>
+          <td td class="schedule-cell" th:text="${timeTableRecord.wednesday[0]}" data-day="水" data-period="1限目" th:attr="data-classname=${timeTableRecord.wednesday[0]}"></td>
+          <td td class="schedule-cell" th:text="${timeTableRecord.thursday[0]}" data-day="木" data-period="1限目" th:attr="data-classname=${timeTableRecord.thursday[0]}"></td>
+          <td td class="schedule-cell" th:text="${timeTableRecord.friday[0]}" data-day="金" data-period="1限目" th:attr="data-classname=${timeTableRecord.friday[0]}"></td>
+          <td td class="schedule-cell" th:text="${timeTableRecord.saturday[0]}" data-day="土" data-period="1限目" th:attr="data-classname=${timeTableRecord.saturday[0]}"></td>
+        </tr>
 
-      <!--2限目-->
-      <tr>
-        <th>2限目</th>
-        <td td class="schedule-cell" th:text="${timeTableRecord.monday[1]}" data-day="月" data-period="2限目"></td>
-        <td td class="schedule-cell" th:text="${timeTableRecord.tuesday[1]}" data-day="火" data-period="2限目"></td>
-        <td td class="schedule-cell" th:text="${timeTableRecord.wednesday[1]}" data-day="水" data-period="2限目"></td>
-        <td td class="schedule-cell" th:text="${timeTableRecord.thursday[1]}" data-day="木" data-period="2限目"></td>
-        <td td class="schedule-cell" th:text="${timeTableRecord.friday[1]}" data-day="金" data-period="2限目"></td>
-        <td td class="schedule-cell" th:text="${timeTableRecord.saturday[1]}" data-day="土" data-period="2限目"></td>
-      </tr>
+        <!--2限目-->
+        <tr>
+          <th>2限目</th>
+          <td td class="schedule-cell" th:text="${timeTableRecord.monday[1]}" data-day="月" data-period="2限目" th:attr="data-classname=${timeTableRecord.monday[1]}"></td>
+          <td td class="schedule-cell" th:text="${timeTableRecord.tuesday[1]}" data-day="火" data-period="2限目" th:attr="data-classname=${timeTableRecord.tuesday[1]}"></td>
+          <td td class="schedule-cell" th:text="${timeTableRecord.wednesday[1]}" data-day="水" data-period="2限目" th:attr="data-classname=${timeTableRecord.wednesday[1]}"></td>
+          <td td class="schedule-cell" th:text="${timeTableRecord.thursday[1]}" data-day="木" data-period="2限目" th:attr="data-classname=${timeTableRecord.thursday[1]}"></td>
+          <td td class="schedule-cell" th:text="${timeTableRecord.friday[1]}" data-day="金" data-period="2限目" th:attr="data-classname=${timeTableRecord.friday[1]}"></td>
+          <td td class="schedule-cell" th:text="${timeTableRecord.saturday[1]}" data-day="土" data-period="1限目" th:attr="data-classname=${timeTableRecord.saturday[1]}"></td>
+        </tr>
 
-      <!--3限目-->
-      <tr>
-        <th>3限目</th>
-        <td td class="schedule-cell" th:text="${timeTableRecord.monday[2]}" data-day="月" data-period="3限目"></td>
-        <td td class="schedule-cell" th:text="${timeTableRecord.tuesday[2]}" data-day="火" data-period="3限目"></td>
-        <td td class="schedule-cell" th:text="${timeTableRecord.wednesday[2]}" data-day="水" data-period="3限目"></td>
-        <td td class="schedule-cell" th:text="${timeTableRecord.thursday[2]}" data-day="木" data-period="3限目"></td>
-        <td td class="schedule-cell" th:text="${timeTableRecord.friday[2]}" data-day="金" data-period="3限目"></td>
-        <td td class="schedule-cell" th:text="${timeTableRecord.saturday[2]}" data-day="土" data-period="3限目"></td>
-      </tr>
+        <!--3限目-->
+        <tr>
+          <th>3限目</th>
+          <td td class="schedule-cell" th:text="${timeTableRecord.monday[2]}" data-day="月" data-period="3限目" th:attr="data-classname=${timeTableRecord.monday[2]}"></td>
+          <td td class="schedule-cell" th:text="${timeTableRecord.tuesday[2]}" data-day="火" data-period="3限目" th:attr="data-classname=${timeTableRecord.tuesday[2]}"></td>
+          <td td class="schedule-cell" th:text="${timeTableRecord.wednesday[2]}" data-day="水" data-period="3限目" th:attr="data-classname=${timeTableRecord.wednesday[2]}"></td>
+          <td td class="schedule-cell" th:text="${timeTableRecord.thursday[2]}" data-day="木" data-period="3限目" th:attr="data-classname=${timeTableRecord.thursday[2]}"></td>
+          <td td class="schedule-cell" th:text="${timeTableRecord.friday[2]}" data-day="金" data-period="3限目" th:attr="data-classname=${timeTableRecord.friday[2]}"></td>
+          <td td class="schedule-cell" th:text="${timeTableRecord.saturday[2]}" data-day="土" data-period="3限目" th:attr="data-classname=${timeTableRecord.saturday[2]}"></td>
+        </tr>
 
-      <!-- 4限目 -->
-      <tr>
-        <th>4限目</th>
-        <td td class="schedule-cell" th:text="${timeTableRecord.monday[3]}" data-day="月" data-period="4限目"></td>
-        <td td class="schedule-cell" th:text="${timeTableRecord.tuesday[3]}" data-day="火" data-period="4限目"></td>
-        <td td class="schedule-cell" th:text="${timeTableRecord.wednesday[3]}" data-day="水" data-period="4限目"></td>
-        <td td class="schedule-cell" th:text="${timeTableRecord.thursday[3]}" data-day="木" data-period="4限目"></td>
-        <td td class="schedule-cell" th:text="${timeTableRecord.friday[3]}" data-day="金" data-period="4限目"></td>
-        <td td class="schedule-cell" th:text="${timeTableRecord.saturday[3]}" data-day="土" data-period="4限目"></td>
-      </tr>
+        <!-- 4限目 -->
+        <tr>
+          <th>4限目</th>
+          <td td class="schedule-cell" th:text="${timeTableRecord.monday[3]}" data-day="月" data-period="4限目" th:attr="data-classname=${timeTableRecord.monday[3]}"></td>
+          <td td class="schedule-cell" th:text="${timeTableRecord.tuesday[3]}" data-day="火" data-period="4限目" th:attr="data-classname=${timeTableRecord.tuesday[3]}"></td>
+          <td td class="schedule-cell" th:text="${timeTableRecord.wednesday[3]}" data-day="水" data-period="4限目" th:attr="data-classname=${timeTableRecord.wednesday[3]}"></td>
+          <td td class="schedule-cell" th:text="${timeTableRecord.thursday[3]}" data-day="木" data-period="4限目" th:attr="data-classname=${timeTableRecord.thursday[3]}"></td>
+          <td td class="schedule-cell" th:text="${timeTableRecord.friday[3]}" data-day="金" data-period="4限目" th:attr="data-classname=${timeTableRecord.friday[3]}"></td>
+          <td td class="schedule-cell" th:text="${timeTableRecord.saturday[3]}" data-day="土" data-period="4限目" th:attr="data-classname=${timeTableRecord.saturday[3]}"></td>
+        </tr>
 
-      <!-- 5限目 -->
-      <tr>
-        <th>5限目</th>
-        <td td class="schedule-cell" th:text="${timeTableRecord.monday[4]}" data-day="月" data-period="5限目"></td>
-        <td td class="schedule-cell" th:text="${timeTableRecord.tuesday[4]}" data-day="火" data-period="5限目"></td>
-        <td td class="schedule-cell" th:text="${timeTableRecord.wednesday[4]}" data-day="水" data-period="5限目"></td>
-        <td td class="schedule-cell" th:text="${timeTableRecord.thursday[4]}" data-day="木" data-period="5限目"></td>
-        <td td class="schedule-cell" th:text="${timeTableRecord.friday[4]}" data-day="金" data-period="5限目"></td>
-        <td td class="schedule-cell" th:text="${timeTableRecord.saturday[4]}" data-day="土" data-period="5限目"></td>
-      </tr>
-    </table>
+        <!-- 5限目 -->
+        <tr>
+          <th>5限目</th>
+          <td td class="schedule-cell" th:text="${timeTableRecord.monday[4]}" data-day="月" data-period="5限目" th:attr="data-classname=${timeTableRecord.monday[4]}"></td>
+          <td td class="schedule-cell" th:text="${timeTableRecord.tuesday[4]}" data-day="火" data-period="5限目" th:attr="data-classname=${timeTableRecord.tuesday[4]}"></td>
+          <td td class="schedule-cell" th:text="${timeTableRecord.wednesday[4]}" data-day="水" data-period="5限目" th:attr="data-classname=${timeTableRecord.wednesday[4]}"></td>
+          <td td class="schedule-cell" th:text="${timeTableRecord.thursday[4]}" data-day="木" data-period="5限目" th:attr="data-classname=${timeTableRecord.thursday[4]}"></td>
+          <td td class="schedule-cell" th:text="${timeTableRecord.friday[4]}" data-day="金" data-period="5限目" th:attr="data-classname=${timeTableRecord.friday[4]}"></td>
+          <td td class="schedule-cell" th:text="${timeTableRecord.saturday[4]}" data-day="土" data-period="5限目" th:attr="data-classname=${timeTableRecord.saturday[4]}"></td>
+        </tr>
+      </table>
+    </div>
   </div>
 
   <script>
@@ -522,7 +189,6 @@
         saturdayColumns.forEach(column => {
           column.style.display = "table-cell";
         });
-
         const rows = table.querySelectorAll("tr");
         rows.forEach(row => {
           const saturdayCell = row.querySelector("td:last-child, th:last-child");
@@ -563,8 +229,10 @@
     <div class="modal-content">
       <span class="close" onclick="closeModal('addClassModal')">&times;</span>
       <p id="addClassModal-title">空きコマ</p>
-      <p>このコマに授業を登録しますか？</p>
-      <button onclick="redirectToAddClass()">授業を登録</button>
+      <div class="flex-container">
+        <p>このコマに授業を登録しますか？</p>
+        <button class="submit-button" onclick="redirectToAddClass()">授業を登録</button>
+      </div>
     </div>
   </div>
 
@@ -595,14 +263,15 @@
   <!-- 授業を外すモーダル -->
   <div id="removeModal" class="modal">
     <div class="modal-content">
+      <p class="removeModal-title" id="removeClassInfo"></p>
       <p>本当にこの授業をコマから外しますか？</p>
       <form th:action="@{/removeClass}" method="post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         <input type="hidden" id="removeDay" name="day" value="">
         <input type="hidden" id="removePeriod" name="period" value="">
         <input type="hidden" id="removeValue" name="removeValue" value="">
-        <button type="button" onclick="closeModal('removeModal')">キャンセル</button>
-        <button type="submit">授業を外す</button>
+        <button class="submit-button" type="button" onclick="closeModal('removeModal')">キャンセル</button>
+        <button class="remove-button" type="submit">授業を外す</button>
       </form>
     </div>
   </div>
@@ -631,9 +300,9 @@
       const modal = document.getElementById(modalId);
 
       if (tdElement) {
-        const className = tdElement.textContent.trim();
-        const day = tdElement.getAttribute('data-day');
+        const removeButton = tdElement; const day = tdElement.getAttribute('data-day');
         const period = tdElement.getAttribute('data-period');
+        const className = removeButton.getAttribute('data-classname');
 
         // 空きコマの場合
         if (modalId === "addClassModal") {
@@ -662,6 +331,13 @@
           document.getElementById("removeDay").value = removeButton.getAttribute('data-day');
           document.getElementById("removePeriod").value = removeButton.getAttribute('data-period');
           document.getElementById("removeValue").value = removeButton.getAttribute('data-className');
+
+          document.getElementById("removeDay").value = day;
+          document.getElementById("removePeriod").value = period;
+          document.getElementById("removeValue").value = className;
+
+          // 授業情報を表示
+          document.getElementById("removeClassInfo").innerText = `${day} ${period}: ${className}`;
         }
       }
 
@@ -670,12 +346,12 @@
 
     // 授業を登録するページに遷移
     function redirectToAddClass() {
-        const modal = document.getElementById("addClassModal");
-        const day = modal.getAttribute('data-day'); // モーダルに設定されたデータを取得
-        const period = modal.getAttribute('data-period');
+      const modal = document.getElementById("addClassModal");
+      const day = modal.getAttribute('data-day'); // モーダルに設定されたデータを取得
+      const period = modal.getAttribute('data-period');
 
-        // URLクエリパラメータにデータを追加
-        window.location.href = `/timetable/addClass?day=${encodeURIComponent(day)}&period=${encodeURIComponent(period)}`;
+      // URLクエリパラメータにデータを追加
+      window.location.href = `/timetable/addClass?day=${encodeURIComponent(day)}&period=${encodeURIComponent(period)}`;
     }
 
     // メニュー内の「授業をコマから外す」クリック時

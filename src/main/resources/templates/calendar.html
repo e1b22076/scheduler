@@ -3,172 +3,11 @@
 
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>カレンダー</title>
-  <style>
-    /* 全体背景色 */
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f4f7f6;
-      color: #333;
-      padding-top: 60px;
-    }
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/calendar.css">
 
-    /* メニューバー */
-    .navbar {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 10px 20px;
-      background-color: #4a4e69;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      z-index: 1;
-    }
-
-    /* ログインリンクのスタイル */
-    .login-link {
-      color: #f4f7f6;
-      font-size: 18px;
-      text-decoration: none;
-      margin-right: 20px;
-      padding: 5px 15px;
-      border-radius: 5px;
-      transition: background-color 0.3s;
-    }
-
-    .login-link:hover {
-      background-color: #b5838d;
-    }
-
-    /* カレンダータイトル */
-    h1 {
-      text-align: center;
-      color: #4a4e69;
-      font-size: 2em;
-      margin-bottom: 20px;
-    }
-
-    /* 年と月のボタン配置用 */
-    .year-control,
-    .month-control {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      /* ボタンとテキストの間隔 */
-      margin-bottom: 20px;
-    }
-
-    /* 年の表示部分 */
-    .year-display,
-    .month-display {
-      font-size: 1.5em;
-      font-weight: bold;
-      color: #4a4e69;
-    }
-
-    /* ナビゲーションボタン */
-    .nav-button {
-      padding: 8px 15px;
-      background-color: #4a90e2;
-      color: #ffffff;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.9em;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-    }
-
-    .nav-button:hover {
-      background-color: #357ab7;
-      transform: translateY(-3px);
-    }
-
-    /* カレンダー表のスタイル */
-    table {
-      width: 90%;
-      max-width: 800px;
-      margin: auto;
-      border-collapse: collapse;
-      background-color: #fff;
-      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    th,
-    td {
-      text-align: center;
-      vertical-align: top;
-      padding: 15px;
-      border: 1px solid #ddd;
-      position: relative;
-      font-size: 0.9em;
-    }
-
-    .sunday {
-      background-color: #ff6b6b;
-      color: white;
-    }
-
-    .saturday {
-      background-color: #4e94f2;
-      color: white;
-    }
-
-    /* 現在の日付のスタイル */
-    .current-date {
-      background-color: #fff282a0;
-      color: #000000;
-      border-radius: 5px;
-      padding: 5px;
-    }
-
-    /* イベントのスタイル */
-    /* イベントスタイル（目立たせる） */
-    .event {
-      background-color: #ffde59;
-      /* 明るい黄色 */
-      color: #333;
-      /* テキストを読みやすく */
-      padding: 3px;
-      border-radius: 5px;
-      margin-top: 5px;
-      font-size: 0.85em;
-      font-weight: bold;
-    }
-
-
-    /* Form and label styling */
-    form label {
-      display: block;
-      margin-top: 10px;
-    }
-
-    form input,
-    form textarea,
-    form button {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
-
-    .add-button {
-      background-color: #4a4e69;
-      color: #f4f7f6;
-      border: none;
-      padding: 10px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .add-button:hover {
-      background-color: #b5838d;
-    }
-  </style>
   <script>
     function validateTime() {
       const startTime = document.getElementById("startTime").value;
@@ -211,110 +50,110 @@
 <body>
   <!-- メニューバー -->
   <div class="navbar">
-    <a href="/timetable" class="login-link">時間割</a>
-    <a href="/todolist" class="login-link">やることリスト</a>
-    <form th:action="@{/logout}" method="post" style="display: inline;">
-      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-      <button type="submit" class="login-link" style="background: none; border: none; color: inherit; cursor: pointer;"> ログアウト</button>
+    <a href="/timetable" class="link">時間割</a>
+    <a href="/todolist" class="link">やることリスト</a>
+    <form id="logoutForm" th:action="@{/logout}" method="post" style="display: inline;">
+      <input type="hidden" id="logoutCsrf" name="${_csrf.parameterName}" value="${_csrf.token}" />
+      <button type="submit" class="link">ログアウト</button>
     </form>
   </div>
 
-  <br>
+  <div class="title-container">
+    <h1>カレンダー</h1>
+    <div class="year-control">
+      <!-- 前の年ボタン -->
+      <form th:action="@{/calendar}" method="get" style="display: inline;">
+        <input type="hidden" name="year" th:value="${year - 1}" />
+        <input type="hidden" name="month" th:value="${month}" />
+        <button type="submit" class="nav-button">前の年</button>
+      </form>
 
-  <h1>カレンダー</h1>
-  <div class="year-control">
-    <!-- 前の年ボタン -->
-    <form th:action="@{/calendar}" method="get" style="display: inline;">
-      <input type="hidden" name="year" th:value="${year - 1}" />
-      <input type="hidden" name="month" th:value="${month}" />
-      <button type="submit" class="nav-button">前の年</button>
-    </form>
+      <!-- 現在の年 -->
+      <span class="year-display">[[${year}]]</span>
 
-    <!-- 現在の年 -->
-    <span class="year-display">[[${year}]]</span>
+      <!-- 次の年ボタン -->
+      <form th:action="@{/calendar}" method="get" style="display: inline;">
+        <input type="hidden" name="year" th:value="${year + 1}" />
+        <input type="hidden" name="month" th:value="${month}" />
+        <button type="submit" class="nav-button">次の年</button>
+      </form>
+    </div>
 
-    <!-- 次の年ボタン -->
-    <form th:action="@{/calendar}" method="get" style="display: inline;">
-      <input type="hidden" name="year" th:value="${year + 1}" />
-      <input type="hidden" name="month" th:value="${month}" />
-      <button type="submit" class="nav-button">次の年</button>
+    <div class="month-control">
+      <!-- 前の月ボタン -->
+      <form th:action="@{/calendar}" method="get" style="display: inline;">
+        <input type="hidden" name="year" th:value="${year}" />
+        <input type="hidden" name="month" th:value="${month - 1}" />
+        <button type="submit" class="nav-button">前の月</button>
+      </form>
+
+      <!-- 現在の月 -->
+      <span class="month-display">[[${month}]]月</span>
+
+      <!-- 次の月ボタン -->
+      <form th:action="@{/calendar}" method="get" style="display: inline;">
+        <input type="hidden" name="year" th:value="${year}" />
+        <input type="hidden" name="month" th:value="${month + 1}" />
+        <button type="submit" class="nav-button">次の月</button>
+      </form>
+    </div>
+
+
+    <table border="1">
+      <tr>
+        <td class="sunday">日</td>
+        <td>月</td>
+        <td>火</td>
+        <td>水</td>
+        <td>木</td>
+        <td>金</td>
+        <td class="saturday">土</td>
+      </tr>
+      <tr th:each="weekDays : ${week.weekList}">
+        <td th:each="day, dayStat : ${weekDays}"
+          th:classappend="${year == todayYear && month == todayMonth && day.date == todayDay ? 'current-date' : ''}">
+
+          <div th:text="${day.date}"></div>
+          <div th:each="event : ${day.events}">
+            <span th:text="${event}"></span>
+          </div>
+          <button type="button"
+            th:onclick="'window.location.href=\'/calendar/event?date=' + ${day.year} + '-' + ${day.month} + '-' + ${day.date} + '\''">
+            詳細
+          </button>
+
+        </td>
+
+
+      </tr>
+    </table>
+
+    <h2>予定の追加</h2>
+    <form th:action="@{/calendar/addEvent}" method="post" class="form-container" onsubmit="return validateForm();">
+      <label for="startDate">開始日(必須):</label>
+      <input type="date" id="startDate" name="startDate" required>
+
+      <label for="endDate">終了日:</label>
+      <input type="date" id="endDate" name="endDate">
+
+      <label for="title">予定タイトル (必須):</label>
+      <input type="text" id="title" name="title" required />
+
+      <label for="description">詳細:</label>
+      <textarea id="description" name="description"></textarea>
+
+      <label for="startTime">開始時間 (必須):</label>
+      <input type="time" id="startTime" name="startTime" required />
+
+      <label for="endTime">終了時間 (必須):</label>
+      <input type="time" id="endTime" name="endTime" required />
+
+      <label for="location">場所:</label>
+      <input type="text" id="location" name="location" />
+
+      <button type="submit" class="add-button">追加</button>
     </form>
   </div>
-
-  <div class="month-control">
-    <!-- 前の月ボタン -->
-    <form th:action="@{/calendar}" method="get" style="display: inline;">
-      <input type="hidden" name="year" th:value="${year}" />
-      <input type="hidden" name="month" th:value="${month - 1}" />
-      <button type="submit" class="nav-button">前の月</button>
-    </form>
-
-    <!-- 現在の月 -->
-    <span class="month-display">[[${month}]]月</span>
-
-    <!-- 次の月ボタン -->
-    <form th:action="@{/calendar}" method="get" style="display: inline;">
-      <input type="hidden" name="year" th:value="${year}" />
-      <input type="hidden" name="month" th:value="${month + 1}" />
-      <button type="submit" class="nav-button">次の月</button>
-    </form>
-  </div>
-
-
-  <table border="1">
-    <tr>
-      <td class="sunday">日</td>
-      <td>月</td>
-      <td>火</td>
-      <td>水</td>
-      <td>木</td>
-      <td>金</td>
-      <td class="saturday">土</td>
-    </tr>
-    <tr th:each="weekDays : ${week.weekList}">
-      <td th:each="day, dayStat : ${weekDays}"
-        th:classappend="${year == todayYear && month == todayMonth && day.date == todayDay ? 'current-date' : ''}">
-
-        <div th:text="${day.date}"></div>
-        <div th:each="event : ${day.events}">
-          <span th:text="${event}"></span>
-        </div>
-        <button type="button"
-          th:onclick="'window.location.href=\'/calendar/event?date=' + ${day.year} + '-' + ${day.month} + '-' + ${day.date} + '\''">
-          詳細
-        </button>
-
-      </td>
-
-
-    </tr>
-  </table>
-
-  <h2>予定の追加</h2>
-  <form th:action="@{/calendar/addEvent}" method="post" onsubmit="return validateForm();">
-    <label for="startDate">開始日(必須):</label>
-    <input type="date" id="startDate" name="startDate" required>
-
-    <label for="endDate">終了日:</label>
-    <input type="date" id="endDate" name="endDate">
-
-    <label for="title">予定タイトル (必須):</label>
-    <input type="text" id="title" name="title" required />
-
-    <label for="description">詳細:</label>
-    <textarea id="description" name="description"></textarea>
-
-    <label for="startTime">開始時間 (必須):</label>
-    <input type="time" id="startTime" name="startTime" required />
-
-    <label for="endTime">終了時間 (必須):</label>
-    <input type="time" id="endTime" name="endTime" required />
-
-    <label for="location">場所:</label>
-    <input type="text" id="location" name="location" />
-
-    <button type="submit" class="add-button">追加</button>
-  </form>
 </body>
 
 </html>

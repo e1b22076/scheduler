@@ -1,0 +1,121 @@
+h1 {
+  text-align: center;
+  color: #4a4e69;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+form.form-container {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+form.form-container input[type="text"] {
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+form.form-container button {
+  padding: 10px 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: transform 0.2s ease;
+  /* ボタンアニメーション */
+}
+
+form.form-container button:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+  /* ホバー時にボタンを少し拡大 */
+}
+
+/* TODOリストのスタイル */
+.todo-list {
+  list-style: none;
+  padding: 0 20px;
+  margin: 0;
+}
+
+.todo-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 4px;
+  margin: 10px 0;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: transform 0.3s ease;
+}
+
+.todo-item:hover {
+  transform: scale(1.03);
+  /* アイテムを少し拡大 */
+}
+
+.todo-title {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.todo-description {
+  font-size: 14px;
+  color: #555;
+}
+
+.todo-actions {
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: transform 0.3s ease;
+}
+
+/* 完了/未完了ボタンのスタイル */
+.completed-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.completed-btn:hover {
+  background-color: #218838;
+  transform: scale(1.1);
+}
+
+.incomplete-btn {
+  background-color: #ffc107;
+  color: white;
+}
+
+.incomplete-btn:hover {
+  background-color: #e0a800;
+  transform: scale(1.1);
+}
+
+/* 削除ボタンのスタイル */
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #a71d2a;
+  transform: scale(1.1);
+}
+
+.status-icon {
+  font-size: 20px;
+  color: #28a745;
+}

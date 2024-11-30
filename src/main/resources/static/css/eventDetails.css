@@ -1,0 +1,51 @@
+/* メニューバー */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #4a4e69;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 1;
+  box-sizing: border-box;
+  height: 60px;
+}
+
+h1,
+h2 {
+  text-align: left;
+  color: #4a4e69;
+}
+
+/* Event section styling */
+.event-item {
+  background-color: #fff;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.event-item h3,
+.event-item p,
+.event-item form {
+  text-align: left;
+  display: block;
+  margin: 10px 0;
+}
+
+.back-button {
+  margin-top: 20px;
+  padding: 8px 15px;
+  color: #fff;
+  background-color: #4a4e69;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #b5838d;
+}

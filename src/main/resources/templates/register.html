@@ -3,61 +3,47 @@
 
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>新規登録</title>
-  <style>
-    .center {
-      width: fit-content;
-      margin: auto;
-    }
-
-    .center th {
-      text-align: left;
-      vertical-align: top;
-    }
-
-    #gakuseki_chk,
-    #mail_chk {
-      display: none;
-      color: red;
-    }
-  </style>
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/register.css">
 </head>
 
 <body>
-  <form class="center" action="/regfin" method="post" th:action="@{/regfin}" novalidate>
+  <!-- メニューバー -->
+  <div class="navbar">
+    <a href="/index.html" class="link">戻る</a>
+  </div>
+
+  <form action="/regfin" method="post" th:action="@{/regfin}" novalidate>
     <!-- CSRFトークンの追加 -->
     <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
 
     <table>
       <tr>
         <th><label for="gakuseki">学籍番号</label></th>
-        <td>
-          <input id="gakuseki" type="text" placeholder="A12345" name="gakuseki" />
-        </td>
-        <td id="gakuseki_chk">
-          学籍番号の形式が違います
-        </td>
+        <td><input type="text" id="gakuseki" name="gakuseki" class="form-control" required></td>
+        <span id="gakuseki_chk">学籍番号の形式が正しくありません。</span>
       </tr>
-
-      <tr>
-        <th><label for="mail">学校用メールアドレス</label></th>
-        <td>
-          <input id="mail" type="email" placeholder="e1a12345@oit.ac.jp" name="mail" />
-        </td>
-        <td id="mail_chk">
-          メールアドレスの形式が違います
-        </td>
-      </tr>
-
       <tr>
         <th><label for="password">パスワード</label></th>
-        <td>
-          <input id="password" type="password" name="pass" />
-        </td>
+        <td><input type="password" id="password" name="pass" class="form-control" required></td>
+      </tr>
+      <tr>
+        <th><label for="confirmPassword">パスワード確認</label></th>
+        <td><input type="password" id="confirmPassword" name="conPass" class="form-control" required></td>
+      </tr>
+      <tr>
+        <th><label for="mail">メールアドレス</label></th>
+        <td><input type="mail" id="mail" name="mail" class="form-control" required></td>
+        <span id="mail_chk">メールアドレスの形式が正しくありません。</span>
       </tr>
     </table>
-    <input type="submit" value="登録" id="touroku">
-    <input type="reset" value="リセット">
+
+    <div class="form-group">
+      <button type="submit" class="btn" id="touroku">登録</button>
+      <button type="reset" class="btn btn-reset">リセット</button>
+    </div>
   </form>
 
   <script>
@@ -67,6 +53,7 @@
         const gakuseki = document.getElementById("gakuseki").value;
         const mail = document.getElementById("mail").value;
         const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
 
         let hasError = false;
 
@@ -83,6 +70,11 @@
 
         if (password.trim().length === 0) {
           alert('パスワードを入力してください。');
+          hasError = true;
+        }
+
+        if (password !== confirmPassword) {
+          alert('パスワードが一致していません。');
           hasError = true;
         }
 

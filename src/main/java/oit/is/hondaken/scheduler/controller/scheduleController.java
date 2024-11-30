@@ -312,7 +312,8 @@ public class ScheduleController {
 
   @PostMapping("/regfin")
   public String regfin(@RequestParam String gakuseki, @RequestParam String mail, @RequestParam String pass,
-      ModelMap model) {
+      @RequestParam String conPass,
+          ModelMap model) {
     ArrayList<String> Numbers = userSettingMapper.selectNumber();
     ArrayList<String> Mails = userSettingMapper.selectMail();
 
