@@ -7,6 +7,7 @@
   <title>授業登録</title>
   <link rel="stylesheet" th:href="@{/css/common.css}">
   <link rel="stylesheet" th:href="@{/css/addClass.css}">
+  <script th:src="@{/js/addClass.js}"></script>
 </head>
 
 <body>
@@ -62,51 +63,6 @@
       </tbody>
     </table>
   </div>
-
-  <script>
-    const departmentTranslations = {
-      English: "外国語",
-      Science: "総合理学系",
-      Humanities: "人文社会科学",
-      Career: "キャリア科目",
-      Sports: "健康・スポーツ科学"
-    };
-
-    // 学科名の変換
-    document.querySelectorAll('.department-cell').forEach(cell => {
-      const englishDepartment = cell.textContent.trim();
-      cell.textContent = departmentTranslations[englishDepartment] || englishDepartment;
-    });
-
-    const attributeTranslations = {
-      required: "必修",
-      choice: "選択必修",
-      normal: "通常",
-      CSchoice: "CS選択必修",
-      ignore: "卒業単位数に含まない"
-    };
-
-    document.querySelectorAll('.attribute-cell').forEach(cell => {
-      const englishAttribute = cell.textContent.trim();
-      cell.textContent = attributeTranslations[englishAttribute] || "不明";
-    });
-
-    const timingTranslations = {
-        A: "前期",
-        B: "後期",
-        C: "前期前半",
-        D: "前期後半",
-        E: "後期前半",
-        F: "後期後半",
-        Z: "期間外"
-      };
-
-    // 期間の変換
-    document.querySelectorAll('.timing-cell').forEach(cell => {
-      const englishTiming = cell.textContent.trim();
-      cell.textContent = timingTranslations[englishTiming] || englishTiming;
-    });
-  </script>
 </body>
 
 </html>
