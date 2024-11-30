@@ -31,13 +31,24 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         .logout(logout -> logout
             .logoutUrl("/logout")
-            .logoutSuccessUrl("/")) // ログアウト後に / にリダイレクト
+            .logoutSuccessUrl(
+                "/")
+            .addLogoutHandler((request, response, authentication) -> {
+              // ログアウト時にユーザーの isActive を false に設定
+              if (authentication != null) {
+                String username = authentication.getName();
+                int Uid = userSettingMapper.selectIdByNum(username);
+                userSettingMapper.updateIsActive(Uid, false);
+              }
+            })) // ログアウト後に / にリダイレクト
         .authorizeHttpRequests(authz -> authz
             .requestMatchers(AntPathRequestMatcher.antMatcher("/calendar/**"))
             .authenticated()
             .requestMatchers(AntPathRequestMatcher.antMatcher("/timetable/**"))
             .authenticated()
             .requestMatchers(AntPathRequestMatcher.antMatcher("/todolist/**"))
+            .authenticated()
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/join/**"))
             .authenticated()
             .requestMatchers(AntPathRequestMatcher.antMatcher("/**"))
             .permitAll())// 上記以外は全員アクセス可能
@@ -56,10 +67,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     if (password == null) {
       throw new UsernameNotFoundException("User not found: " + username);
+    } else {
+      int Uid = userSettingMapper.selectIdByNum(username);
+      userSettingMapper.updateIsActive(Uid, true);
     }
-    // BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-    // String hashedPassword = encoder.encode(password);
-
     // ユーザー情報を生成
     return User.withUsername(username)
         .password("{bcrypt}" + password)

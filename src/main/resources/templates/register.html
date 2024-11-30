@@ -16,7 +16,7 @@
     <a href="/index.html" class="link">戻る</a>
   </div>
 
-  <form action="/regfin" method="post" th:action="@{/regfin}" novalidate>
+  <form action="/admin" method="post" th:action="@{/admin}" novalidate>
     <!-- CSRFトークンの追加 -->
     <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
 
@@ -31,21 +31,42 @@
         <td><input type="password" id="password" name="pass" class="form-control" required></td>
       </tr>
       <tr>
-        <th><label for="confirmPassword">パスワード確認</label></th>
-        <td><input type="password" id="confirmPassword" name="conPass" class="form-control" required></td>
+        <th><label for="myname">ユーザーネーム</label></th>
+        <td>
+          <input id="myname" type="text" placeholder="任意入力" name="myname" />
+        </td>
+      </tr>
+      <tr>
+        <th><label for="mail">学校用メールアドレス</label></th>
+        <td>
+          <input id="mail" type="email" placeholder="e1a12345@oit.ac.jp" name="mail" />
+        </td>
+        <td id="mail_chk">
+          メールアドレスの形式が違います
+        </td>
       </tr>
       <tr>
         <th><label for="mail">メールアドレス</label></th>
         <td><input type="mail" id="mail" name="mail" class="form-control" required></td>
         <span id="mail_chk">メールアドレスの形式が正しくありません。</span>
       </tr>
-    </table>
 
+      <tr>
+        <th><label for="repassword">パスワード再入力</label></th>
+        <td>
+          <input id="repassword" type="password" name="repass" />
+        </td>
+        <td id="pass_chk">
+          パスワードが違います
+        </td>
+      </tr>
+    </table>
     <div class="form-group">
       <button type="submit" class="btn" id="touroku">登録</button>
       <button type="reset" class="btn btn-reset">リセット</button>
     </div>
   </form>
+
 </body>
 
 </html>
