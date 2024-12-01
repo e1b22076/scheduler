@@ -19,6 +19,7 @@
   <!-- メニューバー -->
   <div class="navbar">
     <a href="/calendar" class="link">カレンダー</a>
+    <a href="/join" class="link">結合</a>
     <a href="/todolist" class="link">やることリスト</a>
     <form id="logoutForm" th:action="@{/logout}" method="post" style="display: inline;">
       <input type="hidden" id="logoutCsrf" name="${_csrf.parameterName}" value="${_csrf.token}" />

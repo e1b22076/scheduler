@@ -17,47 +17,41 @@
   </div>
 
   <form action="/admin" method="post" th:action="@{/admin}" novalidate>
-    <!-- CSRFトークンの追加 -->
     <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
 
     <table>
       <tr>
         <th><label for="gakuseki">学籍番号</label></th>
-        <td><input type="text" id="gakuseki" name="gakuseki" class="form-control" required></td>
-        <span id="gakuseki_chk">学籍番号の形式が正しくありません。</span>
-      </tr>
-      <tr>
-        <th><label for="password">パスワード</label></th>
-        <td><input type="password" id="password" name="pass" class="form-control" required></td>
+        <td>
+          <input type="text" id="gakuseki" placeholder="A12345" name="gakuseki" class="form-control" required>
+          <span id="gakuseki_chk" class="error-message">学籍番号の形式が正しくありません</span>
+        </td>
       </tr>
       <tr>
         <th><label for="myname">ユーザーネーム</label></th>
         <td>
-          <input id="myname" type="text" placeholder="任意入力" name="myname" />
+          <input id="myname" type="text" placeholder="任意入力" name="myname" class="form-control" required>
         </td>
       </tr>
       <tr>
         <th><label for="mail">学校用メールアドレス</label></th>
         <td>
-          <input id="mail" type="email" placeholder="e1a12345@oit.ac.jp" name="mail" />
-        </td>
-        <td id="mail_chk">
-          メールアドレスの形式が違います
+          <input id="mail" type="email" placeholder="e1a12345@oit.ac.jp" name="mail" class="form-control" required>
+          <span id="mail_chk" class="error-message">メールアドレスの形式が違います</span>
         </td>
       </tr>
       <tr>
-        <th><label for="mail">メールアドレス</label></th>
-        <td><input type="mail" id="mail" name="mail" class="form-control" required></td>
-        <span id="mail_chk">メールアドレスの形式が正しくありません。</span>
+        <th><label for="password">パスワード</label></th>
+        <td>
+          <input type="password" id="password" name="pass" class="form-control" required>
+          <span id="pass_chk" class="error-message">パスワードを入力してください</span>
+        </td>
       </tr>
-
       <tr>
         <th><label for="repassword">パスワード再入力</label></th>
         <td>
-          <input id="repassword" type="password" name="repass" />
-        </td>
-        <td id="pass_chk">
-          パスワードが違います
+          <input id="repassword" type="password" name="repass" class="form-control" required>
+          <span id="repass_chk" class="error-message">パスワードが違います</span>
         </td>
       </tr>
     </table>

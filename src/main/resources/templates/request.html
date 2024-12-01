@@ -4,18 +4,32 @@
 <head>
   <meta charset="UTF-8">
   <title>カレンダー閲覧許可申請</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" th:href="@{/css/common.css}">
+  <link rel="stylesheet" th:href="@{/css/request.css}">
 </head>
 
 <body>
-  <div class="container mt-5">
-    <h2 class="text-center">カレンダー閲覧許可申請</h2>
-    <h4>現在[[${userNumber}]]のカレンダーを閲覧する許可がありません。</br>申請して下さい。</h4></br>
-    <p th:text="'申請者: ' + ${myNumber}"></p>
-    <p th:text="'相手の学籍番号: ' + ${userNumber}"></p>
+  <!-- メニューバー -->
+  <div class="navbar">
+    <a href="/join" class="link">戻る</a>
+  </div>
+
+  <div class="title-container">
+    <h1>カレンダー閲覧許可申請</h1>
+    <h2>現在[[${userNumber}]]のカレンダーを閲覧する許可がありません。</br>申請して下さい。</h2></br>
+    <div class="info-card">
+      <div class="info-item">
+        <span class="label">申請者:</span>
+        <span class="value" th:text="${myNumber}"></span>
+      </div>
+      <div class="info-item">
+        <span class="label">相手の学籍番号:</span>
+        <span class="value" th:text="${userNumber}"></span>
+      </div>
+    </div>
     <form th:action="@{/join/requestPermission}" method="post" class="mt-4">
       <input type="hidden" name="userNumber" th:value="${userNumber}" />
-      <button type="submit" class="btn btn-primary w-100">許可を申請</button>
+      <button type="submit" class="btn-submit">許可を申請</button>
     </form>
   </div>
 </body>

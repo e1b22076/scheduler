@@ -13,7 +13,7 @@
 <body>
   <!-- メニューバー -->
   <div class="navbar">
-    <a href="/join" class="login-link">結合</a>
+    <a href="/join" class="link">結合</a>
     <a href="/timetable" class="link">時間割</a>
     <a href="/todolist" class="link">やることリスト</a>
     <form id="logoutForm" th:action="@{/logout}" method="post" style="display: inline;">
@@ -24,7 +24,7 @@
 
   <div class="title-container">
     <h1>カレンダー</h1>
-     <div th:if="${myNumber}" class="legend-item">
+    <div th:if="${myNumber}" class="legend-item">
       <div class="legend-color user-event-color"></div>
       <span>[[${myNumber}]]のイベント</span>
     </div>
@@ -79,11 +79,14 @@
       </tr>
       <tr th:each="weekDays : ${week.weekList}">
         <td th:each="day, dayStat : ${weekDays}"
-          th:classappend="${year == todayYear && month == todayMonth && day.date == todayDay ? 'current-date' : ''}">
+          th:classappend="${day.year == todayYear && day.month == todayMonth && day.date == todayDay ? 'current-date' : ''}">
 
           <div th:text="${day.date}"></div>
-          <div th:each="event : ${day.events}">
-            <span th:text="${event}"></span>
+          <div th:each="event : ${day.events}" class="event-user" th:data-title="${event.title}"
+            th:data-description="${event.description}" th:data-start-date="${event.startDate}"
+            th:data-end-date="${event.endDate}" th:data-start-time="${event.startTime}"
+            th:data-end-time="${event.endTime}" th:data-location="${event.location}">
+            <span th:text="${event.title}"></span>
           </div>
           <button type="button"
             th:onclick="'window.location.href=\'/calendar/event?date=' + ${day.year} + '-' + ${day.month} + '-' + ${day.date} + '\''">
@@ -121,21 +124,21 @@
 
       <button type="submit" class="add-button">追加</button>
     </form>
-    
+
     <div id="event-detail-modal" class="modal">
-      <span class="close" onclick="closeDetailModal()">&times;</span>
       <div class="modal-content">
-        <div class="modal-header">イベント詳細</div>
+        <span class="close" onclick="closeDetailModal()">&times;</span>
+        <h2>イベント詳細</h2>
         <p><strong>タイトル:</strong> <span id="event-title-detail"></span></p>
-        <p><strong>説明:</strong> <span id="event-description-detail"></span></p>
+        <p><strong>詳細:</strong> <span id="event-description-detail"></span></p>
         <p><strong>開始日:</strong> <span id="event-start-date"></span></p>
         <p><strong>終了日:</strong> <span id="event-end-date"></span></p>
-        <p><strong>開始時刻:</strong> <span id="event-start-time"></span></p>
-        <p><strong>終了時刻:</strong> <span id="event-end-time"></span></p>
+        <p><strong>開始時間:</strong> <span id="event-start-time"></span></p>
+        <p><strong>終了時間:</strong> <span id="event-end-time"></span></p>
         <p><strong>場所:</strong> <span id="event-location"></span></p>
       </div>
     </div>
-    <div id="modal-overlay-detail" class="overlay"></div>
+    <div id="modal-overlay-detail" class="overlay" onclick="closeDetailModal()"></div>
   </div>
 
 </body>

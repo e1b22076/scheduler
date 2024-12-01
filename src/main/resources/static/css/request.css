@@ -1,0 +1,126 @@
+/* メニューバー */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #4a4e69;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 1;
+  box-sizing: border-box;
+  height: 60px;
+}
+
+h1 {
+  text-align: center;
+  color: #4a4e69;
+  font-size: 2em;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+h2 {
+  text-align: center;
+  color: #4a4e69;
+  margin-bottom: 20px;
+}
+
+h4 {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555;
+}
+
+p {
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+h4+br {
+  display: none;
+}
+
+h4 {
+  margin-bottom: 15px;
+}
+
+/* フォーム全体のデザイン */
+.form-container {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.form-container h4 {
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.form-container p {
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* ボタンデザイン */
+.btn-submit {
+  display: block;
+  width: 45%;
+  padding: 12px 20px;
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #4a4e69;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin: 0 auto;
+}
+
+.btn-submit:hover {
+  background-color: #b5838d;
+}
+
+.btn-submit:active {
+  background-color: #343a40;
+}
+
+/* 情報カード全体のスタイル */
+.info-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px 20px;
+  margin: 20px auto;
+  max-width: 600px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 各項目のスタイル */
+.info-item {
+  margin-bottom: 10px;
+  font-size: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ラベルのスタイル */
+.info-item .label {
+  font-weight: bold;
+  color: #333;
+}
+
+/* 値のスタイル */
+.info-item .value {
+  color: #555;
+  font-size: 22px;
+  word-break: break-word;
+}
