@@ -1,0 +1,175 @@
+/* フォームのスタイル */
+form {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+}
+
+form .form-control {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.form-group {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.form-inline {
+  display: flex;
+  align-items: center;
+}
+
+.form-inline label {
+  margin-right: 10px;
+  white-space: nowrap;
+}
+
+.form-inline input[type="text"] {
+  margin-right: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.form-inline button {
+  padding: 10px 15px;
+  background-color: #4a4e69;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.form-inline button:hover {
+  background-color: #b5838d;
+}
+
+.btn {
+  padding: 10px 15px;
+  background-color: #4a4e69;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #b5838d;
+}
+
+/* メニューバー */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #4a4e69;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 1;
+  box-sizing: border-box;
+  height: 60px;
+}
+
+.navbar .link {
+  color: #fff;
+  text-decoration: none;
+  margin-right: 20px;
+}
+
+.navbar .link:hover {
+  text-decoration: none;
+  /* ホバー時の下線を消す */
+}
+
+.container {
+  max-width: 800px;
+  /* コンテナの最大幅を設定 */
+  width: 100%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1,
+h2 {
+  text-align: center;
+  color: #4a4e69;
+}
+
+.center-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.center {
+  width: fit-content;
+  margin: auto;
+}
+
+.center th {
+  text-align: left;
+  vertical-align: top;
+}
+
+.error-message {
+  display: inline-block;
+  color: red;
+  margin-left: 10px;
+  white-space: nowrap;
+  height: 1em;
+  /* 高さを固定 */
+  line-height: 1em;
+  /* 行の高さを固定 */
+  visibility: hidden;
+  /* 初期状態では非表示 */
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+  /* テーブルの幅を固定 */
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 10px;
+  vertical-align: top;
+  text-align: left;
+  position: relative;
+}
+
+td .error-message {
+  position: absolute;
+  top: 50%;
+  left: 110%;
+  transform: translateY(-50%);
+}

@@ -1,0 +1,101 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  margin: 0;
+  background-color: #f7f9fc;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+  background-image: url('../BackGround.png');
+  background-size: cover;
+  color: #333;
+  transition: background 0.3s ease;
+}
+
+.title-container {
+  width: 100%;
+  padding: 0 10px;
+  text-align: center;
+  margin-top: 60px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* メニューバー */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #4a4e69;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  z-index: 1;
+  box-sizing: border-box;
+  height: 60px;
+}
+
+/* リンクのスタイル */
+.link {
+  color: #f4f7f6;
+  font-size: 18px;
+  text-decoration: none;
+  margin-right: 20px;
+  padding: 5px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.link:hover {
+  background-color: #b5838d;
+}
+
+/* ボタンのデフォルトスタイルをリセット */
+button.link {
+  background: none;
+  border: none;
+  padding: 5px 15px;
+  font-size: 18px;
+  color: #f4f7f6;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  margin-right: 20px;
+  display: inline-flex;
+  align-items: center;
+}
+
+button.link:hover {
+  background-color: #b5838d;
+}
+
+/* フラッシュメッセージ */
+.flash-message {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #576eb9;
+  color: white;
+  padding: 15px;
+  font-size: 20px;
+  border-radius: 5px;
+  display: none;
+  z-index: 9999;
+}
+
+/* アニメーション */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

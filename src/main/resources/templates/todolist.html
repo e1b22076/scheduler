@@ -2,216 +2,57 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TODOリスト</title>
-  <style>
-    /* 背景画像 */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      background-image: url('BackGround.png');
-      background-size: cover;
-      color: #333;
-      transition: background 0.3s ease;
-      /* 背景変更のアニメーション */
-    }
-
-    /* メニューバー */
-    .navbar {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 10px 20px;
-      background-color: #4a4e69;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      z-index: 1;
-    }
-
-    /* ログインリンクのスタイル */
-    .login-link {
-      color: #f4f7f6;
-      font-size: 18px;
-      text-decoration: none;
-      margin-right: 20px;
-      padding: 5px 15px;
-      border-radius: 5px;
-      transition: background-color 0.3s;
-    }
-
-    .login-link:hover {
-      background-color: #b5838d;
-    }
-
-    h1 {
-      text-align: center;
-      color: #4a4e69;
-      font-size: 2em;
-      margin-bottom: 20px;
-    }
-
-    form {
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    form input[type="text"] {
-      padding: 10px;
-      margin-right: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 14px;
-    }
-
-    form button {
-      padding: 10px 15px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: transform 0.2s ease;
-      /* ボタンアニメーション */
-    }
-
-    form button:hover {
-      background-color: #45a049;
-      transform: scale(1.05);
-      /* ホバー時にボタンを少し拡大 */
-    }
-
-
-    /* TODOリストのスタイル */
-    .todo-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .todo-item {
-      background-color: rgba(255, 255, 255, 0.8);
-      border-radius: 4px;
-      margin: 10px 0;
-      padding: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: transform 0.3s ease;
-    }
-
-    .todo-item:hover {
-      transform: scale(1.03);
-      /* アイテムを少し拡大 */
-    }
-
-    .todo-title {
-      font-weight: bold;
-      font-size: 16px;
-    }
-
-    .todo-description {
-      font-size: 14px;
-      color: #555;
-    }
-
-    .todo-actions {
-      display: flex;
-      gap: 10px;
-    }
-
-    button {
-      padding: 8px 12px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 12px;
-      transition: transform 0.3s ease;
-    }
-
-    /* 完了/未完了ボタンのスタイル */
-    .completed-btn {
-      background-color: #28a745;
-      color: white;
-    }
-
-    .completed-btn:hover {
-      background-color: #218838;
-      transform: scale(1.1);
-    }
-
-    .incomplete-btn {
-      background-color: #ffc107;
-      color: white;
-    }
-
-    .incomplete-btn:hover {
-      background-color: #e0a800;
-      transform: scale(1.1);
-    }
-
-    /* 削除ボタンのスタイル */
-    .delete-btn {
-      background-color: #dc3545;
-      color: white;
-    }
-
-    .delete-btn:hover {
-      background-color: #a71d2a;
-      transform: scale(1.1);
-    }
-
-    .status-icon {
-      font-size: 20px;
-      color: #28a745;
-    }
-  </style>
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/todolist.css">
 </head>
 
 <body>
+  <!-- メニューバー -->
   <div class="navbar">
-    <a href="calendar" class="login-link">カレンダー</a>
-    <a href="/timetable" class="login-link">時間割</a>
-    <form th:action="@{/logout}" method="post" style="display: inline;">
-      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-      <button type="submit" class="login-link">
-        ログアウト</button>
+    <a href="/calendar" class="link">カレンダー</a>
+    <a href="/join" class="link">結合</a>
+    <a href="/timetable" class="link">時間割</a>
+    <form id="logoutForm" th:action="@{/logout}" method="post" style="display: inline;">
+      <input type="hidden" id="logoutCsrf" name="${_csrf.parameterName}" value="${_csrf.token}" />
+      <button type="submit" class="link">ログアウト</button>
     </form>
   </div>
-  <h1>TODOリスト</h1>
 
+  <div class="title-container">
+    <h1>TODOリスト</h1>
 
+    <form th:action="@{/todolist/add}" th:object="${newTodo}" method="post" class="form-container">
+      <input type="text" th:field="*{title}" placeholder="タイトル (必須)" required />
+      <input type="text" th:field="*{description}" placeholder="説明 (任意)" />
+      <button type="submit">追加</button>
+    </form>
 
-  <form th:action="@{/todolist/add}" th:object="${newTodo}" method="post">
-    <input type="text" th:field="*{title}" placeholder="タイトル (必須)" required />
-    <input type="text" th:field="*{description}" placeholder="説明 (任意)" />
-    <button type="submit">追加</button>
-  </form>
+    <!-- TODOリスト -->
+    <ul class="todo-list">
+      <li th:each="todo : ${todos}" class="todo-item">
+        <div>
+          <!-- 完了かどうかのチェックマーク -->
+          <span class="status-icon" th:text="${todo.completed ? '✓' : '　'}"></span>
 
-  <!-- TODOリスト -->
-  <ul class="todo-list">
-    <li th:each="todo : ${todos}" class="todo-item">
-      <div>
-        <!-- 完了かどうかのチェックマーク -->
-        <span class="status-icon" th:text="${todo.completed ? '✓' : '　'}"></span>
+          <span class="todo-title" th:text="${todo.title}"></span>
+          <p class="todo-description" th:text="${todo.description}"></p>
+        </div>
 
-        <span class="todo-title" th:text="${todo.title}"></span>
-        <p class="todo-description" th:text="${todo.description}"></p>
-      </div>
-
-      <div class="todo-actions">
-        <form th:action="@{/todolist/update/{id}(id=${todo.id})}" method="post">
-          <button type="submit" name="completed" th:value="${!todo.completed}" class="completed-btn"
-            th:text="${todo.completed ? '未完了にする' : '完了にする'}"></button>
-        </form>
-        <form th:action="@{/todolist/delete/{id}(id=${todo.id})}" method="post">
-          <button type="submit" class="delete-btn">削除</button>
-        </form>
-      </div>
-    </li>
-  </ul>
-
+        <div class="todo-actions">
+          <form th:action="@{/todolist/update/{id}(id=${todo.id})}" method="post">
+            <button type="submit" name="completed" th:value="${!todo.completed}" class="completed-btn"
+              th:text="${todo.completed ? '未完了にする' : '完了にする'}"></button>
+          </form>
+          <form th:action="@{/todolist/delete/{id}(id=${todo.id})}" method="post">
+            <button type="submit" class="delete-btn">削除</button>
+          </form>
+        </div>
+      </li>
+    </ul>
+  </div>
 </body>
 
 </html>

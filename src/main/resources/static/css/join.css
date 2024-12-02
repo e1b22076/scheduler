@@ -1,0 +1,177 @@
+h1 {
+  text-align: center;
+  color: #4a4e69;
+  font-size: 2em;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+h2 {
+  text-align: left;
+  color: #4a4e69;
+  margin-bottom: 20px;
+}
+
+/* テーブル全体のデザイン */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+/* ヘッダーのデザイン */
+thead th {
+  background-color: #4a4e69;
+  color: white;
+  font-weight: bold;
+  padding: 12px;
+  text-align: center;
+}
+
+/* データセルのデザイン */
+tbody td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-size: 16px;
+}
+
+/* 行の背景色 */
+tbody tr:nth-child(even) {
+  background-color: #f7f9fc;
+}
+
+/* ホバー効果 */
+tbody tr:hover {
+  background-color: #e9ecef;
+}
+
+/* ボタンの基本スタイル */
+button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.gakuseki-link {
+  font-size: 16px;
+  background: none;
+  border: none;
+  color: #4a90e2;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.gakuseki-link:hover {
+  color: #ff6347;
+  background: none;
+}
+
+/* 全体を中央揃えするコンテナ */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+/* フレックスボックスでレイアウトを調整 */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: -7.5px;
+}
+
+.col {
+  flex: 1;
+  padding: 7.5px;
+}
+
+/* 画面幅768px以下での調整 */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  .btn {
+    font-size: 12px;
+    padding: 8px 15px;
+  }
+}
+
+/* 通知バッジ */
+.badge-notification {
+  position: absolute;
+  top: 50%;
+  right: -20px;
+  /* ボタンの右横に配置 */
+  transform: translateY(-50%);
+  /* バッジを垂直中央に配置 */
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  padding: 5px;
+  border-radius: 50%;
+  display: none;
+  /* デフォルトは非表示 */
+}
+
+button .badge-notification {
+  display: inline-block;
+  /* ボタン内で表示 */
+}
+
+button:hover .badge-notification {
+  background-color: #b50000;
+}
+
+/* ボタンのスタイル */
+button.btn-info {
+  font-size: 1.1em;
+  background-color: #4a4e69;
+  color: white;
+  position: relative;
+  /* 通知バッジの位置を相対的に指定 */
+  padding: 10px 20px;
+}
+
+button.btn-info:hover {
+  background-color: #b5838d;
+}
+
+/* フォーム要素 */
+form input,
+form button {
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+form button {
+  background-color: #4a4e69;
+  color: white;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #b5838d;
+}

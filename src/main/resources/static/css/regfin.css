@@ -1,0 +1,46 @@
+/* メニューバー */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #4a4e69;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 1;
+  box-sizing: border-box;
+  height: 60px;
+}
+
+h1,
+h2 {
+  text-align: left;
+  color: #4a4e69;
+}
+
+.center {
+  width: fit-content;
+  margin: auto;
+}
+
+.center th {
+  text-align: left;
+  vertical-align: top;
+}
+
+body,
+html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+}
