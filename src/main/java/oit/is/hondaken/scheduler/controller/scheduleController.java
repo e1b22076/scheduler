@@ -1,6 +1,5 @@
 package oit.is.hondaken.scheduler.controller;
 
-import java.security.Permission;
 import java.security.Principal;
 import java.sql.Time;
 
@@ -16,15 +15,12 @@ import java.util.Map;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import org.slf4j.Logger;
@@ -239,10 +235,10 @@ public class ScheduleController {
 
   @PostMapping("/saveSettings")
   public String saveSettings(
-        Principal prin,
-        @RequestParam(value = "toggleSaturday", required = false) Integer toggleSaturday,
-        RedirectAttributes redirectAttributes,
-        ModelMap model) {
+      Principal prin,
+      @RequestParam(value = "toggleSaturday", required = false) Integer toggleSaturday,
+      RedirectAttributes redirectAttributes,
+      ModelMap model) {
     String myNumber = prin.getName();
 
     boolean showSaturday = toggleSaturday != null && toggleSaturday == 1;
