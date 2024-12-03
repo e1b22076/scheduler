@@ -1,6 +1,5 @@
 package oit.is.hondaken.scheduler.model;
 
-import java.security.Permission;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
