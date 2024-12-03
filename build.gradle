@@ -33,6 +33,7 @@ dependencies {
   implementation 'org.webjars.bower:moment:2.19.1'
   implementation 'org.webjars.bower:fullcalendar:3.5.1'
 
+  implementation 'org.springframework.boot:spring-boot-starter-mail'
 
 }
 
