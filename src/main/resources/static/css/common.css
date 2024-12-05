@@ -98,4 +98,17 @@ button.link:hover {
     opacity: 1;
     transform: translateY(0);
   }
+
+}
+
+.navbar .link i {
+  margin-right: 5px;
+  /* アイコンとテキストの間隔調整 */
+}
+
+.navbar .link {
+  display: inline-flex;
+  /* リンク内のアイコンをサポート */
+  align-items: center;
+  /* アイコンとテキストを中央揃え */
 }

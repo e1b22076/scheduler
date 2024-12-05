@@ -2,6 +2,7 @@ package oit.is.hondaken.scheduler.model;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.Insert;
@@ -15,6 +16,9 @@ public interface UserSettingMapper {
 
   @Select("select myNumber from userSetting")
   ArrayList<String> selectNumber();
+
+  @Select("select * from userSetting where myNumber = #{myNumber}")
+  UserSetting selectUserbymyNumber(String myNumber);
 
   @Select("select mail from userSetting")
   ArrayList<String> selectMail();
@@ -31,5 +35,11 @@ public interface UserSettingMapper {
 
   @Select("select * from userSetting where myNumber != #{myNumber}")
   ArrayList<UserSetting> selectAllbymyNumber(String myNumber);
+
+  @Update("UPDATE userSetting SET myPass = #{hashedPassword} WHERE myNumber = #{myNumber}")
+  void updatePassword(@Param("myNumber") String myNumber, @Param("hashedPassword") String hashedPassword);
+
+  @Update("UPDATE userSetting SET userName = #{userName} WHERE myNumber = #{myNumber}")
+  void updateUserName(@Param("myNumber") String myNumber, @Param("userName") String userName);
 
 }

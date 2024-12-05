@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>パスワードの変更</title>
+  <link rel="stylesheet" href="/css/common.css">
+  <link rel="stylesheet" href="/css/settings.css">
+  <link rel="stylesheet" href="/css/message.css">
+  <script src="/js/validation.js"></script>
+</head>
+
+<body>
+  <div class="navbar">
+    <a href="/setting" class="link">戻る</a>
+  </div>
+  <div class="setting-container">
+    <h1>パスワードの変更</h1>
+
+    <div th:if="${message != null}" th:class="'message ' + (${isSuccess} ? 'success' : 'error')">
+      <p th:text="${message}"></p>
+    </div>
+
+    <form id="passwordForm" method="post" th:action="@{/setting/password}">
+      <table>
+        <tr>
+          <th><label for="password">新しいパスワード</label></th>
+          <td>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            <input type="password" id="password" name="password" class="form-control" required>
+            <span id="pass_chk" class="error-message" style="visibility: hidden;">パスワードを入力してください</span>
+          </td>
+        </tr>
+        <tr>
+          <th><label for="repassword">パスワード再入力</label></th>
+          <td>
+            <input type="password" id="repassword" name="repassword" class="form-control" required>
+            <span id="repass_chk" class="error-message" style="visibility: hidden;">パスワードが一致しません</span>
+          </td>
+        </tr>
+      </table>
+      <button type="submit" id="submitButton" class="btn">変更</button>
+    </form>
+
+
+  </div>
+
+</body>
+
+</html>

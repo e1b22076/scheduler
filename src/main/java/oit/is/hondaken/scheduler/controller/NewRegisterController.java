@@ -1,11 +1,13 @@
 package oit.is.hondaken.scheduler.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
-
+import java.security.Principal;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import oit.is.hondaken.scheduler.model.UserSetting;
 import oit.is.hondaken.scheduler.model.UserSettingMapper;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import org.springframework.mail.MailSender;
@@ -24,6 +28,8 @@ import java.util.Random;
 
 @Controller
 public class NewRegisterController {
+
+  private static final Logger logger = LoggerFactory.getLogger(ScheduleController.class);
 
   @Autowired
   private UserSettingMapper userSettingMapper;
@@ -98,5 +104,71 @@ public class NewRegisterController {
     userSettingMapper.insertuserSetting(user);
     model.addAttribute("user", user);
     return "regfin.html";
+  }
+
+  @GetMapping("/setting")
+  public String setting() {
+    return "setting.html";
+  }
+
+  @GetMapping("/setting/password")
+  public String setting_pass() {
+    return "setPass.html";
+  }
+
+  @GetMapping("/setting/user-info")
+  public String setting_userInfo(Principal prin, ModelMap model) {
+    String myNumber = prin.getName();
+    UserSetting user = userSettingMapper.selectUserbymyNumber(myNumber);
+    model.addAttribute("user", user);
+    return "setUserInfo.html";
+  }
+
+  @PostMapping("/setting/password")
+  public String changePassword(@RequestParam String password, Principal prin, ModelMap model) {
+
+    String myNumber = prin.getName();
+
+    // パスワードのハッシュ化
+    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    String hashedPassword = encoder.encode(password);
+
+    try {
+      // パスワードの更新処理
+      userSettingMapper.updatePassword(myNumber, hashedPassword);
+
+      // 成功メッセージを追加
+      model.addAttribute("message", "パスワードが正常に変更されました");
+      model.addAttribute("isSuccess", true); // 成功時
+    } catch (Exception e) {
+      // 何か問題があればエラーメッセージを表示
+      model.addAttribute("message", "パスワード変更に失敗しました");
+      model.addAttribute("isSuccess", false); // 失敗時
+    }
+    return "setPass.html";
+  }
+
+  @PostMapping("/setting/user-info")
+  public String update_userInfo(@RequestParam String userName, Principal prin, ModelMap model) {
+    String myNumber = prin.getName();
+
+    try {
+      // 名前を更新
+      userSettingMapper.updateUserName(myNumber, userName);
+
+      // 成功メッセージ
+      model.addAttribute("message", "ユーザー情報の変更が成功しました。");
+      model.addAttribute("isSuccess", true); // 成功時
+    } catch (Exception e) {
+      // エラーメッセージ
+      model.addAttribute("message", "ユーザー情報の変更が失敗しました。");
+      model.addAttribute("isSuccess", false); // 失敗時
+    }
+
+    // 更新後も再度表示するために最新データを取得
+    UserSetting user = userSettingMapper.selectUserbymyNumber(myNumber);
+    model.addAttribute("user", user);
+
+    return "setUserInfo.html";
   }
 }
