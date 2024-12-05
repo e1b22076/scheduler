@@ -100,10 +100,10 @@ button {
 }
 
 /* 画面幅768px以下での調整 */
-@media (max-width: 768px) {
+/*@media (max-width: 768px) {
   .navbar {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-end;
   }
 
   table {
@@ -114,7 +114,7 @@ button {
     font-size: 12px;
     padding: 8px 15px;
   }
-}
+}*/
 
 /* 通知バッジ */
 .badge-notification {
