@@ -17,8 +17,8 @@ import oit.is.hondaken.scheduler.model.UserSettingMapper;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-// import org.springframework.mail.MailSender;
-// import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 
 import java.util.Random;
 
@@ -28,8 +28,8 @@ public class NewRegisterController {
   @Autowired
   private UserSettingMapper userSettingMapper;
 
-  // @Autowired
-  // private MailSender mailSender;
+  @Autowired
+  private MailSender mailSender;
 
   @GetMapping("/register")
   public String goreg() {
@@ -62,14 +62,14 @@ public class NewRegisterController {
       }
     }
     if (flag == 0) {// ここからメール送信
-      // SimpleMailMessage message = new SimpleMailMessage();
-      // message.setTo(mail);
-      // message.setFrom("");
+      SimpleMailMessage message = new SimpleMailMessage();
+      message.setTo(mail);
+      message.setFrom("");
       // // こことaporication propatoiesのメアドの入力を忘れないようにすること！
-      // message.setSubject("認証コードをお送りします。");
-      // message.setText("認証コード:" + admin_code);
+      message.setSubject("認証コードをお送りします。");
+      message.setText("認証コード:" + admin_code);
       // メール送信を実施する。
-      // mailSender.send(message);
+      mailSender.send(message);
       model.addAttribute("mail", mail);
       model.addAttribute("gakuseki", gakuseki);
       model.addAttribute("pass", pass);
