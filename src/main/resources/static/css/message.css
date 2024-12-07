@@ -17,3 +17,12 @@
   color: #721c24;
   border: 1px solid #f5c6cb;
 }
+
+.error-message {
+  color: #ff0019;
+  /* 赤い文字 */
+  font-size: 14px;
+  margin-top: 5px;
+  display: block;
+  /* メッセージが表示されない場合は確認のため */
+}

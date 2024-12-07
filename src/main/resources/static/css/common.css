@@ -53,7 +53,6 @@ body {
   background-color: #b5838d;
 }
 
-/* ボタンのデフォルトスタイルをリセット */
 button.link {
   background: none;
   border: none;
@@ -70,6 +69,89 @@ button.link {
 
 button.link:hover {
   background-color: #b5838d;
+}
+
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #f4f7f6;
+  cursor: pointer;
+  margin-left: auto;
+  position: relative;
+  /* 子要素の位置を基準にする */
+}
+
+.dropdown-menu {
+  display: none;
+  /* 初期状態では非表示 */
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #4a4e69;
+  position: absolute;
+  top: 60px;
+  right: 0;
+  width: 200px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  overflow: hidden;
+}
+
+/* ハンバーガーアイコンにホバーしたときにメニューを表示 */
+.hamburger:hover+.dropdown-menu,
+.dropdown-menu:hover {
+  display: flex;
+  /* メニューを表示 */
+}
+
+/* ドロップダウン内のフォームのスタイル */
+.dropdown-menu form {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* ドロップダウン内のリンクのスタイル */
+.dropdown-menu .link,
+.dropdown-menu button.link {
+  width: 100%;
+  padding: 10px 20px;
+  margin: 0;
+  white-space: nowrap;
+  text-decoration: none;
+  color: white;
+  background-color: #4a4e69;
+  border: none;
+  text-align: left;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+/* ホバー時のリンクスタイル */
+.dropdown-menu .link:hover,
+.dropdown-menu button.link:hover {
+  background-color: #b5838d;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .navbar .link {
+    display: none;
+    visibility: hidden;
+  }
+
+  .navbar .link.always-visible {
+    display: inline-flex;
+    /* always-visibleクラスのリンクを表示 */
+    visibility: visible;
+  }
+
+  .hamburger {
+    display: block;
+    visibility: visible;
+  }
 }
 
 /* フラッシュメッセージ */
