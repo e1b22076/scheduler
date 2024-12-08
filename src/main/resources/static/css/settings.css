@@ -1,7 +1,6 @@
 .setting-container {
-  margin: 100px auto;
+  margin-top: 100px;
   width: 90%;
-  /* 縮小時の幅を調整 */
   max-width: 600px;
   /* 最大幅を維持 */
   text-align: center;
@@ -10,9 +9,7 @@
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
-  /* パディングを含むサイズ調整 */
-  overflow: hidden;
-  /* はみ出しを防止 */
+  /* パディングを含めたサイズ調整 */
 }
 
 .setting-container h1 {

@@ -75,6 +75,15 @@
       </a>
     </div>
   </div>
+
+  <div class="setting-container">
+    <h1>ユーザーマニュアル</h1>
+    <div class="setting-options">
+      <a href="/setting/student" class="btn" sec:authorize="hasRole('ROLE_STUDENT')">STUDENT マニュアル</a>
+      <a href="/setting/teacher" class="btn" sec:authorize="hasRole('ROLE_TEACHER')">TEACHER マニュアル</a>
+      <a href="/setting/admin" class="btn" sec:authorize="hasRole('ROLE_ADMIN')">ADMIN マニュアル</a>
+    </div>
+  </div>
 </body>
 
 </html>

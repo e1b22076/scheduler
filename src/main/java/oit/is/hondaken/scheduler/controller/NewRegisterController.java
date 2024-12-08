@@ -99,7 +99,7 @@ public class NewRegisterController {
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     String hashedPassword = encoder.encode(pass);
     user.setMyPass(hashedPassword);
-    user.setUserRole("STUDENT");
+    user.setUserRole("STUDENT"); //学籍番号、メールアドレスで判別
     user.setActive(false);
     userSettingMapper.insertuserSetting(user);
     model.addAttribute("user", user);
@@ -171,4 +171,20 @@ public class NewRegisterController {
 
     return "setUserInfo.html";
   }
+
+  @GetMapping("/setting/student")
+  public String student() {
+    return "student.html";
+  }
+
+  @GetMapping("/setting/teacher")
+  public String teacher() {
+    return "teacher.html";
+  }
+
+  @GetMapping("/setting/admin")
+  public String admin() {
+    return "admin.html";
+  }
+
 }

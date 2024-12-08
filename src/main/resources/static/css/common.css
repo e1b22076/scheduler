@@ -136,7 +136,7 @@ button.link:hover {
   color: white;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   .navbar .link {
     display: none;
     visibility: hidden;
