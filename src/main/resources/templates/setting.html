@@ -8,10 +8,15 @@
   <link rel="stylesheet" href="/css/common.css">
   <link rel="stylesheet" href="/css/settings.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="js/common.js"></script>
 </head>
 
 <body>
+  <!-- メニューバー -->
   <div class="navbar">
+    <a href="/calendar" class="link">
+      <i class="fa-regular fa-calendar"></i>カレンダー
+    </a>
     <a href="/join" class="link">
       <i class="fa-solid fa-street-view"></i>結合
     </a>
@@ -21,8 +26,34 @@
     <a href="/todolist" class="link">
       <i class="fa-solid fa-list"></i>やることリスト
     </a>
+    <a href="/setting" class="link">
+      <i class="fa-solid fa-gear"></i> 設定
+    </a>
+    <form id="logoutForm" th:action="@{/logout}" method="post" style="display: inline;">
+      <input type="hidden" id="logoutCsrf" name="${_csrf.parameterName}" value="${_csrf.token}" />
+      <button type="submit" class="link">
+        <i class="fa-solid fa-right-from-bracket"></i>ログアウト
+      </button>
+    </form>
+    <button class="hamburger" id="hamburger">
+      &#9776;
+    </button>
+  </div>
+  <div class="dropdown-menu" id="dropdown-menu">
     <a href="/calendar" class="link">
       <i class="fa-regular fa-calendar"></i>カレンダー
+    </a>
+    <a href="/join" class="link">
+      <i class="fa-solid fa-street-view"></i>結合
+    </a>
+    <a href="/timetable" class="link">
+      <i class="fa-solid fa-table"></i>時間割
+    </a>
+    <a href="/todolist" class="link">
+      <i class="fa-solid fa-list"></i>やることリスト
+    </a>
+    <a href="/setting" class="link">
+      <i class="fa-solid fa-gear"></i> 設定
     </a>
     <form id="logoutForm" th:action="@{/logout}" method="post" style="display: inline;">
       <input type="hidden" id="logoutCsrf" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -42,6 +73,15 @@
       <a href="/setting/password">
         <i class="fa-solid fa-key"></i> パスワードの変更
       </a>
+    </div>
+  </div>
+
+  <div class="setting-container">
+    <h1>ユーザーマニュアル</h1>
+    <div class="setting-options">
+      <a href="/setting/student" class="btn" sec:authorize="hasRole('ROLE_STUDENT')">STUDENT マニュアル</a>
+      <a href="/setting/teacher" class="btn" sec:authorize="hasRole('ROLE_TEACHER')">TEACHER マニュアル</a>
+      <a href="/setting/admin" class="btn" sec:authorize="hasRole('ROLE_ADMIN')">ADMIN マニュアル</a>
     </div>
   </div>
 </body>

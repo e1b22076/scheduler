@@ -1,0 +1,14 @@
+/* メニューバー */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #4a4e69;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 1;
+  box-sizing: border-box;
+  height: 60px;
+}

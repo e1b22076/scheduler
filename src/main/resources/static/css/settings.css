@@ -1,12 +1,15 @@
 .setting-container {
-  margin: 100px auto;
-  width: 80%;
+  margin-top: 100px;
+  width: 90%;
   max-width: 600px;
+  /* 最大幅を維持 */
   text-align: center;
   padding: 20px;
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  /* パディングを含めたサイズ調整 */
 }
 
 .setting-container h1 {
@@ -49,4 +52,59 @@
 .setting-options a i {
   margin-right: 10px;
   font-size: 20px;
+}
+
+/* ボタンのスタイルを追加 */
+button.btn {
+  background-color: #4a4e69;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button.btn:hover {
+  background-color: #b5838d;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  /* 親要素の幅に合わせる */
+  max-width: 100%;
+  /* 幅制限 */
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  /* パディングを含むサイズ調整 */
+  height: 40px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  flex-wrap: wrap;
+  /* 子要素を折り返す */
+  justify-content: flex-start;
+  /* 左寄せ */
+}
+
+label {
+  flex: 1 0 100%;
+  /* スマホ時はラベルを1行で表示 */
+  text-align: left;
+  /* 左揃え */
+  margin-bottom: 5px;
+  /* ラベルと入力フィールドの間隔 */
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  border-color: #4a4e69;
 }

@@ -18,9 +18,9 @@
       <h1 class="center">その学籍番号は既に使われています</h1>
       <br>
       <div class="navbar">
-        <a href="/register" class="link">新規登録画面へ</a>
-        <a href="/calendar" class="link">ログイン画面へ</a>
-        <a href="/" class="link">TOPへ</a>
+        <a href="/register" class="link always-visible">新規登録画面へ</a>
+        <a href="/calendar" class="link always-visible">ログイン画面へ</a>
+        <a href="/" class="link always-visible">TOPへ</a>
       </div>
     </div>
   </div>
@@ -31,16 +31,16 @@
       <h1 class="center">そのメールアドレスは既に使われています</h1>
       <br>
       <div class="navbar">
-        <a href="/register" class="link">新規登録画面へ</a>
-        <a href="/calendar" class="link">ログイン画面へ</a>
-        <a href="/" class="link">TOPへ</a>
+        <a href="/register" class="link always-visible">新規登録画面へ</a>
+        <a href="/calendar" class="link always-visible">ログイン画面へ</a>
+        <a href="/" class="link always-visible">TOPへ</a>
       </div>
     </div>
   </div>
   <!--flagがtrueの場合に表示 -->
   <div th:if="${flag==0}">
     <div class="navbar">
-      <a href="/register" class="link">戻る</a>
+      <a href="/register" class="link always-visible">戻る</a>
     </div>
 
     <form action="/regfin" method="post" th:action="@{/regfin}" novalidate>

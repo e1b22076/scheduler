@@ -9,10 +9,18 @@
   <link rel="stylesheet" href="css/join.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/common.js"></script>
 </head>
 
 <body>
+  <!-- メニューバー -->
   <div class="navbar">
+    <a href="/calendar" class="link">
+      <i class="fa-regular fa-calendar"></i>カレンダー
+    </a>
+    <a href="/join" class="link">
+      <i class="fa-solid fa-street-view"></i>結合
+    </a>
     <a href="/timetable" class="link">
       <i class="fa-solid fa-table"></i>時間割
     </a>
@@ -22,8 +30,31 @@
     <a href="/setting" class="link">
       <i class="fa-solid fa-gear"></i> 設定
     </a>
+    <form id="logoutForm" th:action="@{/logout}" method="post" style="display: inline;">
+      <input type="hidden" id="logoutCsrf" name="${_csrf.parameterName}" value="${_csrf.token}" />
+      <button type="submit" class="link">
+        <i class="fa-solid fa-right-from-bracket"></i>ログアウト
+      </button>
+    </form>
+    <button class="hamburger" id="hamburger">
+      &#9776;
+    </button>
+  </div>
+  <div class="dropdown-menu" id="dropdown-menu">
     <a href="/calendar" class="link">
       <i class="fa-regular fa-calendar"></i>カレンダー
+    </a>
+    <a href="/join" class="link">
+      <i class="fa-solid fa-street-view"></i>結合
+    </a>
+    <a href="/timetable" class="link">
+      <i class="fa-solid fa-table"></i>時間割
+    </a>
+    <a href="/todolist" class="link">
+      <i class="fa-solid fa-list"></i>やることリスト
+    </a>
+    <a href="/setting" class="link">
+      <i class="fa-solid fa-gear"></i> 設定
     </a>
     <form id="logoutForm" th:action="@{/logout}" method="post" style="display: inline;">
       <input type="hidden" id="logoutCsrf" name="${_csrf.parameterName}" value="${_csrf.token}" />

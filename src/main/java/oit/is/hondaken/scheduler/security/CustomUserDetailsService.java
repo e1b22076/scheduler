@@ -66,6 +66,7 @@ public class CustomUserDetailsService implements UserDetailsService {
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     // DBからパスワードを取得
     String password = userSettingMapper.selectPassByNum(username);
+    String userRole = userSettingMapper.selectRoleByNum(username);
 
     if (password == null) {
       throw new UsernameNotFoundException("User not found: " + username);
@@ -76,7 +77,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     // ユーザー情報を生成
     return User.withUsername(username)
         .password("{bcrypt}" + password)
-        .roles("USER") // 必要に応じてロールを設定
+        .roles(userRole) // 必要に応じてロールを設定
         .build();
   }
 }
