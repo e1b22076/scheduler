@@ -20,6 +20,9 @@ public interface UserSettingMapper {
   @Select("select * from userSetting where myNumber = #{myNumber}")
   UserSetting selectUserbymyNumber(String myNumber);
 
+  @Select("select userRole from userSetting where myNumber = #{myNumber}")
+  String selectRoleByNum(String myNumber);
+
   @Select("select mail from userSetting")
   ArrayList<String> selectMail();
 
