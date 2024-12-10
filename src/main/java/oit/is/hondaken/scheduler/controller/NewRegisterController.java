@@ -21,6 +21,7 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 
 import java.util.Random;
+import java.util.regex.Pattern;
 
 @Controller
 public class NewRegisterController {
@@ -93,7 +94,12 @@ public class NewRegisterController {
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     String hashedPassword = encoder.encode(pass);
     user.setMyPass(hashedPassword);
-    user.setUserRole("STUDENT"); //学籍番号、メールアドレスで判別
+    Pattern mail_STUDENT = Pattern.compile("^e1[a-z]\\d{5}@oit\\.ac\\.jp$");
+    if (mail_STUDENT.matcher(mail).matches()) {
+      user.setUserRole("STUDENT");
+    } else {
+      user.setUserRole("TEACHER");
+    }
     user.setActive(false);
     userSettingMapper.insertuserSetting(user);
     model.addAttribute("user", user);
