@@ -34,7 +34,6 @@ public class TimeTable {
   private String sat5;
   private boolean showSaturday;
 
-
   public String getMyNumber() {
     return myNumber;
   }
