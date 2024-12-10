@@ -25,7 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.formLogin(login -> login
         .loginPage("/login").permitAll()
-        .defaultSuccessUrl("/calendar")
+        .defaultSuccessUrl("/calendar", true)
         .usernameParameter("accountId")
         .passwordParameter("pw"))
 
