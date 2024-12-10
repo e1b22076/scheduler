@@ -9,10 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
-//import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -75,7 +73,7 @@ public class AutoLogOffController {
       // this.semap内のすべてのIDとSseEmitterを取得し，heartbeatメッセージを送る
       for (Map.Entry<String, SseEmitter> entry : this.semap.entrySet()) {
         try {
-          entry.getValue().send(SseEmitter.event().data("heatbeet").id(""+entry.getKey()));
+          entry.getValue().send(SseEmitter.event().data("heatbeet").id("" + entry.getKey()));
           userSettingMapper.updateIsActive(id, false); // アクティブフラグをfalseに設定
         } catch (Exception e) { // RuntimeException または Database-related exception をキャッチ
           // 例外の名前とメッセージを表示し，mapから対象のemitterを削除する
