@@ -12,7 +12,7 @@
 
 <body>
   <div id="content">
-    <!-- flagがfalseの場合に表示 -->
+    <!-- 学籍番号がすでにDBに存在する場合 -->
     <div th:if="${flag ==1}" class="center-content">
       <div class="center-links"></div>
       <h1 class="center">その学籍番号は既に使われています</h1>
@@ -24,8 +24,9 @@
       </div>
     </div>
   </div>
+
   <div id="content">
-    <!-- flagがfalseの場合に表示 -->
+    <!-- メールアドレスが既に存在している場合 -->
     <div th:if="${flag ==2}" class="center-content">
       <div class="center-links"></div>
       <h1 class="center">そのメールアドレスは既に使われています</h1>
@@ -37,7 +38,8 @@
       </div>
     </div>
   </div>
-  <!--flagがtrueの場合に表示 -->
+
+  <!--正常実行-->
   <div th:if="${flag==0}">
     <div class="navbar">
       <a href="/register" class="link always-visible">戻る</a>
@@ -65,20 +67,21 @@
       <div class="form-group">
         <button type="submit" class="btn" id="touroku">送信</button>
       </div>
-      <table>
-        <!--
-        <th>
-          <a class="center" href="/admin">再送する</a>
-        </th>
-         -->
-      </table>
-
       <input type="hidden" name="gakuseki" th:value="${gakuseki}">
       <input type="hidden" name="mail" th:value="${mail}">
       <input type="hidden" name="pass" th:value="${pass}">
       <input type="hidden" name="myname" th:value="${myname}">
       <input type="hidden" name="admin_code" id="admin_code" th:value="${admin_code}">
-
+    </form>
+    <form action="/admin" method="post" th:action="@{/admin}" novalidate>
+      <div class="form-group">
+        <button type="submit" class="btn">再送する</button>
+      </div>
+      <input type="hidden" name="gakuseki" th:value="${gakuseki}">
+      <input type="hidden" name="mail" th:value="${mail}">
+      <input type="hidden" name="pass" th:value="${pass}">
+      <input type="hidden" name="myname" th:value="${myname}">
+      <input type="hidden" name="admin_code" id="admin_code" th:value="${admin_code}">
     </form>
   </div>
 </body>

@@ -63,14 +63,16 @@ public class NewRegisterController {
       }
     }
     if (flag == 0) {// ここからメール送信
-      SimpleMailMessage message = new SimpleMailMessage();
-      message.setTo(mail);
-      message.setFrom("isdev24@ubuntu205");
-      // // こことaporication propatoiesのメアドの入力を忘れないようにすること！
-      message.setSubject("認証コードをお送りします。");
-      message.setText("認証コード:" + admin_code);
-      // メール送信を実施する。
-      mailSender.send(message);
+      /*
+       * SimpleMailMessage message = new SimpleMailMessage();
+       * message.setTo(mail);
+       * message.setFrom("isdev24@ubuntu205");
+       * // // こことaporication propatoiesのメアドの入力を忘れないようにすること！
+       * message.setSubject("認証コードをお送りします。");
+       * message.setText("認証コード:" + admin_code);
+       * // メール送信を実施する。
+       * mailSender.send(message);
+       */
       model.addAttribute("mail", mail);
       model.addAttribute("gakuseki", gakuseki);
       model.addAttribute("pass", pass);
