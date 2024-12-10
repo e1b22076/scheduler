@@ -50,7 +50,7 @@ window.onload = function () {
     }
 
     // メールアドレスの形式チェック
-    const mailRegex = /^e1[a-z]\d{5}@oit\.ac\.jp$/;
+    const mailRegex = /.*@oit\.ac\.jp$/;
     if (!mailRegex.test(mail)) {
       document.getElementById('mail_chk').style.visibility = 'visible';
       formatError = true;

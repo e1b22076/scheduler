@@ -21,6 +21,7 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 
 import java.util.Random;
+import java.util.regex.Pattern;
 
 @Controller
 public class NewRegisterController {
@@ -65,11 +66,12 @@ public class NewRegisterController {
       SimpleMailMessage message = new SimpleMailMessage();
       message.setTo(mail);
       message.setFrom("isdev24@ubuntu205");
-      // // こことaporication propatoiesのメアドの入力を忘れないようにすること！
+      // こことaporication propatoiesのメアドの入力を忘れないようにすること！
       message.setSubject("認証コードをお送りします。");
       message.setText("認証コード:" + admin_code);
       // メール送信を実施する。
       mailSender.send(message);
+
       model.addAttribute("mail", mail);
       model.addAttribute("gakuseki", gakuseki);
       model.addAttribute("pass", pass);
@@ -93,7 +95,12 @@ public class NewRegisterController {
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     String hashedPassword = encoder.encode(pass);
     user.setMyPass(hashedPassword);
-    user.setUserRole("STUDENT"); //学籍番号、メールアドレスで判別
+    Pattern mail_STUDENT = Pattern.compile("^e1[a-z]\\d{5}@oit\\.ac\\.jp$");
+    if (mail_STUDENT.matcher(mail).matches()) {
+      user.setUserRole("STUDENT");
+    } else {
+      user.setUserRole("TEACHER");
+    }
     user.setActive(false);
     userSettingMapper.insertuserSetting(user);
     model.addAttribute("user", user);
