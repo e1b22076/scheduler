@@ -23,4 +23,7 @@ public interface ScheduleMapper {
 
   @Select("SELECT * from schedule where continuous = #{continuous} and DayTime = #{period} and DayofWeek = #{day} and department = #{department} and grade <= #{grade}")
   List<Schedule> selectContinuousClasses(boolean continuous, int period, String day, String department, int grade);
+
+  @Select("SELECT syllabusURL from schedule where id = #{id}")
+  String selectSyllabusURLById(String id);
 }

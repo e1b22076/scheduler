@@ -49,8 +49,6 @@ public class ClassController {
     TimeTableRecord timeTableRecord = new TimeTableRecord(timeTable, scheduleMapper);
     boolean showSaturday = timeTableMapper.selectShowSaturday(myNumber);
 
-    System.out.println("message:" + message);
-
     model.addAttribute("myNumber", myNumber);
     model.addAttribute("timeTableRecord", timeTableRecord);
     model.addAttribute("showSaturday", showSaturday);
@@ -112,7 +110,8 @@ public class ClassController {
         'Q', "IC",
         'N', "IN",
         'J', "ID",
-        'C', "IM").getOrDefault(myNumber.charAt(0), "");
+        'C', "IM"
+    ).getOrDefault(myNumber.charAt(0), "");
 
     List<Schedule> targetClasses = timeTableService.getTargetClasses(period, day, department, myGrade);
     timeTableService.addClassesByContinuous(targetClasses, true, period, day, department, myGrade);
