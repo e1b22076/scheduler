@@ -41,4 +41,93 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 期間の変換
   translateCells('.timing-cell', timingTranslations);
+
+  // 部分検索機能の実装
+  const searchInput = document.getElementById('searchInput');
+  const searchCategory = document.getElementById('searchCategory');
+  const classTableBody = document.getElementById('classTableBody');
+
+  searchInput.addEventListener('input', function () {
+    const searchText = searchInput.value.toLowerCase(); // 入力値を小文字に変換
+    const category = searchCategory.value; // 現在選択されている検索カテゴリ
+    const rows = Array.from(classTableBody.querySelectorAll('tr')); // 配列として扱う
+    const matchingRows = []; // 一致した行を格納する配列
+    const nonMatchingRows = []; // 一致しなかった行を格納する配列
+
+    rows.forEach(row => {
+      const cell = row.querySelector(`.${category}-cell`); // カテゴリに対応するセルを取得
+
+      if (searchText === '') {
+        row.style.display = '';
+        row.classList.remove('highlight');
+        return;
+      }
+
+      if (cell) {
+        const text = cell.textContent.toLowerCase(); // セルのテキストを小文字に変換
+        if (text.includes(searchText)) {
+          row.style.display = ''; // 一致する行を表示
+          row.classList.add('highlight');
+          matchingRows.push(row);
+        } else {
+          row.classList.remove('highlight');
+          nonMatchingRows.push(row);
+        }
+      } else {
+        row.classList.remove('highlight');
+        nonMatchingRows.push(row);
+      }
+    });
+
+    // 一致した行を上に並べ替え
+    matchingRows.forEach(row => classTableBody.appendChild(row));
+    nonMatchingRows.forEach(row => classTableBody.appendChild(row));
+  });
+
+  // ソート機能の実装
+  const sortButtons = document.querySelectorAll('.sort-button');
+
+  sortButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const column = button.getAttribute('data-column'); // ソート対象の列
+      const order = button.getAttribute('data-order'); // 昇順/降順を取得
+      sortTable(column, order); // ソート関数を呼び出す
+    });
+  });
+
+  function sortTable(column, order) {
+    const rows = Array.from(classTableBody.querySelectorAll('tr'));
+
+    rows.sort((rowA, rowB) => {
+      let valueA, valueB;
+
+      if (column === "continuous") {
+        const continuousA = rowA.querySelector(`[data-column="${column}"]`).textContent.trim();
+        const continuousB = rowB.querySelector(`[data-column="${column}"]`).textContent.trim();
+
+        valueA = continuousA === "1, 2" ? 0 : 1;
+        valueB = continuousB === "1, 2" ? 0 : 1;
+
+      } else {
+        const cellA = rowA.querySelector(`[data-column="${column}"]`).textContent.trim();
+        const cellB = rowB.querySelector(`[data-column="${column}"]`).textContent.trim();
+        valueA = isNaN(cellA) ? cellA : parseFloat(cellA);
+        valueB = isNaN(cellB) ? cellB : parseFloat(cellB);
+      }
+
+      if (order === "asc") {
+        return valueA > valueB ? 1 : (valueA < valueB ? -1 : 0);
+      } else {
+        return valueA < valueB ? 1 : (valueA > valueB ? -1 : 0);
+      }
+    });
+
+    // ソートされた行を再描画
+    classTableBody.innerHTML = '';
+    rows.forEach(row => classTableBody.appendChild(row));
+
+    // 最後のソート情報を記録
+    lastSortedColumn = column;
+    lastSortOrder = order;
+  }
 });
