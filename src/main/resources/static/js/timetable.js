@@ -72,8 +72,6 @@ document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".schedule-cell").forEach(cell => {
     cell.addEventListener("click", () => {
       const className = cell.textContent.trim(); // セルの内容を取得
-      const day = cell.getAttribute("data-day");
-      const period = cell.getAttribute("data-period");
 
       // 空きコマの場合
       if (!className) {
@@ -85,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // メニュー内の「授業をコマから外す」クリック時
-  document.querySelector('.menu-dropdown div:nth-child(2)').addEventListener('click', function () {
+  document.querySelector('.menu-dropdown div:nth-child(3)').addEventListener('click', function () {
     openModal('removeModal', this);
   });
 
@@ -121,6 +119,14 @@ function submitChanges() {
   form.submit();
 }
 
+function openSyllabus() {
+  const syllabusUrl = document.getElementById("infoModal").getAttribute("data-syllabus-url");
+
+  if (syllabusUrl) {
+    window.open(syllabusUrl, '_blank');
+  }
+}
+
 // モーダルを開く関数
 function openModal(modalId, tdElement) {
   const modal = document.getElementById(modalId);
@@ -129,6 +135,7 @@ function openModal(modalId, tdElement) {
     const day = tdElement.getAttribute('data-day');
     const period = tdElement.getAttribute('data-period');
     const className = tdElement.getAttribute('data-classname');
+    const syllabusUrl = tdElement.getAttribute('data-syllabus');
 
     // 空きコマの場合
     if (modalId === "addClassModal") {
@@ -143,9 +150,10 @@ function openModal(modalId, tdElement) {
       document.getElementById("infoModal-title").innerText = `${day} ${period}: ${className}`;
       document.getElementById("modal-assignment").innerText = "特定の課題がありません";
       document.getElementById("modal-test-schedule").innerText = "テスト日程は未定です";
+      document.getElementById("infoModal").setAttribute("data-syllabus-url", syllabusUrl);
 
       // メニューの「授業をコマから外す」に授業情報を設定
-      const removeButton = document.querySelector('.menu-dropdown div:nth-child(2)');
+      const removeButton = document.querySelector('.menu-dropdown div:nth-child(3)');
       removeButton.setAttribute('data-day', day);
       removeButton.setAttribute('data-period', period);
       removeButton.setAttribute('data-className', className);
