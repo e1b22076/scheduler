@@ -144,3 +144,50 @@ CREATE TABLE permissions (
     isApproved BOOLEAN DEFAULT NULL, -- 許可状態
     FOREIGN KEY (requesterNumber) REFERENCES userSetting(myNumber) ON DELETE CASCADE,FOREIGN KEY (targetNumber) REFERENCES userSetting(myNumber) ON DELETE CASCADE
 );
+
+-- 担当テーブルの作成
+CREATE TABLE assignment (
+    id IDENTITY, -- 一意識別可能なID
+    scheduleId VARCHAR NOT NULL, -- scheduleテーブルの主キーを外部キーとして保持
+    userId VARCHAR NOT NULL,
+    -- userSettingテーブルの主キーを外部キーとして保持
+    -- 外部キー制約
+    CONSTRAINT fk_schedule FOREIGN KEY (scheduleId) REFERENCES schedule(id) ON DELETE CASCADE,
+    CONSTRAINT fk_user FOREIGN KEY (userId) REFERENCES userSetting(myNumber) ON DELETE CASCADE
+);
+
+CREATE TABLE lessonNumber(
+  id IDENTITY,
+  lessonYear INT NOT NULL,
+  -- 年度（例：2024
+  lessonCount INT NOT NULL CHECK (lessonCount BETWEEN 1 AND 14), -- 第何回授業か（1～14）
+  DayofWeek ENUM('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'ZZZ') NOT NULL,
+  --Mon,Tue,Wed,Thu,Fri,Sat,ZZZ(期間外)
+  timing VARCHAR NOT NULL,
+  --↑いつ履修するか？
+  --前期A,後期B,
+  --前期前半C,前期後半D,後期前半E,後期後半F
+  --期間外Z
+  lessonDate DATE NOT NULL
+  -- 授業日
+);
+
+-- 課題テーブルの作成
+CREATE TABLE assignmentTask (
+    id IDENTITY,
+    -- 一意識別可能なID
+    lessonNumberId INT NOT NULL,
+    -- 授業回テーブルのID (外部キー)
+    assignmentId INT NOT NULL,
+    -- 担当テーブルのID (外部キー)
+    detail TEXT,
+    --授業内容
+    content TEXT,
+    -- 課題の内容
+    deadline DATE,
+    -- 締め切り日
+
+    -- 外部キー制約
+    CONSTRAINT fk_lessonNumber FOREIGN KEY (lessonNumberId) REFERENCES lessonNumber(id) ON DELETE CASCADE,
+    CONSTRAINT fk_assignment FOREIGN KEY (assignmentId) REFERENCES assignment(id) ON DELETE CASCADE
+);
