@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>課題設定</title>
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="js/common.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h1>課題設定</h1>
+    <p>担当している授業を選択し、授業回を指定してください。</p>
+
+    <!-- 担当授業の一覧 -->
+    <form action="/teacherSetting/workSetting/set" method="GET">
+      <table>
+        <thead>
+          <tr>
+            <th>講義コード</th>
+            <th>学科</th>
+            <th>講義名</th>
+            <th>単位数</th>
+            <th>履修可能学年</th>
+            <th>曜日</th>
+            <th>時間</th>
+            <th>選択</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- targetClassesをループして表示 -->
+          <tr th:each="schedule : ${targetClasses}">
+            <td th:text="${schedule.id}"></td>
+            <td th:text="${schedule.department}"></td>
+            <td th:text="${schedule.className}"></td>
+            <td th:text="${schedule.credit}"></td>
+            <td th:text="${schedule.grade}年生以上"></td>
+            <td th:text="${schedule.DayofWeek}"></td>
+            <td th:text="${schedule.DayTime}時間目"></td>
+            <td>
+              <input type="radio" name="classId" th:value="${schedule.id}" required>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 授業回の指定 -->
+      <label for="lessonCount">授業回を選択:</label>
+      <select id="lessonCount" name="lessonCount" required>
+        <option value="" disabled selected>-- 授業回を選択 --</option>
+        <option th:each="i : ${#numbers.sequence(1, 14)}" th:value="${i}" th:text="${i}回"></option>
+      </select>
+
+      <div class="form-actions">
+        <button type="submit">次へ進む</button>
+      </div>
+    </form>
+  </div>
+
+
+</body>
+
+</html>

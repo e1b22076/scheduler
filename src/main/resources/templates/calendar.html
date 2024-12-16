@@ -27,6 +27,10 @@
     <a href="/todolist" class="link">
       <i class="fa-solid fa-list"></i>やることリスト
     </a>
+    <a href="/teacherSetting" class="link" sec:authorize="hasRole('ROLE_TEACHER')">
+      <i class="fa-regular fa-paper-plane"></i>
+      担当授業設定
+    </a>
     <a href="/setting" class="link">
       <i class="fa-solid fa-gear"></i> 設定
     </a>
@@ -52,6 +56,10 @@
     </a>
     <a href="/todolist" class="link">
       <i class="fa-solid fa-list"></i>やることリスト
+    </a>
+    <a href="/teacherSetting" class="link" sec:authorize="hasRole('ROLE_TEACHER')">
+      <i class="fa-regular fa-paper-plane"></i>
+      担当授業設定
     </a>
     <a href="/setting" class="link">
       <i class="fa-solid fa-gear"></i> 設定
