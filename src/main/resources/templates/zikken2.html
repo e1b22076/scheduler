@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="_csrf" content="${_csrf.token}">
+  <meta name="_csrf_header" content="${_csrf.parameterName}">
+  <title>アクション検知ページ</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    #log {
+      margin-top: 20px;
+      border: 1px solid #ddd;
+      padding: 10px;
+      height: 200px;
+      overflow-y: scroll;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>ユーザーアクション検知ページ</h1>
+  <p>このページでユーザーのアクションをリアルタイムで検知します。</p>
+  <div id="log">アクションログ:</div>
+  <script>
+    // アクションログを表示する関数
+    const logAction = (action) => {
+      const logDiv = document.getElementById('log');
+      const time = new Date().toLocaleTimeString();
+      logDiv.innerHTML += `<p>[${time}] ${action}</p>`;
+      logDiv.scrollTop = logDiv.scrollHeight; // 自動スクロール
+    };
+
+    // 最終アクション時間の初期値
+    let lastActionTime = Date.now();
+
+    // アクションがあった場合のタイマーリセット
+    const resetActionTimer = () => {
+      lastActionTime = Date.now();
+    };
+    // アクション検知
+    document.addEventListener('click', (e) => {
+      logAction(`クリック: x=${e.clientX}, y=${e.clientY}`);
+      resetActionTimer();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      logAction(`キー入力: ${e.key}`);
+      resetActionTimer();
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      logAction(`マウス移動: x=${e.clientX}, y=${e.clientY}`);
+      resetActionTimer();
+    });
+
+    window.addEventListener('scroll', () => {
+      logAction('スクロールしました');
+      resetActionTimer();
+    });
+
+    // 30秒間アクションがない場合にフラグをPOSTする
+    const checkInactivity = () => {
+      const now = Date.now();
+      if (now - lastActionTime > 10000) { // 10秒
+        logAction('30秒間アクションがありません');
+        sendLogoutRequest(); // フラグ送信
+        resetActionTimer(); // 再度カウントをリセット
+      }
+    };
+
+    // ログアウト用のPOSTリクエスト送信
+    const sendLogoutRequest = () => {
+      const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+      const csrfParameterName = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+      // フォームを作成してCSRFトークンを送信
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = '/logout';
+
+      // CSRFトークンをフォームに追加
+      const csrfInput = document.createElement('input');
+      csrfInput.type = 'hidden';
+      csrfInput.name = csrfParameterName; // CSRFトークンのパラメータ名
+      csrfInput.value = csrfToken; // CSRFトークンの値
+      form.appendChild(csrfInput);
+
+      // フォームを送信
+      document.body.appendChild(form);
+      form.submit();
+
+      // ログアウト後にGETリクエストで/index.htmlに遷移
+      window.location.href = "/index.html";
+    };
+
+    // 1秒ごとに非アクティブ状態をチェック
+    setInterval(checkInactivity, 1000);
+
+  </script>
+
+</body>
+
+</html>

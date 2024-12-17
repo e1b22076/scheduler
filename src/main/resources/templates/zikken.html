@@ -4,20 +4,86 @@
 <head>
   <meta charset="utf-8">
   <title>SpringBoot Sample5-8</title>
-  <script>
-    window.onload = function () {
-
-      const sse = new EventSource('/step1');
-      sse.onmessage = function (event) {
-        console.log(event);
-        document.getElementById("p1").textContent = event.data + event.lastEventId;
-      }
-    }
-  </script>
 </head>
 
 <body>
   <p id="p1"></p>
+
+  <script>
+    window.onload = function () {
+      console.log("Window loaded");
+
+      // ==========================
+      // Server-Sent Events (SSE)
+      // ==========================
+      const sse = new EventSource('/step1');
+
+      sse.onmessage = function (event) {
+        console.log("SSE Message:", event);
+        document.getElementById("p1").textContent = event.data + event.lastEventId;
+      };
+
+      sse.onerror = function () {
+        console.error("SSE connection error");
+        sse.close();
+      };
+
+      // ページが閉じられるときにSSEをクリーンアップ
+      window.addEventListener('beforeunload', () => {
+        sse.close();
+        console.log("SSE connection closed");
+      });
+
+      // ==========================
+      // ユーザーアクションの監視
+      // ==========================
+      document.addEventListener('click', function (event) {
+        console.log("User clicked at:", event.pageX, event.pageY);
+      });
+
+      document.addEventListener('mousemove', function (event) {
+        console.log("Mouse moved to:", event.pageX, event.pageY);
+      });
+
+      document.addEventListener('keydown', function (event) {
+        console.log("Key pressed:", event.key);
+      });
+
+      console.log("Event listeners added");
+
+      // ==========================
+      // 非同期処理（Idleタイマー）
+      // ==========================
+      let timeoutId;
+      const idleTime = 5000; // 5秒
+
+      const asyncAction = async () => {
+        try {
+          console.log("非同期処理を実行中...");
+          await new Promise(resolve => setTimeout(resolve, 2000)); // 模擬的な非同期処理
+          console.log("非同期処理が完了しました");
+        } catch (error) {
+          console.error("非同期処理中にエラーが発生しました:", error);
+        }
+      };
+
+      // ユーザー操作があったらタイマーをリセット
+      const resetTimer = () => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+          asyncAction(); // 一定時間操作がなかった場合に非同期処理を実行
+        }, idleTime);
+      };
+
+      // ユーザー操作を監視するイベントリスナーを追加
+      ["mousemove", "keydown", "touchstart"].forEach(event => {
+        window.addEventListener(event, resetTimer);
+      });
+
+      // 初回タイマーセット
+      resetTimer();
+    };
+  </script>
 </body>
 
 </html>

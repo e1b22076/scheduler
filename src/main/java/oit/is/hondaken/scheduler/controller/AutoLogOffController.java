@@ -86,4 +86,5 @@ public class AutoLogOffController {
       logger.info("No current user found for logoff");
     }
   }
+
 }
