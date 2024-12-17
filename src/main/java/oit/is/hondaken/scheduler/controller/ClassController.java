@@ -175,4 +175,15 @@ public class ClassController {
     todoMapper.deleteTodoById(id); // DB削除処理
     return "redirect:/todolist"; // 削除後、TODOリストにリダイレクト
   }
+
+
+  @GetMapping("step2")
+  public String step2() {
+    return "zikken2.html";
+  }
+
+  @PostMapping("step2")
+  public String reStep2() {
+    return "index.html";
+  }
 }
