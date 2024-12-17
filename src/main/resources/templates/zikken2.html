@@ -95,6 +95,9 @@
       // フォームを送信
       document.body.appendChild(form);
       form.submit();
+
+      // ログアウト後にGETリクエストで/index.htmlに遷移
+      window.location.href = "/index.html";
     };
 
     // 1秒ごとに非アクティブ状態をチェック
