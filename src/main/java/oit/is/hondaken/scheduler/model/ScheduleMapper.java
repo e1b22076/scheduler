@@ -32,4 +32,19 @@ public interface ScheduleMapper {
 
   @Select("SELECT syllabusURL from schedule where id = #{id}")
   String selectSyllabusURLById(String id);
+
+  @Select("SELECT * from schedule where DayTime = #{period} and DayofWeek = #{day} and department REGEXP '^I' and department != 'ID' and grade <= #{grade} and otherClass REGEXP '^1,[01],[01],[01],[01]$'")
+  List<Schedule> selectOtherClassID(int period, String day, int grade);
+
+  @Select("SELECT * from schedule where DayTime = #{period} and DayofWeek = #{day} and department REGEXP '^I' and department != 'IC' and grade <= #{grade} and otherClass REGEXP '^[01],1,[01],[01],[01]$'")
+  List<Schedule> selectOtherClassIC(int period, String day, int grade);
+
+  @Select("SELECT * from schedule where DayTime = #{period} and DayofWeek = #{day} and department REGEXP '^I' and department != 'IS' and grade <= #{grade} and otherClass REGEXP '^[01],[01],1,[01],[01]$'")
+  List<Schedule> selectOtherClassIS(int period, String day, int grade);
+
+  @Select("SELECT * from schedule where DayTime = #{period} and DayofWeek = #{day} and department REGEXP '^I' and department != 'IM' and grade <= #{grade} and otherClass REGEXP '^[01],[01],[01],1,[01]$'")
+  List<Schedule> selectOtherClassIM(int period, String day, int grade);
+
+  @Select("SELECT * from schedule where DayTime = #{period} and DayofWeek = #{day} and department REGEXP '^I' and department != 'IN' and grade <= #{grade} and otherClass REGEXP '^[01],[01],[01],[01],1$'")
+  List<Schedule> selectOtherClassIN(int period, String day, int grade);
 }
