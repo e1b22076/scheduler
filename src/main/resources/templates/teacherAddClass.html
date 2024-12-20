@@ -61,7 +61,7 @@
     <div class="search-container">
       <select id="searchCategory" class="search-select">
         <option value="className">授業名</option>
-        <option value="grade">履修可能最低年次</option>
+        <option value="grade">履修年次</option>
         <option value="department">学科</option>
         <option value="attribute">科目属性</option>
         <option value="continuous">連続科目</option>
@@ -80,7 +80,7 @@
             <button class="sort-button" data-column="className" data-order="desc">▼</button>
           </th>
           <th>
-            履修可能最低年次
+            履修年次
             <button class="sort-button" data-column="grade" data-order="asc">▲</button>
             <button class="sort-button" data-column="grade" data-order="desc">▼</button>
           </th>
@@ -117,7 +117,7 @@
           <td data-column="className" class="className-cell">
             <a th:href="${class.syllabusURL}" target="_blank" th:text="${class.className}" class="class-link">授業名</a>
           </td>
-          <td data-column="grade" class="grade-cell" th:text="${class.grade}">履修可能最低年次</td>
+          <td data-column="grade" class="grade-cell" th:text="${class.grade}">履修年次</td>
           <td data-column="department" class="department-cell" th:text="${class.department}">学科</td>
           <td data-column="attribute" class="attribute-cell" th:text="${class.attribute}">科目属性</td>
           <td data-column="continuous" class="continuous-cell">

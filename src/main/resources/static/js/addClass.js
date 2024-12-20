@@ -48,54 +48,34 @@ document.addEventListener("DOMContentLoaded", function () {
   const classTableBody = document.getElementById('classTableBody');
 
   searchInput.addEventListener('input', function () {
-    const searchText = searchInput.value.toLowerCase(); // 入力値を小文字に変換
-    const category = searchCategory.value; // 現在選択されている検索カテゴリ
-    const rows = Array.from(classTableBody.querySelectorAll('tr')); // 配列として扱う
-    const matchingRows = []; // 一致した行を格納する配列
-    const nonMatchingRows = []; // 一致しなかった行を格納する配列
+    const searchText = searchInput.value.toLowerCase();
+    const category = searchCategory.value;
+    const rows = Array.from(classTableBody.querySelectorAll('tr'));
 
     rows.forEach(row => {
-      const cell = row.querySelector(`.${category}-cell`); // カテゴリに対応するセルを取得
-
-      if (searchText === '') {
+      const cell = row.querySelector(`.${category}-cell`);
+      if (cell && cell.textContent.toLowerCase().includes(searchText)) {
         row.style.display = '';
-        row.classList.remove('highlight');
-        return;
-      }
-
-      if (cell) {
-        const text = cell.textContent.toLowerCase(); // セルのテキストを小文字に変換
-        if (text.includes(searchText)) {
-          row.style.display = ''; // 一致する行を表示
-          row.classList.add('highlight');
-          matchingRows.push(row);
-        } else {
-          row.classList.remove('highlight');
-          nonMatchingRows.push(row);
-        }
+        row.classList.add('highlight');
       } else {
+        row.style.display = 'none';
         row.classList.remove('highlight');
-        nonMatchingRows.push(row);
       }
     });
-
-    // 一致した行を上に並べ替え
-    matchingRows.forEach(row => classTableBody.appendChild(row));
-    nonMatchingRows.forEach(row => classTableBody.appendChild(row));
   });
 
-  // ソート機能の実装
-  const sortButtons = document.querySelectorAll('.sort-button');
+  // 最初のテーブルのソート機能
+  const classSortButtons = document.querySelectorAll('.class-sort-button');
 
-  sortButtons.forEach(button => {
+  classSortButtons.forEach(button => {
     button.addEventListener('click', () => {
-      const column = button.getAttribute('data-column'); // ソート対象の列
-      const order = button.getAttribute('data-order'); // 昇順/降順を取得
-      sortTable(column, order); // ソート関数を呼び出す
+      const column = button.getAttribute('data-column');
+      const order = button.getAttribute('data-order');
+      sortClassTable(column, order);
     });
   });
 
-  function sortTable(column, order) {
+  function sortClassTable(column, order) {
     const rows = Array.from(classTableBody.querySelectorAll('tr'));
 
     rows.sort((rowA, rowB) => {
@@ -104,10 +84,8 @@ document.addEventListener("DOMContentLoaded", function () {
       if (column === "continuous") {
         const continuousA = rowA.querySelector(`[data-column="${column}"]`).textContent.trim();
         const continuousB = rowB.querySelector(`[data-column="${column}"]`).textContent.trim();
-
-        valueA = continuousA === "1, 2" ? 0 : 1;
-        valueB = continuousB === "1, 2" ? 0 : 1;
-
+        valueA = (continuousA === "1, 2" || continuousA === "3, 4") ? 0 : 1;
+        valueB = (continuousB === "1, 2" || continuousB === "3, 4") ? 0 : 1;
       } else {
         const cellA = rowA.querySelector(`[data-column="${column}"]`).textContent.trim();
         const cellB = rowB.querySelector(`[data-column="${column}"]`).textContent.trim();
@@ -116,18 +94,75 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       if (order === "asc") {
-        return valueA > valueB ? 1 : (valueA < valueB ? -1 : 0);
+        return valueA > valueB ? 1 : valueA < valueB ? -1 : 0;
       } else {
-        return valueA < valueB ? 1 : (valueA > valueB ? -1 : 0);
+        return valueA < valueB ? 1 : valueA > valueB ? -1 : 0;
       }
     });
 
-    // ソートされた行を再描画
     classTableBody.innerHTML = '';
     rows.forEach(row => classTableBody.appendChild(row));
+  }
 
-    // 最後のソート情報を記録
-    lastSortedColumn = column;
-    lastSortOrder = order;
+  // 他学科用の検索機能
+  const otherSearchInput = document.getElementById('otherSearchInput');
+  const otherSearchCategory = document.getElementById('otherSearchCategory');
+  const otherClassTableBody = document.getElementById('otherClassTableBody');
+
+  otherSearchInput.addEventListener('input', function () {
+    const searchText = otherSearchInput.value.toLowerCase();
+    const category = otherSearchCategory.value;
+    const rows = Array.from(otherClassTableBody.querySelectorAll('tr'));
+
+    rows.forEach(row => {
+      const cell = row.querySelector(`.${category}-cell`);
+      if (cell && cell.textContent.toLowerCase().includes(searchText)) {
+        row.style.display = '';
+        row.classList.add('highlight');
+      } else {
+        row.style.display = 'none';
+        row.classList.remove('highlight');
+      }
+    });
+  });
+
+  // 他学科のソート機能
+  const otherSortButtons = document.querySelectorAll('.other-sort-button');
+
+  otherSortButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const column = button.getAttribute('data-column');
+      const order = button.getAttribute('data-order');
+      sortOtherClassTable(column, order);
+    });
+  });
+
+  function sortOtherClassTable(column, order) {
+    const rows = Array.from(otherClassTableBody.querySelectorAll('tr'));
+
+    rows.sort((rowA, rowB) => {
+      let valueA, valueB;
+
+      if (column === "continuous") {
+        const continuousA = rowA.querySelector(`[data-column="${column}"]`).textContent.trim();
+        const continuousB = rowB.querySelector(`[data-column="${column}"]`).textContent.trim();
+        valueA = (continuousA === "1, 2" || continuousA === "3, 4") ? 0 : 1;
+        valueB = (continuousB === "1, 2" || continuousB === "3, 4") ? 0 : 1;
+      } else {
+        const cellA = rowA.querySelector(`[data-column="${column}"]`).textContent.trim();
+        const cellB = rowB.querySelector(`[data-column="${column}"]`).textContent.trim();
+        valueA = isNaN(cellA) ? cellA : parseFloat(cellA);
+        valueB = isNaN(cellB) ? cellB : parseFloat(cellB);
+      }
+
+      if (order === "asc") {
+        return valueA > valueB ? 1 : valueA < valueB ? -1 : 0;
+      } else {
+        return valueA < valueB ? 1 : valueA > valueB ? -1 : 0;
+      }
+    });
+
+    otherClassTableBody.innerHTML = '';
+    rows.forEach(row => otherClassTableBody.appendChild(row));
   }
 });

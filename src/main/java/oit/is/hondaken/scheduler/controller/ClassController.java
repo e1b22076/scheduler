@@ -121,7 +121,11 @@ public class ClassController {
     timeTableService.addClassesByDepartment(targetClasses, period, day, "Career", myGrade);
     timeTableService.addClassesByDepartment(targetClasses, period, day, "Sports", myGrade);
 
+    List<Schedule> otherDepartmentClasses = timeTableService.getOtherDepartmentClasses(period, day, department, myGrade);
+
+    model.addAttribute("department", department);
     model.addAttribute("targetClasses", targetClasses);
+    model.addAttribute("otherDepartmentClasses", otherDepartmentClasses);
     model.addAttribute("day", day);
     model.addAttribute("period", period);
 

@@ -28,8 +28,7 @@ public class TimeTableService {
   }
 
   // 学科の授業リストに連続科目を追加
-  public void addClassesByContinuous(List<Schedule> targetClasses, boolean state, String period, String day,
-      String department, int grade) {
+  public void addClassesByContinuous(List<Schedule> targetClasses, boolean state, String period, String day, String department, int grade) {
     int checkPeriod = convertPeriodToIndex(period) - 1;
     String dataDay = convertDayToEnglish(day);
     if (checkPeriod <= 0) {
@@ -42,8 +41,7 @@ public class TimeTableService {
   }
 
   // 学科の授業リストにEnglishなどを追加
-  public void addClassesByDepartment(List<Schedule> targetClasses, String period, String day, String department,
-      int grade) {
+  public void addClassesByDepartment(List<Schedule> targetClasses, String period, String day, String department, int grade) {
     List<Schedule> addClasses = getTargetClasses(period, day, department, grade);
     targetClasses.addAll(addClasses);
   }
@@ -166,4 +164,24 @@ public class TimeTableService {
     return input.substring(0, 1).toUpperCase() + input.substring(1);
   }
 
+  // 他学科履修可能な授業の取得
+  public List<Schedule> getOtherDepartmentClasses(String period, String day, String department, int grade) {
+    int dataPeriod = convertPeriodToIndex(period);
+    String dataDay = convertDayToEnglish(day);
+
+    switch (department) {
+      case "ID":
+        return scheduleMapper.selectOtherClassID(dataPeriod, capitalizeFirstLetter(dataDay), grade);
+      case "IC":
+        return scheduleMapper.selectOtherClassIC(dataPeriod, capitalizeFirstLetter(dataDay), grade);
+      case "IS":
+        return scheduleMapper.selectOtherClassIS(dataPeriod, capitalizeFirstLetter(dataDay), grade);
+      case "IM":
+        return scheduleMapper.selectOtherClassIM(dataPeriod, capitalizeFirstLetter(dataDay), grade);
+      case "IN":
+        return scheduleMapper.selectOtherClassIN(dataPeriod, capitalizeFirstLetter(dataDay), grade);
+      default:
+        return List.of();
+    }
+  }
 }

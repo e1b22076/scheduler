@@ -81,7 +81,11 @@ tr:hover {
 
 /* 検索ボックスのスタイル */
 .search-container {
-  text-align: right;
+  display: flex;
+  justify-content: space-between;
+  /* h2 を左端、ボックスを右端に配置 */
+  align-items: center;
+  gap: 10px;
   margin-bottom: 10px;
 }
 
@@ -99,13 +103,28 @@ tr:hover {
   font-size: 14px;
 }
 
+/* h2の位置調整 */
+.search-container h2 {
+  margin: 0;
+  flex-shrink: 0;
+  /* h2のサイズが変わらないよう固定 */
+  color: #4a4e69;
+}
+
+/* セレクトボックスと検索ボックスを右端で横並び */
+.search-controls {
+  display: flex;
+  gap: 10px;
+}
+
 /* 一致した行のスタイル */
 tr.highlight {
   background-color: #ffe4b5;
   /* ハイライト色 */
 }
 
-.sort-button {
+.class-sort-button,
+.other-sort-button {
   background: none;
   border: none;
   cursor: pointer;
@@ -115,6 +134,29 @@ tr.highlight {
   padding: 0;
 }
 
-.sort-button:hover {
+.class-sort-button:hover,
+.other-sort-button:hover {
   color: #ff6347;
+}
+
+/* ジャンプリンクのスタイル */
+.jump-link {
+  color: #4a90e2;
+  /* メインのリンク色 */
+  font-weight: bold;
+  text-decoration: none;
+  margin-left: 10px;
+  /* 文から少し余白をつける */
+  transition: color 0.3s ease;
+}
+
+.jump-link:hover {
+  color: #ff6347;
+  /* ホバー時のリンク色 */
+  text-decoration: underline;
+  /* ホバー時の装飾 */
+}
+
+.empty-message {
+  text-align: center;
 }
