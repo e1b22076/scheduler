@@ -191,7 +191,6 @@ public class ScheduleController {
     return "redirect:/calendar/event?date=" + date;
   }
 
-
   @GetMapping("/join")
   public String join(Model model, Principal prin) {
     String myNumber = prin.getName();

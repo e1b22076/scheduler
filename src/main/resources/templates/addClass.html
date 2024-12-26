@@ -7,7 +7,10 @@
   <title>授業登録</title>
   <link rel="stylesheet" th:href="@{/css/common.css}">
   <link rel="stylesheet" th:href="@{/css/addClass.css}">
+  <meta name="_csrf" content="${_csrf.token}">
+  <meta name="_csrf_header" content="${_csrf.parameterName}">
   <script th:src="@{/js/addClass.js}"></script>
+  <script src="js/logout.js"></script>
 </head>
 
 <body>
