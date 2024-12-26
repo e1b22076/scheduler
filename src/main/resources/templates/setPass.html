@@ -4,12 +4,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="_csrf" content="${_csrf.token}">
+  <meta name="_csrf_header" content="${_csrf.parameterName}">
   <title>パスワードの変更</title>
   <link rel="stylesheet" href="/css/common.css">
   <link rel="stylesheet" href="/css/eventDetails.css"> <!-- 戻るリンクを左端に -->
   <link rel="stylesheet" href="/css/settings.css">
   <link rel="stylesheet" href="/css/message.css">
   <script src="/js/validation.js"></script>
+  <script src="js/logout.js"></script>
 </head>
 
 <body>
