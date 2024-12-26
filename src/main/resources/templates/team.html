@@ -6,9 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="_csrf" content="${_csrf.token}">
   <meta name="_csrf_header" content="${_csrf.parameterName}">
-  <title>TODOリスト</title>
+  <title>チーム</title>
   <link rel="stylesheet" href="css/common.css">
-  <link rel="stylesheet" href="css/todolist.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   </a>
   <script src="js/common.js"></script>
@@ -81,38 +80,6 @@
     </form>
   </div>
 
-  <div class="title-container">
-    <h1>TODOリスト</h1>
-
-    <form th:action="@{/todolist/add}" th:object="${newTodo}" method="post" class="form-container">
-      <input type="text" th:field="*{title}" placeholder="タイトル (必須)" required />
-      <input type="text" th:field="*{description}" placeholder="説明 (任意)" />
-      <button type="submit">追加</button>
-    </form>
-
-    <!-- TODOリスト -->
-    <ul class="todo-list">
-      <li th:each="todo : ${todos}" class="todo-item">
-        <div>
-          <!-- 完了かどうかのチェックマーク -->
-          <span class="status-icon" th:text="${todo.completed ? '✓' : '　'}"></span>
-
-          <span class="todo-title" th:text="${todo.title}"></span>
-          <p class="todo-description" th:text="${todo.description}"></p>
-        </div>
-
-        <div class="todo-actions">
-          <form th:action="@{/todolist/update/{id}(id=${todo.id})}" method="post">
-            <button type="submit" name="completed" th:value="${!todo.completed}" class="completed-btn"
-              th:text="${todo.completed ? '未完了にする' : '完了にする'}"></button>
-          </form>
-          <form th:action="@{/todolist/delete/{id}(id=${todo.id})}" method="post">
-            <button type="submit" class="delete-btn">削除</button>
-          </form>
-        </div>
-      </li>
-    </ul>
-  </div>
 </body>
 
 </html>
