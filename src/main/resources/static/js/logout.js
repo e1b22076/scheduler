@@ -23,10 +23,10 @@ window.addEventListener('scroll', () => {
   resetActionTimer();
 });
 
-// 30秒間アクションがない場合にフラグをPOSTする
+// 30分間アクションがない場合にフラグをPOSTする
 const checkInactivity = () => {
   const now = Date.now();
-  if (now - lastActionTime > 5000) { // 5秒
+  if (now - lastActionTime > 1800000) { // 30分
     sendLogoutRequest(); // フラグ送信
     resetActionTimer(); // 再度カウントをリセット
   }
