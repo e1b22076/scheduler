@@ -397,4 +397,13 @@ public class ScheduleController {
     return "redirect:/join/permissionStatusShow";
   }
 
+  @GetMapping("step2")
+  public String step2() {
+    return "zikken2.html";
+  }
+
+  @PostMapping("step2")
+  public String reStep2() {
+    return "index.html";
+  }
 }

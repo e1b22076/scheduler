@@ -57,7 +57,10 @@ public class CustomUserDetailsService implements UserDetailsService {
             .requestMatchers(AntPathRequestMatcher.antMatcher("/**"))
             .permitAll())// 上記以外は全員アクセス可能
         .csrf(csrf -> csrf
-            .ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/*")))// h2-console用にCSRF対策を無効化
+            .ignoringRequestMatchers(AntPathRequestMatcher.antMatcher(
+                "/h2-console/*"))
+            .ignoringRequestMatchers(AntPathRequestMatcher.antMatcher(
+                "/logout")))// h2-console用にCSRF対策を無効化
         .headers(headers -> headers
             .frameOptions(frameOptions -> frameOptions
                 .sameOrigin()));

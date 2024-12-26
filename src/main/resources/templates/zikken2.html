@@ -20,6 +20,11 @@
       padding: 10px;
       height: 200px;
       overflow-y: scroll;
+      white-space: pre-wrap;
+    }
+
+    p {
+      margin: 5px 0;
     }
   </style>
 </head>
@@ -44,6 +49,7 @@
     const resetActionTimer = () => {
       lastActionTime = Date.now();
     };
+
     // アクション検知
     document.addEventListener('click', (e) => {
       logAction(`クリック: x=${e.clientX}, y=${e.clientY}`);
@@ -68,14 +74,14 @@
     // 30秒間アクションがない場合にフラグをPOSTする
     const checkInactivity = () => {
       const now = Date.now();
-      if (now - lastActionTime > 10000) { // 10秒
-        logAction('30秒間アクションがありません');
+      if (now - lastActionTime > 5000) { // 5秒
+        logAction('5秒間アクションがありません');
         sendLogoutRequest(); // フラグ送信
         resetActionTimer(); // 再度カウントをリセット
       }
     };
 
-    // ログアウト用のPOSTリクエスト送信
+    // ログアウト用のPOSTリクエストを自動送信
     const sendLogoutRequest = () => {
       const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
       const csrfParameterName = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
@@ -92,12 +98,12 @@
       csrfInput.value = csrfToken; // CSRFトークンの値
       form.appendChild(csrfInput);
 
-      // フォームを送信
+      // フォームを送信（ボタン不要）
       document.body.appendChild(form);
       form.submit();
 
-      // ログアウト後にGETリクエストで/index.htmlに遷移
-      window.location.href = "/index.html";
+      alert('ログインがタイムアウトしました');
+
     };
 
     // 1秒ごとに非アクティブ状態をチェック
