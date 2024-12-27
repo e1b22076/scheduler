@@ -41,7 +41,7 @@ window.onload = function () {
     let formatError = false;
 
     // 学籍番号の形式チェック
-    const gakusekiRegex = /^[A-Z]\d{5}$/;
+    const gakusekiRegex = /^[BCQJN]\d{5}$/;
     if (!gakusekiRegex.test(gakuseki)) {
       document.getElementById('gakuseki_chk').style.visibility = 'visible';
       formatError = true;

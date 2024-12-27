@@ -188,4 +188,9 @@ public class NewRegisterController {
     return "admin.html";
   }
 
+  @GetMapping("/timeout")
+  public String timeout() {
+    return "timeout.html";
+  }
+
 }

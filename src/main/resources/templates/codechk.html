@@ -7,82 +7,73 @@
   <title>新規登録</title>
   <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/codechk.css">
-  <script src="js/codechk.js"></script>
+  <script src="js/codechk.js" defer></script>
 </head>
 
 <body>
   <div id="content">
     <!-- 学籍番号がすでにDBに存在する場合 -->
     <div th:if="${flag ==1}" class="center-content">
-      <div class="center-links"></div>
       <h1 class="center">その学籍番号は既に使われています</h1>
-      <br>
       <div class="navbar">
         <a href="/register" class="link always-visible">新規登録画面へ</a>
         <a href="/calendar" class="link always-visible">ログイン画面へ</a>
         <a href="/" class="link always-visible">TOPへ</a>
       </div>
     </div>
-  </div>
 
-  <div id="content">
     <!-- メールアドレスが既に存在している場合 -->
     <div th:if="${flag ==2}" class="center-content">
-      <div class="center-links"></div>
       <h1 class="center">そのメールアドレスは既に使われています</h1>
-      <br>
       <div class="navbar">
         <a href="/register" class="link always-visible">新規登録画面へ</a>
         <a href="/calendar" class="link always-visible">ログイン画面へ</a>
         <a href="/" class="link always-visible">TOPへ</a>
       </div>
     </div>
-  </div>
 
-  <!--正常実行-->
-  <div th:if="${flag==0}">
-    <div class="navbar">
-      <a href="/register" class="link always-visible">戻る</a>
+    <!-- 正常実行 -->
+    <div th:if="${flag==0}">
+      <div class="navbar">
+        <a href="/register" class="link always-visible">戻る</a>
+      </div>
+
+      <form action="/regfin" method="post" th:action="@{/regfin}" novalidate>
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+
+        <table>
+          <th>登録されたメールアドレスに認証コードを送信しました。</th>
+          <th:if>[[${admin_code}]]</th:if>
+        </table>
+        <table>
+          <tr>
+            <th><label for="code">認証コード</label></th>
+            <td>
+              <input id="code" type="text" name="code" class="form-control" required>
+              <span id="code_chk" class="error-message">認証コードが違います</span>
+            </td>
+          </tr>
+        </table>
+        <div class="form-group">
+          <button type="submit" class="btn" id="touroku">送信</button>
+        </div>
+        <input type="hidden" name="gakuseki" th:value="${gakuseki}">
+        <input type="hidden" name="mail" th:value="${mail}">
+        <input type="hidden" name="pass" th:value="${pass}">
+        <input type="hidden" name="myname" th:value="${myname}">
+        <input type="hidden" name="admin_code" id="admin_code" th:value="${admin_code}">
+      </form>
+      <form action="/admin" method="post" th:action="@{/admin}" novalidate>
+        <div class="form-group">
+          <button type="submit" class="btn">再送する</button>
+        </div>
+        <input type="hidden" name="gakuseki" th:value="${gakuseki}">
+        <input type="hidden" name="mail" th:value="${mail}">
+        <input type="hidden" name="pass" th:value="${pass}">
+        <input type="hidden" name="myname" th:value="${myname}">
+        <input type="hidden" name="admin_code" id="admin_code" th:value="${admin_code}">
+      </form>
     </div>
-
-    <form action="/regfin" method="post" th:action="@{/regfin}" novalidate>
-      <!-- CSRFトークンの追加 -->
-      <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
-
-      <table>
-        <th>
-          登録されたメールアドレスに認証コードを送信しました。
-        </th>
-        <th:if>[[${admin_code}]]</th:if>
-      </table>
-      <table>
-        <tr>
-          <th><label for="code">認証コード</label></th>
-          <td>
-            <input id="code" type="text" name="code" class="form-control" required>
-            <span id="code_chk" class="error-message">認証コードが違います</span>
-          </td>
-        </tr>
-      </table>
-      <div class="form-group">
-        <button type="submit" class="btn" id="touroku">送信</button>
-      </div>
-      <input type="hidden" name="gakuseki" th:value="${gakuseki}">
-      <input type="hidden" name="mail" th:value="${mail}">
-      <input type="hidden" name="pass" th:value="${pass}">
-      <input type="hidden" name="myname" th:value="${myname}">
-      <input type="hidden" name="admin_code" id="admin_code" th:value="${admin_code}">
-    </form>
-    <form action="/admin" method="post" th:action="@{/admin}" novalidate>
-      <div class="form-group">
-        <button type="submit" class="btn">再送する</button>
-      </div>
-      <input type="hidden" name="gakuseki" th:value="${gakuseki}">
-      <input type="hidden" name="mail" th:value="${mail}">
-      <input type="hidden" name="pass" th:value="${pass}">
-      <input type="hidden" name="myname" th:value="${myname}">
-      <input type="hidden" name="admin_code" id="admin_code" th:value="${admin_code}">
-    </form>
   </div>
 </body>
 
