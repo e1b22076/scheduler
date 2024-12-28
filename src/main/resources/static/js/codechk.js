@@ -1,5 +1,5 @@
 window.onload = function () {
-  const timeoutDuration = 5000; // タイムアウトの時間（ミリ秒）
+  const timeoutDuration = 300000; // タイムアウトの時間（ミリ秒）
   let isTimedOut = false;
 
   // タイマーの設定
