@@ -1161,4 +1161,4 @@ INSERT INTO lessonNumber(lessonYear,lessonCount,DayofWeek,timing,lessonDate) VAL
 
 INSERT INTO assignment (scheduleId,userId) VALUES('1BBN09A0','B00000');
 
-INSERT INTO assignmentTask (lessonNumberId,assignmentId,detail,content,deadline) VALUES (15,1,'まず基本動作について学ぶ','じゃんけんゲームを作成。詳細は授業ページ','2024-10-01');
+INSERT INTO assignmentTask (lessonCount,assignmentId,detail,content,deadline) VALUES (8,1,'まず基本動作について学ぶ','じゃんけんゲームを作成。詳細は授業ページ','2024-10-01');

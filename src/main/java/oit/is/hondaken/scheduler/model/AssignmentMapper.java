@@ -16,6 +16,9 @@ public interface AssignmentMapper {
   @Select("select * from assignment where userId = #{userId}")
   List<Assignment> findByUserId(@Param("userId") String userId);
 
+  @Select("select id from assignment where userId = #{userId} and ScheduleId=#{ScheduleId}")
+  int findByScheduleId(@Param("userId") String userId, @Param("ScheduleId") String ScheduleId);
+
   // キーワードで担当授業を検索
   List<Assignment> findByKeyword(@Param("keyword") String keyword);
 

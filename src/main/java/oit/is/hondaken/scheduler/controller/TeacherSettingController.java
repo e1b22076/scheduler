@@ -12,9 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import oit.is.hondaken.scheduler.model.Assignment;
 import oit.is.hondaken.scheduler.model.AssignmentMapper;
+import oit.is.hondaken.scheduler.model.AssignmentTask;
+import oit.is.hondaken.scheduler.model.AssignmentTaskMapper;
+import oit.is.hondaken.scheduler.model.AssignmentTaskPlus;
 import oit.is.hondaken.scheduler.model.Schedule;
 import oit.is.hondaken.scheduler.model.ScheduleMapper;
 
@@ -22,12 +26,14 @@ import oit.is.hondaken.scheduler.model.ScheduleMapper;
 public class TeacherSettingController {
   private final Logger logger = LoggerFactory.getLogger(TeacherSettingController.class);
 
-
   @Autowired
   private AssignmentMapper assignmentMapper;
 
   @Autowired
   private ScheduleMapper scheduleMapper;
+
+  @Autowired
+  private AssignmentTaskMapper assignmentTaskMapper;
 
   @GetMapping("/teacherSetting")
   public String teacherSetting(Model model, Principal prin) {
@@ -96,12 +102,59 @@ public class TeacherSettingController {
   }
 
   @GetMapping("/teacherSetting/workSetting")
-  public String workSettig(Model model, Principal prin) {
-    logger.info("遷移はできている");
+  public String workSetting(Model model, Principal prin) {
     String myNumber = prin.getName();
     List<Schedule> schedules = scheduleMapper.selectTeacherAll(myNumber);
-    logger.info("リスト取得");
+
     model.addAttribute("targetClasses", schedules);
+
+    List<AssignmentTaskPlus> assignmentTasks = assignmentTaskMapper.selectByUserId(myNumber);
+
+    model.addAttribute("assignmentTasks", assignmentTasks);
+
     return "workSetting.html";
   }
+
+  @PostMapping("/teacherSetting/workSetting/set")
+  public String setWork(@RequestParam("lessonCount") int lessonCount,
+      @RequestParam(value = "detail", required = false) String detail, // detailはNULL可能性があるためoptionalにする
+      @RequestParam("content") String content,
+      @RequestParam("deadline") String deadline,
+      @RequestParam("ScheduleId") String ScheduleId, Principal principal, Model model) {
+
+    String userId = principal.getName(); // ユーザーIDを取得
+    // detailがNULLの場合は空文字
+    if (detail == null) {
+      detail = "";
+    }
+
+    // 新しいAssignmentオブジェクトを作成
+    int assignmentId = assignmentMapper.findByScheduleId(userId, ScheduleId);
+    AssignmentTask assignmentTask = new AssignmentTask();
+    assignmentTask.setLessonCount(lessonCount);
+    assignmentTask.setAssignmentId(assignmentId);
+    assignmentTask.setDetail(detail); // この行だけで十分
+    assignmentTask.setContent(content);
+    assignmentTask.setDeadline(deadline);
+
+    // データベースに新しい課題情報を保存
+    assignmentTaskMapper.insertAssignmentTask(assignmentTask);
+
+    // 課題設定後、授業情報を更新してページに渡す
+    List<Schedule> schedules = scheduleMapper.selectTeacherAll(userId);
+    model.addAttribute("targetClasses", schedules);
+
+    List<AssignmentTaskPlus> assignmentTasks = assignmentTaskMapper.selectByUserId(userId);
+
+    model.addAttribute("assignmentTasks", assignmentTasks);
+
+    return "workSetting.html";
+  }
+
+  @PostMapping("/teacherSetting/workSetting/delete")
+  public String deleteAssignmentTask(@RequestParam("assignmentTaskId") int taskId) {
+    assignmentTaskMapper.deleteById(taskId); // taskIdを基に削除処理を実行
+    return "redirect:/teacherSetting/workSetting";
+  }
+
 }
