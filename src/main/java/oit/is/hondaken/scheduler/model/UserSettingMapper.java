@@ -14,6 +14,15 @@ public interface UserSettingMapper {
   @Select("select id from userSetting where myNumber = #{myNum}")
   int selectIdByNum(String myNum);
 
+  @Select("select id from userSetting where mail = #{mail}")
+  int selectIdBymail(String mail);
+
+  @Select("select myNumber from userSetting where id = #{id}")
+  String selectNumById(int id);
+
+  @Select("select myPass from userSetting where id = #{id}")
+  String selectmyPassById(int id);
+
   @Select("select myNumber from userSetting")
   ArrayList<String> selectNumber();
 

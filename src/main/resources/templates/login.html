@@ -15,9 +15,9 @@
     <a href="/index.html" class="link always-visible">戻る</a>
   </div>
 
-  <!--新規登録 -->
+  <!--ログイン -->
   <form action="#" th:action="@{/login}" method="post">
-    <!--/* エラーメッセージ */-->
+    <!-- エラーメッセージ -->
     <p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
       th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
       ログインエラーメッセージ</p>
@@ -36,6 +36,7 @@
         <div class="col-md-12">
           <button class="btn btn-lg btn-primary btn-block" type="submit" id="log-in">ログイン</button>
         </div>
+        <a href="/sendpass">パスワードを忘れた場合</a>
       </div>
     </div>
   </form>

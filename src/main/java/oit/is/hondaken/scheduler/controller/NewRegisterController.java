@@ -193,4 +193,37 @@ public class NewRegisterController {
     return "timeout.html";
   }
 
+  @GetMapping("/sendpass")
+  public String resend() {
+    return "sendpass.html";
+  }
+
+  @PostMapping("/checkmail")
+  public String chkmail(@RequestParam String mail, ModelMap model) {
+    ArrayList<String> Mails = userSettingMapper.selectMail();
+    int flag = 0;
+    String gakuseki = "";
+    String pass = "";
+    int id = 0;
+    for (String addr : Mails) {
+      if (mail.equals(addr)) {
+        id = userSettingMapper.selectIdBymail(addr);
+        gakuseki = userSettingMapper.selectNumById(id);
+        pass = userSettingMapper.selectmyPassById(id);
+        flag = 1;
+      }
+    }
+    if (flag == 1) {
+      SimpleMailMessage message = new SimpleMailMessage();
+      message.setTo(mail);
+      message.setFrom("isdev24@ubuntu205");
+      message.setSubject("学籍番号とパスワードをお送りします。");
+      message.setText("学籍番号:" + gakuseki + "\n" +
+          "パスワード:" + pass);
+      // メール送信を実施する。
+      mailSender.send(message);
+    }
+    model.addAttribute("flag", flag);
+    return "send.html";
+  }
 }
