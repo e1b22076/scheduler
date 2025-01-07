@@ -176,8 +176,7 @@ CREATE TABLE lessonNumber(
 CREATE TABLE assignmentTask (
     id IDENTITY,
     -- 一意識別可能なID
-    lessonNumberId INT NOT NULL,
-    -- 授業回テーブルのID (外部キー)
+    lessonCount INT NOT NULL CHECK (lessonCount BETWEEN 1 AND 14), -- 第何回授業か（1～14）
     assignmentId INT NOT NULL,
     -- 担当テーブルのID (外部キー)
     detail TEXT,
@@ -188,7 +187,6 @@ CREATE TABLE assignmentTask (
     -- 締め切り日
 
     -- 外部キー制約
-    CONSTRAINT fk_lessonNumber FOREIGN KEY (lessonNumberId) REFERENCES lessonNumber(id) ON DELETE CASCADE,
     CONSTRAINT fk_assignment FOREIGN KEY (assignmentId) REFERENCES assignment(id) ON DELETE CASCADE
 );
 

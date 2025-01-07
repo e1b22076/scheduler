@@ -7,64 +7,123 @@
   <meta name="_csrf" content="${_csrf.token}">
   <meta name="_csrf_header" content="${_csrf.parameterName}">
   <title>課題設定</title>
-  <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  </a>
-  <script src="js/common.js"></script>
+  <link rel="stylesheet" th:href="@{/css/common.css}">
+  <link rel="stylesheet" th:href="@{/css/addClass.css}">
+  <link rel="stylesheet" th:href="@{/css/workSetting.css}">
+  <script th:src="@{/js/addClass.js}"></script>
+  <script th:src="@{/js/common.js}"></script>
+  <script th:src="@{/js/workSetting.js}"></script>
   <script src="js/logout.js"></script>
 </head>
 
 <body>
-  <div class="container">
+  <div class="navbar">
+    <a href="/teacherSetting" class="link">戻る</a>
+    <button class="hamburger" id="hamburger">&#9776;</button>
+  </div>
+  <div class="dropdown-menu" id="dropdown-menu">
+    <a href="/teacherSetting" class="link">戻る</a>
+  </div>
+
+  <div class="content">
     <h1>課題設定</h1>
     <p>担当している授業を選択し、授業回を指定してください。</p>
 
-    <!-- 担当授業の一覧 -->
-    <form action="/teacherSetting/workSetting/set" method="GET">
-      <table>
-        <thead>
-          <tr>
-            <th>講義コード</th>
-            <th>学科</th>
-            <th>講義名</th>
-            <th>単位数</th>
-            <th>履修可能学年</th>
-            <th>曜日</th>
-            <th>時間</th>
-            <th>選択</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- targetClassesをループして表示 -->
-          <tr th:each="schedule : ${targetClasses}">
-            <td th:text="${schedule.id}"></td>
-            <td th:text="${schedule.department}"></td>
-            <td th:text="${schedule.className}"></td>
-            <td th:text="${schedule.credit}"></td>
-            <td th:text="${schedule.grade}年生以上"></td>
-            <td th:text="${schedule.DayofWeek}"></td>
-            <td th:text="${schedule.DayTime}時間目"></td>
-            <td>
-              <input type="radio" name="classId" th:value="${schedule.id}" required>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- 授業回の指定 -->
-      <label for="lessonCount">授業回を選択:</label>
-      <select id="lessonCount" name="lessonCount" required>
-        <option value="" disabled selected>-- 授業回を選択 --</option>
-        <option th:each="i : ${#numbers.sequence(1, 14)}" th:value="${i}" th:text="${i}回"></option>
-      </select>
-
-      <div class="form-actions">
-        <button type="submit">次へ進む</button>
-      </div>
-    </form>
+    <table>
+      <thead>
+        <tr>
+          <th>授業名</th>
+          <th>履修年次</th>
+          <th>学科</th>
+          <th>科目属性</th>
+          <th>連続科目</th>
+          <th>単位数</th>
+          <th>期間</th>
+          <th>アクション</th>
+        </tr>
+      </thead>
+      <tbody id="classTableBody">
+        <tr th:each="class : ${targetClasses}">
+          <td class="className-cell">
+            <a th:href="${class.syllabusURL}" target="_blank" th:text="${class.className}">授業名</a>
+          </td>
+          <td class="grade-cell" th:text="${class.grade}">履修年次</td>
+          <td class="department-cell" th:text="${class.department}">学科</td>
+          <td class="attribute-cell" th:text="${class.attribute}">科目属性</td>
+          <td class="continuous-cell">
+            <span th:if="${class.continuous}">
+              <span th:text="${class.DayTime}">時限</span>, <span th:text="${class.DayTime + 1}">次の時限</span>
+            </span>
+          </td>
+          <td class="credit-cell" th:text="${class.credit}">単位数</td>
+          <td class="timing-cell" th:text="${class.timing}">期間</td>
+          <td>
+            <button class="open-modal-button" th:attr="data-schedule-id=${class.id}">課題設定</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <h2>出題課題一覧</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>講義名</th>
+          <th>授業回</th>
+          <th>授業内容</th>
+          <th>課題内容</th>
+          <th>締め切り</th>
+          <th>アクション</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="task : ${assignmentTasks}">
+          <td th:text="${task.className}">講義名</td>
+          <td th:text="${task.lessonCount}">授業回数</td>
+          <td th:text="${task.detail}">授業内容</td>
+          <td th:text="${task.content}">課題内容</td>
+          <td th:text="${task.deadline}">締め切り</td>
+          <td>
+            <form th:action="@{/teacherSetting/workSetting/delete}" method="post" style="display:inline;">
+              <!-- フィールド名を修正 -->
+              <input type="hidden" name="assignmentTaskId" th:value="${task.id}" />
+              <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+              <button type="submit">削除</button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
+  <!-- モーダルウィンドウ -->
+  <div id="assignmentModal" class="modal">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <h2>課題設定</h2>
+      <form id="assignmentForm" th:action="@{/teacherSetting/workSetting/set}" method="post">
+        <label for="lessonCount">授業回数 (1～14):</label>
+        <input type="number" id="lessonCount" name="lessonCount" min="1" max="14" required /><br>
 
+        <label for="detail">授業内容:</label>
+        <textarea id="detail" name="detail"></textarea><br>
+
+        <label for="content">課題内容:</label>
+        <textarea id="content" name="content" required></textarea><br>
+
+        <label for="deadline">締め切り日:</label>
+        <input type="date" id="deadline" name="deadline" required /><br>
+
+        <!-- 隠しフィールド -->
+        <input type="hidden" id="scheduleId" name="ScheduleId" />
+
+        <!-- CSRF トークン -->
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
+        <button type="submit">保存</button>
+      </form>
+    </div>
+  </div>
 </body>
 
 </html>
