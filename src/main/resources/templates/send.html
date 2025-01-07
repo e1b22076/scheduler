@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>新規登録</title>
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/codechk.css">
+  <script src="js/send.js" defer></script>
+</head>
+
+<body>
+  <!-- メールアドレスが存在しない場合 -->
+  <div th:if="${flag ==0}" class="center-content">
+    <h1 class="center">そのメールアドレスは登録されていません</h1>
+    <div class="navbar">
+      <a href="/register" class="link always-visible">新規登録画面へ</a>
+      <a href="/calendar" class="link always-visible">ログイン画面へ</a>
+      <a href="/" class="link always-visible">TOPへ</a>
+    </div>
+  </div>
+  <!--  -->
+
+
+
+
+  <!-- 正常実行 -->
+  <div th:if="${flag==1}" class="center-content">
+    <div class="navbar">
+      <a href="/register" class="link always-visible">戻る</a>
+    </div>
+
+    <form action="/regfin" method="post" th:action="@{/regfin}" novalidate>
+      <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+
+      <table>
+        <th>登録されたメールアドレスに認証コードと学籍番号を送信しました。</th>
+        <th:if>[[${admin_code}]]</th:if>
+      </table>
+
+      <table>
+        <tr>
+          <th><label for="code">認証コード</label></th>
+          <td>
+            <input id="code" type="text" name="code" class="form-control" required>
+            <span id="code_chk" class="error-message">認証コードが違います</span>
+          </td>
+        </tr>
+        <tr>
+          <th><label for="password">パスワード</label></th>
+          <td>
+            <input type="password" id="password" name="pass" class="form-control" required>
+            <span id="pass_chk" class="error-message">パスワードを入力してください</span>
+          </td>
+        </tr>
+        <tr>
+          <th><label for="repassword">パスワード再入力</label></th>
+          <td>
+            <input id="repassword" type="password" name="repass" class="form-control" required>
+            <span id="repass_chk" class="error-message">パスワードが違います</span>
+          </td>
+        </tr>
+      </table>
+
+      <div class="form-group">
+        <button type="submit" class="btn" id="touroku">送信</button>
+      </div>
+      <input type="hidden" name="database_id" th:value="${database_id}">
+      <input type="hidden" name="pass" th:value="${pass}">
+      <input type="hidden" name="admin_code" id="admin_code" th:value="${admin_code}">
+    </form>
+  </div>
+
+  <div class="navbar">
+    <a href="/register" class="link always-visible">新規登録画面へ</a>
+    <a href="/calendar" class="link always-visible">ログイン画面へ</a>
+    <a href="/" class="link always-visible">TOPへ</a>
+  </div>
+
+</body>
+
+</html>

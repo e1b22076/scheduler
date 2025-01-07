@@ -14,6 +14,15 @@ public interface UserSettingMapper {
   @Select("select id from userSetting where myNumber = #{myNum}")
   int selectIdByNum(String myNum);
 
+  @Select("select id from userSetting where mail = #{mail}")
+  int selectIdBymail(String mail);
+
+  @Select("select myNumber from userSetting where id = #{id}")
+  String selectNumById(int id);
+
+  @Select("select myPass from userSetting where id = #{id}")
+  String selectmyPassById(int id);
+
   @Select("select myNumber from userSetting")
   ArrayList<String> selectNumber();
 
@@ -44,5 +53,8 @@ public interface UserSettingMapper {
 
   @Update("UPDATE userSetting SET userName = #{userName} WHERE myNumber = #{myNumber}")
   void updateUserName(@Param("myNumber") String myNumber, @Param("userName") String userName);
+
+  @Update("UPDATE userSetting SET myPass = #{hashedPassword} WHERE id = #{id}")
+  void updatePasswordbyId(@Param("id") int id, @Param("hashedPassword") String hashedPassword);
 
 }

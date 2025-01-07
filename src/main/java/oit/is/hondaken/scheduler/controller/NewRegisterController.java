@@ -48,7 +48,6 @@ public class NewRegisterController {
     ArrayList<String> Numbers = userSettingMapper.selectNumber();
     ArrayList<String> Mails = userSettingMapper.selectMail();
     String admin_code = rnd.nextInt(1000000) + "";
-
     int flag = 0;
     for (String num : Numbers) {
       if (gakuseki.equals(num)) {
@@ -69,7 +68,6 @@ public class NewRegisterController {
       message.setText("認証コード:" + admin_code);
       // メール送信を実施する。
       mailSender.send(message);
-
       model.addAttribute("mail", mail);
       model.addAttribute("gakuseki", gakuseki);
       model.addAttribute("pass", pass);
@@ -82,26 +80,41 @@ public class NewRegisterController {
   }
 
   @PostMapping("/regfin")
-  public String regfin(@RequestParam String gakuseki, @RequestParam String mail, @RequestParam String pass,
-      @RequestParam String myname,
+  public String regfin(
+      @RequestParam(defaultValue = "0") String gakuseki,
+      @RequestParam(defaultValue = "0") String mail,
+      @RequestParam(defaultValue = "0") String pass,
+      @RequestParam(defaultValue = "0") String myname,
+      @RequestParam(defaultValue = "0") int database_id,
       ModelMap model) {
 
-    UserSetting user = new UserSetting();
-    user.setMyNumber(gakuseki);
-    user.setUserName(myname);
-    user.setMail(mail);
+    System.out.println("pass: " + pass);
+    if (pass.endsWith(",")) {
+      pass = pass.substring(0, pass.length() - 1);
+    }
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     String hashedPassword = encoder.encode(pass);
-    user.setMyPass(hashedPassword);
-    Pattern mail_STUDENT = Pattern.compile("^e1[a-z]\\d{5}@oit\\.ac\\.jp$");
-    if (mail_STUDENT.matcher(mail).matches()) {
-      user.setUserRole("STUDENT");
+    System.out.println("pass: " + pass);
+
+    if (database_id == 0) {
+      UserSetting user = new UserSetting();
+      user.setMyNumber(gakuseki);
+      user.setUserName(myname);
+      user.setMail(mail);
+      user.setMyPass(hashedPassword);
+      Pattern mail_STUDENT = Pattern.compile("^e1[a-z]\\d{5}@oit\\.ac\\.jp$");
+      if (mail_STUDENT.matcher(mail).matches()) {
+        user.setUserRole("STUDENT");
+      } else {
+        user.setUserRole("TEACHER");
+      }
+      user.setActive(false);
+      userSettingMapper.insertuserSetting(user);
+      model.addAttribute("user", user);
     } else {
-      user.setUserRole("TEACHER");
+      System.out.println("pass: " + pass);
+      userSettingMapper.updatePasswordbyId(database_id, hashedPassword);
     }
-    user.setActive(false);
-    userSettingMapper.insertuserSetting(user);
-    model.addAttribute("user", user);
     return "regfin.html";
   }
 
@@ -191,4 +204,39 @@ public class NewRegisterController {
     return "timeout.html";
   }
 
+  @GetMapping("/sendpass")
+  public String resend() {
+    return "sendpass.html";
+  }
+
+  @PostMapping("/checkmail")
+  public String chkmail(@RequestParam String mail, ModelMap model) {
+    ArrayList<String> Mails = userSettingMapper.selectMail();
+    int flag = 0;
+    Random rnd = new Random();
+    String admin_code = rnd.nextInt(1000000) + "";
+    int id = 0;
+
+    for (String addr : Mails) {
+      if (mail.equals(addr)) {
+        id = userSettingMapper.selectIdBymail(addr);
+        flag = 1;
+      }
+    }
+    if (flag == 1) {
+      SimpleMailMessage message = new SimpleMailMessage();
+      message.setTo(mail);
+      message.setFrom("isdev24@ubuntu205");
+      message.setSubject("認証コードをお送りします。");
+      message.setText("認証コード:" + admin_code);
+      // メール送信を実施する。
+      mailSender.send(message);
+
+      model.addAttribute("database_id", id);// 識別No
+      model.addAttribute("admin_code", admin_code);
+
+    }
+    model.addAttribute("flag", flag);
+    return "send.html";
+  }
 }
