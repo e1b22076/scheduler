@@ -60,18 +60,21 @@
       <h1>担当授業一覧</h1>
       <p>以下のリストから担当授業を確認してください。</p>
     </div>
+
     <!-- 検索ボックス -->
-    <div class="search-container">
-      <select id="searchCategory" class="search-select">
-        <option value="className">授業名</option>
-        <option value="grade">履修年次</option>
-        <option value="department">学科</option>
-        <option value="attribute">科目属性</option>
-        <option value="continuous">連続科目</option>
-        <option value="credit">単位数</option>
-        <option value="timing">期間</option>
-      </select>
-      <input type="text" id="searchInput" placeholder="検索キーワードを入力" class="search-box">
+    <div class="teacher-search-container">
+      <div class="search-controls">
+        <select id="searchCategory" class="search-select">
+          <option value="className">授業名</option>
+          <option value="grade">履修年次</option>
+          <option value="department">学科</option>
+          <option value="attribute">科目属性</option>
+          <option value="continuous">連続科目</option>
+          <option value="credit">単位数</option>
+          <option value="timing">期間</option>
+        </select>
+        <input type="text" id="searchInput" placeholder="検索キーワードを入力" class="search-box">
+      </div>
     </div>
 
     <table>
@@ -79,38 +82,38 @@
         <tr>
           <th>
             授業名
-            <button class="sort-button" data-column="className" data-order="asc">▲</button>
-            <button class="sort-button" data-column="className" data-order="desc">▼</button>
+            <button class="class-sort-button" data-column="className" data-order="asc">▲</button>
+            <button class="class-sort-button" data-column="className" data-order="desc">▼</button>
           </th>
           <th>
             履修年次
-            <button class="sort-button" data-column="grade" data-order="asc">▲</button>
-            <button class="sort-button" data-column="grade" data-order="desc">▼</button>
+            <button class="class-sort-button" data-column="grade" data-order="asc">▲</button>
+            <button class="class-sort-button" data-column="grade" data-order="desc">▼</button>
           </th>
           <th>
             学科
-            <button class="sort-button" data-column="department" data-order="asc">▲</button>
-            <button class="sort-button" data-column="department" data-order="desc">▼</button>
+            <button class="class-sort-button" data-column="department" data-order="asc">▲</button>
+            <button class="class-sort-button" data-column="department" data-order="desc">▼</button>
           </th>
           <th>
             科目属性
-            <button class="sort-button" data-column="attribute" data-order="asc">▲</button>
-            <button class="sort-button" data-column="attribute" data-order="desc">▼</button>
+            <button class="class-sort-button" data-column="attribute" data-order="asc">▲</button>
+            <button class="class-sort-button" data-column="attribute" data-order="desc">▼</button>
           </th>
           <th>
             連続科目
-            <button class="sort-button" data-column="continuous" data-order="asc">▲</button>
-            <button class="sort-button" data-column="continuous" data-order="desc">▼</button>
+            <button class="class-sort-button" data-column="continuous" data-order="asc">▲</button>
+            <button class="class-sort-button" data-column="continuous" data-order="desc">▼</button>
           </th>
           <th>
             単位数
-            <button class="sort-button" data-column="credit" data-order="asc">▲</button>
-            <button class="sort-button" data-column="credit" data-order="desc">▼</button>
+            <button class="class-sort-button" data-column="credit" data-order="asc">▲</button>
+            <button class="class-sort-button" data-column="credit" data-order="desc">▼</button>
           </th>
           <th>
             期間
-            <button class="sort-button" data-column="timing" data-order="asc">▲</button>
-            <button class="sort-button" data-column="timing" data-order="desc">▼</button>
+            <button class="class-sort-button" data-column="timing" data-order="asc">▲</button>
+            <button class="class-sort-button" data-column="timing" data-order="desc">▼</button>
           </th>
           <th>アクション</th>
         </tr>
