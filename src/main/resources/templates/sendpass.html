@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>メールアドレス入力</title>
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/register.css">
+  <script src="js/register.js"></script>
+</head>
+
+<body>
+  <!-- メニューバー -->
+  <div class="navbar">
+    <a href="/index.html" class="link always-visible">戻る</a>
+  </div>
+
+  <form action="/checkmail" method="post" th:action="@{/checkmail}" novalidate>
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+
+    <table>
+      <tr>
+        <th><label for="mail">学校用メールアドレス</label></th>
+        <td>
+          <input id="mail" type="email" placeholder="e1a12345@oit.ac.jp" name="mail" class="form-control" required>
+          <span id="mail_chk" class="error-message">メールアドレスの形式が違います</span>
+        </td>
+      </tr>
+    </table>
+    <div class="form-group">
+      <button type="submit" class="btn" id="touroku">登録</button>
+    </div>
+  </form>
+
+</body>
+
+</html>

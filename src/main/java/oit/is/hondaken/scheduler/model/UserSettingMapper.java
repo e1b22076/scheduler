@@ -54,4 +54,7 @@ public interface UserSettingMapper {
   @Update("UPDATE userSetting SET userName = #{userName} WHERE myNumber = #{myNumber}")
   void updateUserName(@Param("myNumber") String myNumber, @Param("userName") String userName);
 
+  @Update("UPDATE userSetting SET myPass = #{hashedPassword} WHERE id = #{id}")
+  void updatePasswordbyId(@Param("id") int id, @Param("hashedPassword") String hashedPassword);
+
 }
