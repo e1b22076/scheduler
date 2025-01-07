@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="_csrf" content="${_csrf.token}">
+  <meta name="_csrf_header" content="${_csrf.parameterName}">
+  <title>チームチャット</title>
+  <link rel="stylesheet" th:href="@{/css/common.css}">
+  <link rel="stylesheet" th:href="@{/css/team.css}">
+  <link rel="stylesheet" th:href="@{/css/teamChat.css}">
+  <script th:src="@{/js/common.js}"></script>
+  <script th:src="@{/js/team.js}"></script>
+  <script th:src="@{/js/teamChat.js}"></script>
+  <script th:src="@{/js/logout.js}"></script>
+</head>
+
+<body>
+  <!-- フラッシュメッセージ -->
+  <div th:if="${message}" class="flash-message" id="flashMessage">
+    <p th:text="${message}"></p>
+  </div>
+
+  <!-- メニューバー -->
+  <div class="navbar">
+    <a href="/team" class="link always-visible">戻る</a>
+    <h1 th:text="${teamName}"></h1>
+  </div>
+
+  <div class="chat-container" id="chatContainer">
+    <div id="teamChats">
+      <div th:each="teamChat : ${teamChats}" class="message-container">
+        <small th:class="'sender-id ' + (${teamChat.senderId} == ${#authentication.name} ? 'self' : 'other')"
+          th:text="${teamChat.senderId}"></small>
+        <div th:class="'message ' + (${teamChat.senderId} == ${#authentication.name} ? 'self' : 'other')">
+          <span th:text="${teamChat.message}"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <form id="messageForm" th:action="@{'/team/chat/' + ${teamId}}" method="post">
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+    <input type="hidden" id="teamId" th:value="${teamId}" />
+    <input type="hidden" id="userId" th:value="${#authentication.name}" /> <!-- ユーザーIDを追加 -->
+    <textarea name="message" id="messageInput" rows="4" placeholder="メッセージを入力" required /></textarea>
+    <button type="submit">送信</button>
+  </form>
+</body>
+
+</html>

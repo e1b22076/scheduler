@@ -1161,4 +1161,15 @@ INSERT INTO lessonNumber(lessonYear,lessonCount,DayofWeek,timing,lessonDate) VAL
 
 INSERT INTO assignment (scheduleId,userId) VALUES('1BBN09A0','B00000');
 
+-- チーム
+INSERT INTO team (teamName,teamOwner,teamType,teamDescription,teamCode) VALUES ('情報システム応用演習','B22999','public','テスト用のチームです。', '@pr4#da');
+INSERT INTO team (teamName,teamOwner,teamType,teamDescription,teamCode) VALUES ('C演習','B00999','public',null, 'vriw81l');
+INSERT INTO team (teamName,teamOwner,teamType,teamDescription,teamCode) VALUES ('Java演習','B00999','private','テスト用のチームです。', 'edka9#1');
+
+INSERT INTO teamMember (teamId,memberId) VALUES (1,'B22999');
+INSERT INTO teamMember (teamId,memberId) VALUES (1,'B22000');
+INSERT INTO teamMember (teamId,memberId) VALUES (2,'B00999');
+INSERT INTO teamMember (teamId,memberId) VALUES (3,'B00999');
+
+INSERT INTO teamChat (teamId,senderId,message,mediaUrl,mediaType,sendTime) VALUES ('1','B22999','こんにちは',NULL,NULL,'2024-01-05 21:00:00');
 INSERT INTO assignmentTask (lessonCount,assignmentId,detail,content,deadline) VALUES (8,1,'まず基本動作について学ぶ','じゃんけんゲームを作成。詳細は授業ページ','2024-10-01');

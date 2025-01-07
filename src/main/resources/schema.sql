@@ -128,7 +128,7 @@ CREATE TABLE timeTable(
   FOREIGN KEY(myNumber) REFERENCES userSetting(myNumber)
   );
 
-  CREATE TABLE todos (
+CREATE TABLE todos (
     id IDENTITY,
     myNumber VARCHAR ,
     title VARCHAR(255) NOT NULL,
@@ -188,4 +188,34 @@ CREATE TABLE assignmentTask (
 
     -- 外部キー制約
     CONSTRAINT fk_assignment FOREIGN KEY (assignmentId) REFERENCES assignment(id) ON DELETE CASCADE
+);
+
+CREATE TABLE team (
+  id IDENTITY,
+  teamName VARCHAR NOT NULL,
+  teamOwner VARCHAR NOT NULL,
+  teamType VARCHAR NOT NULL,
+  teamDescription TEXT,
+  teamCode VARCHAR NOT NULL,
+  CONSTRAINT fk_teamOwner FOREIGN KEY (teamOwner) REFERENCES userSetting(myNumber) ON DELETE CASCADE
+);
+
+CREATE TABLE teamMember (
+  id IDENTITY,
+  teamId INT NOT NULL,
+  memberId VARCHAR NOT NULL,
+  CONSTRAINT fk_team FOREIGN KEY (teamId) REFERENCES team(id) ON DELETE CASCADE,
+  CONSTRAINT fk_member FOREIGN KEY (memberId) REFERENCES userSetting(myNumber) ON DELETE CASCADE
+);
+
+CREATE TABLE teamChat (
+  id IDENTITY,
+  teamId INT NOT NULL,
+  senderId VARCHAR NOT NULL,
+  message TEXT,
+  mediaUrl TEXT,
+  mediaType VARCHAR, -- メディアの種類 (例: "image", "video", "file")
+  sendTime TIMESTAMP NOT NULL,
+  CONSTRAINT fk_teamChat FOREIGN KEY (teamId) REFERENCES team(id) ON DELETE CASCADE,
+  CONSTRAINT fk_sender FOREIGN KEY (senderId) REFERENCES userSetting(myNumber) ON DELETE CASCADE
 );

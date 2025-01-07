@@ -48,6 +48,8 @@ public class CustomUserDetailsService implements UserDetailsService {
             .authenticated()
             .requestMatchers(AntPathRequestMatcher.antMatcher("/todolist/**"))
             .authenticated()
+            .requestMatchers(AntPathRequestMatcher.antMatcher("/team/**"))
+            .authenticated()
             .requestMatchers(AntPathRequestMatcher.antMatcher("/join/**"))
             .authenticated()
             .requestMatchers(AntPathRequestMatcher.antMatcher("/setting/**"))

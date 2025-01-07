@@ -6,12 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="_csrf" content="${_csrf.token}">
   <meta name="_csrf_header" content="${_csrf.parameterName}">
-  <title>TODOリスト</title>
+  <title>チーム</title>
   <link rel="stylesheet" href="css/common.css">
-  <link rel="stylesheet" href="css/todolist.css">
+  <link rel="stylesheet" href="css/team.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   </a>
   <script src="js/common.js"></script>
+  <script src="js/team.js"></script>
   <script src="js/logout.js"></script>
 </head>
 
@@ -82,37 +83,29 @@
   </div>
 
   <div class="title-container">
-    <h1>TODOリスト</h1>
+    <h1>チーム</h1>
+    <div class="mainButton-container">
+      <button id="mainButton" class="mainButton">チーム作成 / 参加</button>
+      <div id="options" class="option-menu hidden">
+        <a href="/team/create" class="link">チーム作成</a>
+        <a href="/team/participate" class="link">チーム参加</a>
+      </div>
+    </div>
 
-    <form th:action="@{/todolist/add}" th:object="${newTodo}" method="post" class="form-container">
-      <input type="text" th:field="*{title}" placeholder="タイトル (必須)" required />
-      <input type="text" th:field="*{description}" placeholder="説明 (任意)" />
-      <button type="submit">追加</button>
-    </form>
+  <h2>オーナー</h2>
+  <ul class="team-list">
+    <li th:each="team : ${ownerTeam}">
+      <a th:href="@{'/team/chat/' + ${team.id}}" th:text="${team.teamName}" class="team-item"></a>
+    </li>
+  </ul>
 
-    <!-- TODOリスト -->
-    <ul class="todo-list">
-      <li th:each="todo : ${todos}" class="todo-item">
-        <div>
-          <!-- 完了かどうかのチェックマーク -->
-          <span class="status-icon" th:text="${todo.completed ? '✓' : '　'}"></span>
+  <h2>メンバー</h2>
+  <ul class="team-list">
+    <li th:each="team : ${memberTeam}">
+      <a th:href="@{'/team/chat/' + ${team.id}}" th:text="${team.teamName}" class="team-item"></a>
+    </li>
+  </ul>
 
-          <span class="todo-title" th:text="${todo.title}"></span>
-          <p class="todo-description" th:text="${todo.description}"></p>
-        </div>
-
-        <div class="todo-actions">
-          <form th:action="@{/todolist/update/{id}(id=${todo.id})}" method="post">
-            <button type="submit" name="completed" th:value="${!todo.completed}" class="completed-btn"
-              th:text="${todo.completed ? '未完了にする' : '完了にする'}"></button>
-          </form>
-          <form th:action="@{/todolist/delete/{id}(id=${todo.id})}" method="post">
-            <button type="submit" class="delete-btn">削除</button>
-          </form>
-        </div>
-      </li>
-    </ul>
-  </div>
 </body>
 
 </html>
