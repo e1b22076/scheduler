@@ -48,12 +48,11 @@ public class ClassController {
     TimeTable timeTable = timeTableMapper.selectByNum(myNumber);
     TimeTableRecord timeTableRecord = new TimeTableRecord(timeTable, scheduleMapper);
     boolean showSaturday = timeTableMapper.selectShowSaturday(myNumber);
-
+    model.addAttribute("timeTable", timeTable);
     model.addAttribute("myNumber", myNumber);
     model.addAttribute("timeTableRecord", timeTableRecord);
     model.addAttribute("showSaturday", showSaturday);
     model.addAttribute("message", message);
-
     return "timetable.html";
   }
 

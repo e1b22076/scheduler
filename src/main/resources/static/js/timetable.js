@@ -136,6 +136,7 @@ function openModal(modalId, tdElement) {
     const period = tdElement.getAttribute('data-period');
     const className = tdElement.getAttribute('data-classname');
     const syllabusUrl = tdElement.getAttribute('data-syllabus');
+    const classCode = tdElement.getAttribute('data-classcode');
 
     // 空きコマの場合
     if (modalId === "addClassModal") {
@@ -148,8 +149,7 @@ function openModal(modalId, tdElement) {
     // 'infoModal'を開くとき
     if (modalId === "infoModal") {
       document.getElementById("infoModal-title").innerText = `${day} ${period}: ${className}`;
-      document.getElementById("modal-assignment").innerText = "特定の課題がありません";
-      document.getElementById("modal-test-schedule").innerText = "テスト日程は未定です";
+      document.getElementById("modal-assignment").innerText = `${classCode}`;
       document.getElementById("infoModal").setAttribute("data-syllabus-url", syllabusUrl);
 
       // メニューの「授業をコマから外す」に授業情報を設定
@@ -193,4 +193,16 @@ function closeModal(modalId) {
 function toggleMenu() {
   const menuDropdown = document.getElementById("menu-dropdown");
   menuDropdown.style.display = menuDropdown.style.display === "block" ? "none" : "block";
+}
+
+function navigateToWorkPage() {
+  // modal-assignmentから授業コードを取得
+  const assignmentCode = document.getElementById('modal-assignment').innerText.trim();
+
+  // 授業コードが存在する場合、/timetable/workへ遷移
+  if (assignmentCode) {
+    window.location.href = `/timetable/work?code=${encodeURIComponent(assignmentCode)}`;
+  } else {
+    alert("授業コードが存在しません。");
+  }
 }
