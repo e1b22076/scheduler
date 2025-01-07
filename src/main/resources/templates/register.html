@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/register.css">
   <script src="js/register.js"></script>
+
+
 </head>
 
 <body>
@@ -25,6 +27,12 @@
         <col style="width: 60%;">
       </colgroup>
       <h2>新規登録</h2>
+      <tr>
+        <th><label for="gakuseki">教授の場合</label></th>
+        <td>
+          <input type="checkbox" id="teacher" name="teacher" onchange="toggleInputState(this)" />
+        </td>
+      </tr>
       <tr>
         <th><label for="gakuseki">学籍番号</label></th>
         <td>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>課題詳細</title>
+  <link rel="stylesheet" th:href="@{/css/common.css}">
+  <link rel="stylesheet" th:href="@{/css/addClass.css}">
+  <meta name="_csrf" content="${_csrf.token}">
+  <meta name="_csrf_header" content="${_csrf.parameterName}">
+  <script th:src="@{/js/addClass.js}"></script>
+  <script src="js/logout.js"></script>
+</head>
+
+<body>
+  <!-- メニューバー -->
+  <div class="navbar">
+    <a href="/timetable" class="link always-visible">戻る</a>
+  </div>
+
+  <div class="title-container">
+    <h1>課題詳細</h1>
+    <th:if>[[${classCode}]]</th:if>
+  </div>
+</body>
+
+</html>

@@ -1,4 +1,9 @@
 // フォームのバリデーション
+function toggleInputState(checkbox) {
+  const textInput = document.getElementById("gakuseki");
+  textInput.disabled = checkbox.checked;
+}
+
 window.onload = function () {
   document.getElementById("touroku").addEventListener("click", function (event) {
     const gakuseki = document.getElementById("gakuseki").value;
@@ -42,7 +47,7 @@ window.onload = function () {
 
     // 学籍番号の形式チェック
     const gakusekiRegex = /^[BCQJN]\d{5}$/;
-    if (!gakusekiRegex.test(gakuseki)) {
+    if (!checkbox.checked && !gakusekiRegex.test(gakuseki)) {
       document.getElementById('gakuseki_chk').style.visibility = 'visible';
       formatError = true;
     } else {

@@ -48,12 +48,11 @@ public class ClassController {
     TimeTable timeTable = timeTableMapper.selectByNum(myNumber);
     TimeTableRecord timeTableRecord = new TimeTableRecord(timeTable, scheduleMapper);
     boolean showSaturday = timeTableMapper.selectShowSaturday(myNumber);
-
+    model.addAttribute("timeTable", timeTable);
     model.addAttribute("myNumber", myNumber);
     model.addAttribute("timeTableRecord", timeTableRecord);
     model.addAttribute("showSaturday", showSaturday);
     model.addAttribute("message", message);
-
     return "timetable.html";
   }
 
@@ -144,6 +143,15 @@ public class ClassController {
     redirectAttributes.addFlashAttribute("message", scheduleMapper.selectClassNameById(classId) + message);
 
     return "redirect:/timetable";
+  }
+
+  @GetMapping("/timetable/work")
+  public String work(@RequestParam String code, ModelMap model, Principal prin) {
+    // String myNumber = prin.getName();
+
+    model.addAttribute("classCode", code);
+
+    return "work.html";
   }
 
   @GetMapping("/todolist")
