@@ -145,6 +145,15 @@ public class ClassController {
     return "redirect:/timetable";
   }
 
+  @GetMapping("/timetable/work")
+  public String work(@RequestParam String code, ModelMap model, Principal prin) {
+    // String myNumber = prin.getName();
+
+    model.addAttribute("classCode", code);
+
+    return "work.html";
+  }
+
   @GetMapping("/todolist")
   public String getTodoList(Model model, Principal prin) {
     String myNuber = prin.getName();
