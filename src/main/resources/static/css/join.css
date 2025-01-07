@@ -1,3 +1,8 @@
+/* メニューバー */
+.navbar {
+  justify-content: flex-end;
+}
+
 h1 {
   text-align: center;
   color: #4a4e69;
@@ -42,12 +47,22 @@ tbody td {
   font-size: 16px;
 }
 
-/* 行の背景色 */
+tr.highlight {
+  background-color: #ffe4b5;
+}
+
 tbody tr:nth-child(even) {
   background-color: #f7f9fc;
 }
 
-/* ホバー効果 */
+tbody tr.highlight:nth-child(even) {
+  background-color: #ffe4b5;
+}
+
+tbody tr.highlight:hover {
+  background-color: #ffe4b5;
+}
+
 tbody tr:hover {
   background-color: #e9ecef;
 }

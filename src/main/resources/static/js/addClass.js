@@ -51,17 +51,28 @@ document.addEventListener("DOMContentLoaded", function () {
     const searchText = searchInput.value.toLowerCase();
     const category = searchCategory.value;
     const rows = Array.from(classTableBody.querySelectorAll('tr'));
+    const classMatchingRows = []; // 一致した行を格納する配列
+    const classNonMatchingRows = []; // 一致しなかった行を格納する配列
 
     rows.forEach(row => {
       const cell = row.querySelector(`.${category}-cell`);
-      if (cell && cell.textContent.toLowerCase().includes(searchText)) {
+      if (searchText === '') {
+        // 検索ボックスが空の場合
+        row.style.display = '';
+        row.classList.remove('highlight'); // ハイライトを解除
+      } else if (cell && cell.textContent.toLowerCase().includes(searchText)) {
         row.style.display = '';
         row.classList.add('highlight');
+        classMatchingRows.push(row);
       } else {
-        row.style.display = 'none';
+        row.style.display = '';
         row.classList.remove('highlight');
+        classNonMatchingRows.push(row);
       }
     });
+    // 一致した行を上に並べ替え
+    classMatchingRows.forEach(row => classTableBody.appendChild(row));
+    classNonMatchingRows.forEach(row => classTableBody.appendChild(row));
   });
 
   // 最初のテーブルのソート機能
@@ -113,17 +124,28 @@ document.addEventListener("DOMContentLoaded", function () {
     const searchText = otherSearchInput.value.toLowerCase();
     const category = otherSearchCategory.value;
     const rows = Array.from(otherClassTableBody.querySelectorAll('tr'));
+    const otherMatchingRows = []; // 一致した行を格納する配列
+    const otherNonMatchingRows = []; // 一致しなかった行を格納する配列
 
     rows.forEach(row => {
       const cell = row.querySelector(`.${category}-cell`);
-      if (cell && cell.textContent.toLowerCase().includes(searchText)) {
+      if (searchText === '') {
+        // 検索ボックスが空の場合
+        row.style.display = '';
+        row.classList.remove('highlight'); // ハイライトを解除
+      } else if (cell && cell.textContent.toLowerCase().includes(searchText)) {
         row.style.display = '';
         row.classList.add('highlight');
+        otherMatchingRows.push(row);
       } else {
-        row.style.display = 'none';
+        row.style.display = '';
         row.classList.remove('highlight');
+        otherNonMatchingRows.push(row);
       }
     });
+    // 一致した行を上に並べ替え
+    otherMatchingRows.forEach(row => otherClassTableBody.appendChild(row));
+    otherNonMatchingRows.forEach(row => otherClassTableBody.appendChild(row));
   });
 
   // 他学科のソート機能
