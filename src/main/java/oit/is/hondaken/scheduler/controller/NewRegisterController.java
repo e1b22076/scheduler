@@ -221,10 +221,12 @@ public class NewRegisterController {
     Random rnd = new Random();
     String admin_code = rnd.nextInt(1000000) + "";
     int id = 0;
+    String gakuseki = "";
 
     for (String addr : Mails) {
       if (mail.equals(addr)) {
         id = userSettingMapper.selectIdBymail(addr);
+        gakuseki = userSettingMapper.selectNumById(id);
         flag = 1;
       }
     }
@@ -233,7 +235,8 @@ public class NewRegisterController {
       message.setTo(mail);
       message.setFrom("isdev24@ubuntu205");
       message.setSubject("認証コードをお送りします。");
-      message.setText("認証コード:" + admin_code);
+      message.setText("認証コード:" + admin_code + "\n" +
+          "学籍番号:" + gakuseki);
       // メール送信を実施する。
       mailSender.send(message);
 
