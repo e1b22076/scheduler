@@ -198,6 +198,7 @@ CREATE TABLE team (
   teamOwner VARCHAR NOT NULL,
   teamType VARCHAR NOT NULL,
   teamDescription TEXT,
+  teamCode VARCHAR NOT NULL,
   CONSTRAINT fk_teamOwner FOREIGN KEY (teamOwner) REFERENCES userSetting(myNumber) ON DELETE CASCADE
 );
 

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="_csrf" content="${_csrf.token}">
+  <meta name="_csrf_header" content="${_csrf.parameterName}">
+  <title>チーム参加</title>
+  <link rel="stylesheet" th:href="@{/css/common.css}">
+  <link rel="stylesheet" th:href="@{/css/team.css}">
+  <link rel="stylesheet" th:href="@{/css/teamParticipate.css}">
+  <script th:src="@{/js/common.js}"></script>
+  <script th:src="@{/js/team.js}"></script>
+  <script th:src="@{/js/teamParticipate.js}"></script>
+  <script th:src="@{/js/logout.js}"></script>
+</head>
+
+<body>
+  <!-- フラッシュメッセージ -->
+  <div th:if="${message}" class="flash-message" id="flashMessage">
+    <p th:text="${message}"></p>
+  </div>
+
+  <!-- メニューバー -->
+  <div class="navbar">
+    <a href="/team" class="link always-visible">戻る</a>
+  </div>
+
+  <div class="title-container">
+    <h1>チーム参加</h1>
+
+    <h2>プライベート</h2>
+    <div class="team-participate-container">
+      <form th:action="@{/team/participate/private}" method="post">
+        <label for="teamCode">チームコード：</label>
+        <input type="text" id="teamCode" name="teamCode" required />
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+        <button type="submit" class="btn">参加</button>
+      </form>
+    </div>
+    
+    <h2>パブリック</h2>
+    <ul class="team-list">
+      <li th:each="team : ${publicTeam}">
+        <span th:text="${team.teamName}" class="team-item"
+          th:attr="data-team-description=${team.teamDescription ?: ' '}, data-team-id=${team.id}" onclick="openModal(this)">
+        </span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- モーダル -->
+  <div id="teamModal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h3 id="modalTeamName">チーム名</h3>
+      説明：
+      <p id="modalTeamDescription">説明</p>
+      <form th:action="@{/team/participate/public}" method="post">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+        <input type="hidden" name="teamId" id="teamId" value="" />
+        <button type="submit" class="btn" id="participate">参加</button>
+      </form>
+    </div>
+  </div>
+
+</body>
+
+</html>

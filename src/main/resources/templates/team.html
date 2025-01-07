@@ -91,7 +91,20 @@
         <a href="/team/participate" class="link">チーム参加</a>
       </div>
     </div>
-  </div>
+
+  <h2>オーナー</h2>
+  <ul class="team-list">
+    <li th:each="team : ${ownerTeam}">
+      <a th:href="@{'/team/chat/' + ${team.id}}" th:text="${team.teamName}" class="team-item"></a>
+    </li>
+  </ul>
+
+  <h2>メンバー</h2>
+  <ul class="team-list">
+    <li th:each="team : ${memberTeam}">
+      <a th:href="@{'/team/chat/' + ${team.id}}" th:text="${team.teamName}" class="team-item"></a>
+    </li>
+  </ul>
 
 </body>
 

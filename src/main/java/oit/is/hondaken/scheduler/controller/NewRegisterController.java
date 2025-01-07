@@ -43,9 +43,7 @@ public class NewRegisterController {
   }
 
   @PostMapping("/admin")
-  public String codechk(@RequestParam String gakuseki, @RequestParam String mail, @RequestParam String pass,
-      @RequestParam String myname,
-      ModelMap model) {
+  public String codechk(@RequestParam String gakuseki, @RequestParam String mail, @RequestParam String pass, @RequestParam String myname, ModelMap model) {
     Random rnd = new Random();
     ArrayList<String> Numbers = userSettingMapper.selectNumber();
     ArrayList<String> Mails = userSettingMapper.selectMail();
