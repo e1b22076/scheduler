@@ -21,7 +21,25 @@
 
   <div class="title-container">
     <h1>課題詳細</h1>
-    <th:if>[[${classCode}]]</th:if>
+    <h2>授業名：[[${className}]]</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>授業回</th>
+          <th>授業内容</th>
+          <th>課題内容</th>
+          <th>締め切り</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="task : ${assignmentTasks}">
+          <td th:text="${task.lessonCount}">授業回数</td>
+          <td th:text="${task.detail}">授業内容</td>
+          <td th:text="${task.content}">課題内容</td>
+          <td th:text="${task.deadline}">締め切り</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </body>
 

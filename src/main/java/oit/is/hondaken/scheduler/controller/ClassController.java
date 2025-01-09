@@ -12,12 +12,15 @@ import java.util.Map;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.spel.ast.Assign;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import oit.is.hondaken.scheduler.model.AssignmentTask;
+import oit.is.hondaken.scheduler.model.AssignmentTaskMapper;
 import oit.is.hondaken.scheduler.model.Schedule;
 import oit.is.hondaken.scheduler.model.Todo;
 import oit.is.hondaken.scheduler.model.TodoMapper;
@@ -32,6 +35,9 @@ public class ClassController {
 
   @Autowired
   private ScheduleMapper scheduleMapper;
+
+  @Autowired
+  private AssignmentTaskMapper assignmentTaskMapper;
 
   @Autowired
   private TimeTableMapper timeTableMapper;
@@ -147,9 +153,11 @@ public class ClassController {
 
   @GetMapping("/timetable/work")
   public String work(@RequestParam String code, ModelMap model, Principal prin) {
-    // String myNumber = prin.getName();
-
-    model.addAttribute("classCode", code);
+    String className=scheduleMapper.selectClassNameById(code);
+    List<AssignmentTask> assignmentTasks = assignmentTaskMapper.selectAssignmentTaskbyScheduleId(code);
+    
+    model.addAttribute("className", className);
+    model.addAttribute("assignmentTasks", assignmentTasks);
 
     return "work.html";
   }
