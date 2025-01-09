@@ -65,11 +65,6 @@ public class NewRegisterController {
       }
     }
     if (flag == 0) {// ここからメール送信
-      SimpleMailMessage message = new SimpleMailMessage();
-      message.setTo(mail);
-      message.setFrom("isdev24@ubuntu205");
-      message.setSubject("認証コードをお送りします。");
-      message.setText("認証コード:" + admin_code);
       if ("A12345".equals(gakuseki)) {// 教師の場合
         // 番号の重複を防ぐ処理
         String newNumber;
@@ -78,16 +73,19 @@ public class NewRegisterController {
         } while (Numbers.contains(newNumber)); // 既存の番号と重複しないか確認
         // 新しい番号をリストに追加
         Numbers.add(newNumber);
-        model.addAttribute("gakuseki", newNumber);
-        message.setText("登録番号:" + newNumber);
-      } else {// 生徒の場合
-        model.addAttribute("gakuseki", gakuseki);
-        message.setText("登録番号:" + gakuseki);
+        gakuseki = newNumber;
       }
+
+      SimpleMailMessage message = new SimpleMailMessage();
+      message.setTo(mail);
+      message.setFrom("isdev24@ubuntu205");
+      message.setSubject("認証コードをお送りします。");
+      message.setText("認証コード:" + admin_code + "登録番号:" + gakuseki);
 
       // メール送信を実施する。
       mailSender.send(message);
       model.addAttribute("mail", mail);
+      model.addAttribute("gakuseki", gakuseki);
       model.addAttribute("pass", pass);
       model.addAttribute("myname", myname);
       model.addAttribute("admin_code", admin_code);
