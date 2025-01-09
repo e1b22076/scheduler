@@ -15,7 +15,7 @@ window.onload = function () {
     let hasError = false;
 
     // 必須項目のチェック
-    if (gakuseki.trim().length === 0) {
+    if (!checkbox.checked && gakuseki.trim().length === 0) {
       document.getElementById('gakuseki_chk').style.visibility = 'visible';
       hasError = true;
     } else {
@@ -60,23 +60,23 @@ window.onload = function () {
       document.getElementById('mail_chk').style.visibility = 'visible';
       formatError = true;
     } else {
-      if (!checkbox.checked) {
-        // gakuseki を小文字に変換
-        const lowgakuseki = gakuseki.toLowerCase();
-        // メールアドレスの3～8桁目を取得
-        const emailgakuseki = mail.substring(2, 8);
-        // 一致判定
-        if (!(lowgakuseki === emailgakuseki)) {
-          document.getElementById('match_chk').style.visibility = 'visible';
-          formatError = true;
-        } else {
-          document.getElementById('match_chk').style.visibility = 'hidden';
-        }
-      }
-
       document.getElementById('mail_chk').style.visibility = 'hidden';
     }
 
+    // gakuseki を小文字に変換
+    const lowgakuseki = gakuseki.toLowerCase();
+    // メールアドレスの3～8桁目を取得
+    const emailgakuseki = mail.substring(2, 8);
+
+    if (!checkbox.checked) {
+      // 一致判定
+      if (!(lowgakuseki === emailgakuseki)) {
+        document.getElementById('match_chk').style.visibility = 'visible';
+        formatError = true;
+      } else {
+        document.getElementById('match_chk').style.visibility = 'hidden';
+      }
+    }
 
     // エラーがある場合はフォーム送信を停止
     if (hasError || formatError) {
