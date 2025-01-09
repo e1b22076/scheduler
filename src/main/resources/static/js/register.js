@@ -63,6 +63,13 @@ window.onload = function () {
       document.getElementById('mail_chk').style.visibility = 'hidden';
     }
 
+    const gakuseimailRegex = /^e1[a-z]\d{5}@oit\.ac\.jp$/;
+    if (gakuseimailRegex.test(mail) && checkbox.checked) {
+      document.getElementById('mail-gakusei_chk').style.visibility = 'visible';
+      formatError = true;
+    } else {
+      document.getElementById('mail-gakusei_chk').style.visibility = 'hidden';
+    }
     // gakuseki を小文字に変換
     const lowgakuseki = gakuseki.toLowerCase();
     // メールアドレスの3～8桁目を取得
