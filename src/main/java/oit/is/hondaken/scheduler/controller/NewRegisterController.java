@@ -69,6 +69,7 @@ public class NewRegisterController {
       message.setTo(mail);
       message.setFrom("isdev24@ubuntu205");
       message.setSubject("認証コードをお送りします。");
+      message.setText("認証コード:" + admin_code);
       if ("A12345".equals(gakuseki)) {// 教師の場合
         // 番号の重複を防ぐ処理
         String newNumber;
@@ -78,16 +79,14 @@ public class NewRegisterController {
         // 新しい番号をリストに追加
         Numbers.add(newNumber);
         model.addAttribute("gakuseki", newNumber);
-        message.setText("認証コード:" + admin_code
-            + "登録番号:" + newNumber);
+        message.setText("登録番号:" + newNumber);
       } else {// 生徒の場合
         model.addAttribute("gakuseki", gakuseki);
-        message.setText("認証コード:" + admin_code
-            + "登録番号:" + gakuseki);
+        message.setText("登録番号:" + gakuseki);
       }
 
       // メール送信を実施する。
-      // mailSender.send(message);
+      mailSender.send(message);
       model.addAttribute("mail", mail);
       model.addAttribute("pass", pass);
       model.addAttribute("myname", myname);
