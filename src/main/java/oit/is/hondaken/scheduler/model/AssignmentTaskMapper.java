@@ -22,4 +22,7 @@ public interface AssignmentTaskMapper {
   @Delete("DELETE FROM AssignmentTask WHERE id = #{assignmentTaskId}")
   void deleteById(@Param("assignmentTaskId") int taskId);
 
+  @Select("SELECT ASSIGNMENTTASK.ID ,LESSONCOUNT ,ASSIGNMENTID,DETAIL  ,CONTENT,DEADLINE   FROM ASSIGNMENTTASK join ASSIGNMENT on ASSIGNMENTID = ASSIGNMENT.ID where SCHEDULEID =#{ScheduleId} ORDER BY ASSIGNMENTID ASC,LESSONCOUNT ASC")
+  List<AssignmentTask> selectAssignmentTaskbyScheduleId(@Param("ScheduleId") String ScheduleId);
+
 }
