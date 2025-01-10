@@ -12,6 +12,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import org.springframework.context.ApplicationListener;
+import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Component;
+
 import oit.is.hondaken.scheduler.model.UserSettingMapper;
 
 @Configuration
@@ -77,9 +82,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     if (password == null) {
       throw new UsernameNotFoundException("User not found: " + username);
-    } else {
-      int Uid = userSettingMapper.selectIdByNum(username);
-      userSettingMapper.updateIsActive(Uid, true);
     }
     // ユーザー情報を生成
     return User.withUsername(username)
@@ -87,4 +89,27 @@ public class CustomUserDetailsService implements UserDetailsService {
         .roles(userRole) // 必要に応じてロールを設定
         .build();
   }
+
+  @Component
+  public class AuthenticationSuccessListener implements ApplicationListener<AuthenticationSuccessEvent> {
+
+    private final UserSettingMapper userSettingMapper;
+
+    public AuthenticationSuccessListener(UserSettingMapper userSettingMapper) {
+      this.userSettingMapper = userSettingMapper;
+    }
+
+    @Override
+    public void onApplicationEvent(AuthenticationSuccessEvent event) {
+      Authentication authentication = event.getAuthentication();
+
+      // 認証成功したユーザー名を取得
+      String username = authentication.getName();
+
+      // isActive を true に更新
+      int userId = userSettingMapper.selectIdByNum(username);
+      userSettingMapper.updateIsActive(userId, true);
+    }
+  }
+
 }
