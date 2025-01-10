@@ -65,12 +65,23 @@ public class NewRegisterController {
       }
     }
     if (flag == 0) {// ここからメール送信
+      if ("A12345".equals(gakuseki)) {// 教師の場合
+        // 番号の重複を防ぐ処理
+        String newNumber;
+        do {
+          newNumber = "T" + String.format("%05d", rnd.nextInt(100000));
+        } while (Numbers.contains(newNumber)); // 既存の番号と重複しないか確認
+        // 新しい番号をリストに追加
+        Numbers.add(newNumber);
+        gakuseki = newNumber;
+      }
 
       SimpleMailMessage message = new SimpleMailMessage();
       message.setTo(mail);
       message.setFrom("isdev24@ubuntu205");
       message.setSubject("認証コードをお送りします。");
-      message.setText("認証コード:" + admin_code);
+      message.setText("登録番号:" + gakuseki + "\n認証コード:" + admin_code);
+
       // メール送信を実施する。
       mailSender.send(message);
       model.addAttribute("mail", mail);

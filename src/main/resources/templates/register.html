@@ -31,6 +31,7 @@
         <th><label for="gakuseki">教授の場合</label></th>
         <td>
           <input type="checkbox" id="teacher" name="teacher" onchange="toggleInputState(this)" />
+          <span id="mail-gakusei_chk" class="error-message">学生用メールアドレスなのにチェックがついています</span>
         </td>
       </tr>
       <tr>
@@ -51,6 +52,7 @@
         <td>
           <input id="mail" type="email" placeholder="e1a12345@oit.ac.jp" name="mail" class="form-control" required>
           <span id="mail_chk" class="error-message">メールアドレスの形式が違います</span>
+          <span id="match_chk" class="error-message">メールアドレスと学籍番号が一致しません</span>
         </td>
       </tr>
       <tr>

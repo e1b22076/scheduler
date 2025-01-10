@@ -10,11 +10,12 @@ window.onload = function () {
     const mail = document.getElementById("mail").value;
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("repassword").value;
+    const checkbox = document.getElementById("teacher");
 
     let hasError = false;
 
     // 必須項目のチェック
-    if (gakuseki.trim().length === 0) {
+    if (!checkbox.checked && gakuseki.trim().length === 0) {
       document.getElementById('gakuseki_chk').style.visibility = 'visible';
       hasError = true;
     } else {
@@ -44,7 +45,6 @@ window.onload = function () {
 
     // 入力形式のチェック
     let formatError = false;
-
     // 学籍番号の形式チェック
     const gakusekiRegex = /^[BCQJN]\d{5}$/;
     if (!checkbox.checked && !gakusekiRegex.test(gakuseki)) {
@@ -61,6 +61,28 @@ window.onload = function () {
       formatError = true;
     } else {
       document.getElementById('mail_chk').style.visibility = 'hidden';
+    }
+
+    const gakuseimailRegex = /^e1[a-z]\d{5}@oit\.ac\.jp$/;
+    if (gakuseimailRegex.test(mail) && checkbox.checked) {
+      document.getElementById('mail-gakusei_chk').style.visibility = 'visible';
+      formatError = true;
+    } else {
+      document.getElementById('mail-gakusei_chk').style.visibility = 'hidden';
+    }
+    // gakuseki を小文字に変換
+    const lowgakuseki = gakuseki.toLowerCase();
+    // メールアドレスの3～8桁目を取得
+    const emailgakuseki = mail.substring(2, 8);
+
+    if (!checkbox.checked) {
+      // 一致判定
+      if (!(lowgakuseki === emailgakuseki)) {
+        document.getElementById('match_chk').style.visibility = 'visible';
+        formatError = true;
+      } else {
+        document.getElementById('match_chk').style.visibility = 'hidden';
+      }
     }
 
     // エラーがある場合はフォーム送信を停止
