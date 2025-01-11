@@ -1,16 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const message = document.getElementById("flashMessage");
-
-  if (message && message.innerText.trim() !== "") {
-    // メッセージを表示
-    message.style.display = "block";
-
-    // 5秒後にメッセージを非表示にする
-    setTimeout(function () {
-      message.style.display = "none";
-    }, 4000);  // 4秒後に消える
-  }
-
   const teamId = document.getElementById("teamId").value;
   const userId = document.getElementById("userId").value; // ユーザーIDを取得
   const eventSource = new EventSource(`/team/chat/sse/${teamId}`);
@@ -75,4 +63,84 @@ document.addEventListener("DOMContentLoaded", function () {
       event.preventDefault();
     }
   });
+
+  const descriptionInput = document.getElementById('descriptionInput');
+  const charCount = document.getElementById('charCount');
+
+  if (descriptionInput && charCount) {
+    descriptionInput.addEventListener('input', function () {
+      const currentLength = descriptionInput.value.length;
+      charCount.textContent = `${currentLength} / 200`;
+    });
+  }
+
+  // モーダルを開く
+  function openModal(element) {
+    const modal = document.getElementById('teamModal');
+    const modalType = element.getAttribute('data-modal-type');
+    const modalTitle = document.getElementById('modalTeamName');
+    const modalDescription = document.getElementById('modalTeamDescription');
+    const form = modal.querySelector('form');
+    const submitButton = form.querySelector('button[type="submit"]');
+
+    modalTitle.textContent = '';
+    modalDescription.textContent = '';
+    form.style.display = 'none';
+    submitButton.style.display = 'none';
+
+    switch (modalType) {
+      case 'description':
+        const teamDescription = element.getAttribute('data-team-description');
+        modalTitle.textContent = 'チーム説明';
+        modalDescription.textContent = teamDescription || '説明はありません。';
+        submitButton.style.display = 'none';
+        break;
+
+      case 'code':
+        const teamCode = element.getAttribute('data-team-code');
+        modalTitle.textContent = 'チームコード生成';
+        modalDescription.textContent = 'チームコード: ' + (teamCode || 'まだ生成されていません。');
+        form.style.display = 'block'; // フォームを表示
+        submitButton.style.display = 'block';
+        form.setAttribute('action', '/team/create/code');
+        submitButton.textContent = 'コード生成';
+        break;
+
+      case 'delete':
+        modalTitle.textContent = 'チーム削除';
+        modalDescription.textContent = '本当にチームを削除しますか？この操作は元に戻せません。';
+        form.style.display = 'block'; // フォームを表示
+        submitButton.style.display = 'block';
+        form.setAttribute('action', '/team/delete');
+        submitButton.textContent = '削除';
+        break;
+
+      case 'leave':
+        modalTitle.textContent = 'チーム退会';
+        modalDescription.textContent = 'チームから退会しますか？';
+        form.style.display = 'block'; // フォームを表示
+        submitButton.style.display = 'block';
+        form.setAttribute('action', '/team/leave');
+        submitButton.textContent = '退会';
+        break;
+
+      default:
+        modalTitle.textContent = '情報';
+        modalDescription.textContent = '不明な操作です。';
+    }
+
+    modal.classList.remove('hidden');
+    modal.style.display = 'block';
+  }
+
+  // モーダルを閉じる
+  function closeModal() {
+    const modal = document.getElementById('teamModal');
+    modal.classList.add('hidden');
+    modal.style.display = 'none';
+  }
+
+  // 関数をグローバルスコープに登録
+  window.openModal = openModal;
+  window.closeModal = closeModal;
 });

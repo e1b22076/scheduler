@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="_csrf" content="${_csrf.token}">
+  <meta name="_csrf_header" content="${_csrf.parameterName}">
+  <title>チームメンバー管理</title>
+  <link rel="stylesheet" th:href="@{/css/common.css}">
+  <link rel="stylesheet" th:href="@{/css/join.css}">
+  <link rel="stylesheet" th:href="@{/css/addClass.css}">
+  <link rel="stylesheet" th:href="@{/css/team.css}">
+  <script th:src="@{/js/common.js}"></script>
+  <script th:src="@{/js/addClass.js}"></script>
+  <script th:src="@{/js/team.js}"></script>
+  <script th:src="@{/js/teamMemberSetting.js}"></script>
+  <script th:src="@{/js/logout.js}"></script>
+</head>
+
+<body>
+  <!-- フラッシュメッセージ -->
+  <div th:if="${message}" class="flash-message" id="flashMessage">
+    <p th:text="${message}"></p>
+  </div>
+
+  <!-- メニューバー -->
+  <div class="navbar">
+    <a th:href="@{'/team/chat/' + ${team.id}}" class="link always-visible">戻る</a>
+  </div>
+
+  <div class="title-container">
+    <h1 th:text="${team.teamName} + ' メンバー一覧'">チームのメンバー一覧</h1>
+
+    <!-- 検索ボックス -->
+    <div class="teacher-search-container">
+      <div class="search-controls">
+        <select id="searchCategory" class="search-select">
+          <option value="gakuseki">学籍番号</option>
+          <option value="mail">メールアドレス</option>
+        </select>
+        <input type="text" id="searchInput" placeholder="検索キーワードを入力" class="search-box">
+      </div>
+    </div>
+
+    <table class="table table-bordered" id="userTable">
+      <thead>
+        <tr>
+          <th>学籍番号</th>
+          <th>メールアドレス</th>
+        </tr>
+      </thead>
+      <tbody id="classTableBody">
+        <!-- usersリストの各項目を表示 -->
+        <tr th:each="user : ${users}">
+          <td class="gakuseki-cell">
+            <span class="gakuseki-link" th:text="${user.myNumber}" th:attr="data-delete-id=${user.myNumber}, data-team-id=${team.id}" onclick="confirmDelete(this)"></span>
+          </td>
+          <td class="mail-cell" th:text="${user.mail}"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 削除確認モーダル -->
+  <div id="confirmModal" class="modal hidden">
+    <div class="modal-content">
+      <h3>チームからメンバーを削除しますか？</h3>
+      <div>
+        削除対象者: <span id="userToDelete"></span>
+      </div>
+      <form id="deleteForm" method="post" action="">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+        <input type="hidden" name="memberId" id="userToDelete" />
+        <button class="submit-button" type="button" onclick="closeModal()">キャンセル</button>
+        <button class="remove-button" type="submit">削除</button>
+      </form>
+    </div>
+  </div>
+
+</body>
+
+</html>

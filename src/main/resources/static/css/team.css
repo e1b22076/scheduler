@@ -68,10 +68,6 @@
   color: rgb(0, 0, 0);
 }
 
-.hidden {
-  display: none;
-}
-
 h1 {
   color: #4a4e69;
   text-align: center;
@@ -142,6 +138,15 @@ h2 {
   text-align: left;
 }
 
+.modal-content form {
+  display: flex;
+  justify-content: space-between;
+  /* ボタンを左右端に配置 */
+  align-items: center;
+  /* 垂直方向にも中央揃え */
+  padding: 20px;
+}
+
 .hidden {
   display: none;
 }
@@ -160,6 +165,39 @@ h2 {
 
 .close:hover {
   color: #333;
+}
+
+/* ボタンのスタイル */
+.submit-button,
+.remove-button {
+  width: 36%;
+  /* ボタンの幅を調整して、左右に余裕を持たせる */
+  font-size: 1.1em;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submit-button {
+  background-color: #4a4e69;
+  color: white;
+  border: none;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #b5838d;
+}
+
+.remove-button {
+  background-color: #fd4141;
+  color: white;
+  border: none;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.remove-button:hover {
+  background-color: #ff7575;
 }
 
 /* レスポンシブ対応 */

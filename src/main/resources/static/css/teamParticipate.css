@@ -27,8 +27,9 @@ form .btn {
   padding: 10px 20px;
   text-align: center;
 }
+
 form .btn {
-  width: 48%;
+  width: 40%;
   padding: 10px;
   background-color: #4a4e69;
   color: #fff;

@@ -1162,8 +1162,8 @@ INSERT INTO lessonNumber(lessonYear,lessonCount,DayofWeek,timing,lessonDate) VAL
 INSERT INTO assignment (scheduleId,userId) VALUES('1BBN09A0','B00000');
 
 -- チーム
-INSERT INTO team (teamName,teamOwner,teamType,teamDescription,teamCode) VALUES ('情報システム応用演習','B22999','public','テスト用のチームです。', '@pr4#da');
-INSERT INTO team (teamName,teamOwner,teamType,teamDescription,teamCode) VALUES ('C演習','B00999','public',null, 'vriw81l');
+INSERT INTO team (teamName,teamOwner,teamType,teamDescription,teamCode) VALUES ('情報システム応用演習','B22999','public','テスト用のチームです。', null);
+INSERT INTO team (teamName,teamOwner,teamType,teamDescription,teamCode) VALUES ('C演習','B00999','public',null, null);
 INSERT INTO team (teamName,teamOwner,teamType,teamDescription,teamCode) VALUES ('Java演習','B00999','private','テスト用のチームです。', 'edka9#1');
 
 INSERT INTO teamMember (teamId,memberId) VALUES (1,'B22999');

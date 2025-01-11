@@ -17,6 +17,11 @@
 </head>
 
 <body>
+  <!-- フラッシュメッセージ -->
+  <div th:if="${message}" class="flash-message" id="flashMessage">
+    <p th:text="${message}"></p>
+  </div>
+
   <!-- メニューバー -->
   <div class="navbar">
     <a href="/calendar" class="link">
