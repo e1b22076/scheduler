@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // メニュー内の「授業をコマから外す」クリック時
-  document.querySelector('.menu-dropdown div:nth-child(3)').addEventListener('click', function () {
+  document.querySelector('.menu-dropdown div:nth-child(2)').addEventListener('click', function () {
     openModal('removeModal', this);
   });
 
@@ -153,7 +153,7 @@ function openModal(modalId, tdElement) {
       document.getElementById("infoModal").setAttribute("data-syllabus-url", syllabusUrl);
 
       // メニューの「授業をコマから外す」に授業情報を設定
-      const removeButton = document.querySelector('.menu-dropdown div:nth-child(3)');
+      const removeButton = document.querySelector('.menu-dropdown div:nth-child(2)');
       removeButton.setAttribute('data-day', day);
       removeButton.setAttribute('data-period', period);
       removeButton.setAttribute('data-className', className);

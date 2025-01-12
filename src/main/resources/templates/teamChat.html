@@ -10,6 +10,7 @@
   <link rel="stylesheet" th:href="@{/css/common.css}">
   <link rel="stylesheet" th:href="@{/css/team.css}">
   <link rel="stylesheet" th:href="@{/css/teamChat.css}">
+  <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css}">
   <script th:src="@{/js/common.js}"></script>
   <script th:src="@{/js/team.js}"></script>
   <script th:src="@{/js/teamChat.js}"></script>
@@ -26,6 +27,28 @@
   <div class="navbar">
     <a href="/team" class="link always-visible">戻る</a>
     <h1 th:text="${teamName}"></h1>
+    <div class="mainButton-container">
+      <button id="mainButton" class="mainButton">チーム管理</button>
+      <div id="options" class="option-menu hidden">
+        <span class="link always-visible" data-modal-type="description"
+          th:attr="data-team-description=${team.teamDescription}" onclick="openModal(this)">チーム説明</span>
+        <div th:if="${#authentication.name == team.teamOwner and team.teamType == 'private'}">
+          <span class="link always-visible" data-modal-type="code" th:attr="data-team-code=${team.teamCode}" onclick="openModal(this)">チームコード生成</span>
+        </div>
+        <div th:if="${#authentication.name == team.teamOwner}">
+          <span class="link always-visible" data-modal-type="delete" onclick="openModal(this)">チーム削除</span>
+        </div>
+        <div th:if="${#authentication.name != team.teamOwner}">
+          <span class="link always-visible" data-modal-type="leave" onclick="openModal(this)">チーム退会</span>
+        </div>
+        <div th:if="${#authentication.name == team.teamOwner}">
+          <a th:href="@{'/team/member/' + ${teamId}}" class="link always-visible">メンバー管理</a>
+        </div>
+        <div th:if="${#authentication.name == team.teamOwner}">
+          <a th:href="@{'/team/setting/' + ${teamId}}" class="link always-visible">チーム設定</a>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="chat-container" id="chatContainer">
@@ -45,8 +68,25 @@
     <input type="hidden" id="teamId" th:value="${teamId}" />
     <input type="hidden" id="userId" th:value="${#authentication.name}" /> <!-- ユーザーIDを追加 -->
     <textarea name="message" id="messageInput" rows="4" placeholder="メッセージを入力" required /></textarea>
-    <button type="submit">送信</button>
+    <button type="submit" class="btn">
+      <i class="fa-solid fa-arrow-right"></i>
+    </button>
   </form>
+
+  <!-- モーダル -->
+  <div id="teamModal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h3 id="modalTeamName">チーム名</h3>
+      <p id="modalTeamDescription">説明</p>
+      <form method="post" style="display:none;">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+        <input type="hidden" name="teamId" id="teamId" th:value="${team.id}" />
+        <button type="submit" class="submit-btn">送信</button>
+      </form>
+    </div>
+  </div>
+
 </body>
 
 </html>
