@@ -136,12 +136,14 @@
 }
 
 #messageInput {
-  width: 70%;
+  min-width: 60%;
+  max-width: 80%;
   padding: 12px;
   font-size: 1.1em;
   border: 1px solid #ccc;
   border-radius: 25px;
   min-height: 40px;
+  max-height: 200px;
   white-space: pre-wrap;
   /* 改行を反映させる */
   word-wrap: break-word;
@@ -178,7 +180,7 @@ form .submit-btn {
 }
 
 form .submit-btn {
-  width: 40%;
+  width: 44%;
   padding: 10px;
   background-color: #4a4e69;
   color: #fff;

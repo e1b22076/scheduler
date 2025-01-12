@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
         form.style.display = 'block'; // フォームを表示
         submitButton.style.display = 'block';
         form.setAttribute('action', '/team/create/code');
-        submitButton.textContent = 'コード生成';
+        submitButton.textContent = 'コード生成 / 再生成';
         break;
 
       case 'delete':

@@ -10,6 +10,7 @@
   <link rel="stylesheet" th:href="@{/css/common.css}">
   <link rel="stylesheet" th:href="@{/css/team.css}">
   <link rel="stylesheet" th:href="@{/css/teamChat.css}">
+  <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css}">
   <script th:src="@{/js/common.js}"></script>
   <script th:src="@{/js/team.js}"></script>
   <script th:src="@{/js/teamChat.js}"></script>
@@ -67,7 +68,9 @@
     <input type="hidden" id="teamId" th:value="${teamId}" />
     <input type="hidden" id="userId" th:value="${#authentication.name}" /> <!-- ユーザーIDを追加 -->
     <textarea name="message" id="messageInput" rows="4" placeholder="メッセージを入力" required /></textarea>
-    <button type="submit" class="btn">送信</button>
+    <button type="submit" class="btn">
+      <i class="fa-solid fa-arrow-right"></i>
+    </button>
   </form>
 
   <!-- モーダル -->
