@@ -80,7 +80,8 @@ public class NewRegisterController {
       message.setTo(mail);
       message.setFrom("isdev24@ubuntu205");
       message.setSubject("認証コードをお送りします。");
-      message.setText("登録番号:" + gakuseki + "\n認証コード:" + admin_code);
+      // message.setText("登録番号:" + gakuseki + "\n認証コード:" + admin_code);
+      message.setText("認証コード:" + admin_code + "\n登録番号:" + gakuseki);
 
       // メール送信を実施する。
       mailSender.send(message);
