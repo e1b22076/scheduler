@@ -76,6 +76,8 @@ public class NewRegisterController {
         gakuseki = newNumber;
       }
 
+      System.out.println(mail);
+      System.out.println(admin_code);
       SimpleMailMessage message = new SimpleMailMessage();
       message.setTo(mail);
       message.setFrom("isdev24@ubuntu205");
