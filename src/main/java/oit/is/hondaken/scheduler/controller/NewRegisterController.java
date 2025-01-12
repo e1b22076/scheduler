@@ -87,7 +87,7 @@ public class NewRegisterController {
       try {
         mailSender.send(message);
       } catch (MailException e) {
-        e.printStackTrace();
+        System.out.print("メール送信に失敗しました: " + e.getMessage());
         model.addAttribute("error", "メール送信に失敗しました: " + e.getMessage());
       }
 
