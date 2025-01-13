@@ -1029,9 +1029,6 @@ INSERT INTO userSetting(myNumber,userName,userRole,mail,myPass,isActive ) VALUES
 INSERT INTO userSetting(myNumber,userName,userRole,mail,myPass,isActive ) VALUES('B22000','ほんだ2','STUDENT','e1b22000@oit.ac.jp','$2y$05$2okqcneYBBlPb39NXazmKuuLby7vb8Cp3wTAebrhEVCrydKwxB2R6',false);
 INSERT INTO userSetting(myNumber,userName,userRole,mail,myPass,isActive ) VALUES('B00999','ほんだ3','TEACHER','e1b00999@oit.ac.jp','$2y$05$2okqcneYBBlPb39NXazmKuuLby7vb8Cp3wTAebrhEVCrydKwxB2R6',false);
 INSERT INTO userSetting(myNumber,userName,userRole,mail,myPass,isActive ) VALUES('B00000','ほんだ4','TEACHER','e1b00000@oit.ac.jp','$2y$05$2okqcneYBBlPb39NXazmKuuLby7vb8Cp3wTAebrhEVCrydKwxB2R6',false);
-INSERT INTO userSetting(myNumber,userName,userRole,mail,myPass,isActive) VALUES('B99999','ほんだ5','ADMIN','e1b99999@oit.ac.jp','$2y$05$2okqcneYBBlPb39NXazmKuuLby7vb8Cp3wTAebrhEVCrydKwxB2R6',false);
-INSERT INTO userSetting(myNumber,userName,userRole,mail,myPass,isActive ) VALUES('B99000','ほんだ6','ADMIN','e1b99000@oit.ac.jp','$2y$05$2okqcneYBBlPb39NXazmKuuLby7vb8Cp3wTAebrhEVCrydKwxB2R6',false);
-
 
 INSERT INTO todos (myNumber,
     title ,description ,
@@ -1062,9 +1059,11 @@ INSERT INTO events (myNumber, title, description, startDate, endDate, startTime,
 ('B22000','プレゼン', '東京でのクライアント訪問', '2024-11-15','2024-11-16', '10:00:00', '10:30:00', '東京オフィス'),
 ('B22999','会議', '東京でのクライアントと会議', '2024-11-15','2024-11-16', '10:00:00', '10:30:00', '東京オフィス');
 
-INSERT INTO permissions (requesterNumber, targetNumber, isApproved) VALUES ('B22000','B00000',true),
-('B22000','B99000',false),
-('B00000','B22000',null);
+INSERT INTO permissions (requesterNumber, targetNumber, isApproved)
+VALUES
+  ('B22000', 'B00000', true),
+  ('B00000', 'B22000', null);
+
 --終わり
 
 INSERT INTO lessonNumber(lessonYear,lessonCount,DayofWeek,timing,lessonDate) VALUES
