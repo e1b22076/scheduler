@@ -1,0 +1,31 @@
+対象リポジトリ(https):https://github.com/e1b22076/scheduler.git
+対象リポジトリ(ssh):git@github.com:e1b22076/scheduler.git
+
+リポジトリのクローンをおこないます．
+httpsの場合：
+	$ git clone https://github.com/e1b22076/scheduler.git
+    $ cd scheduler
+
+sshの場合：
+	$ git clone git@github.com:e1b22076/scheduler.git
+
+リポジトリが正しくクローン出来たかどうかを確認するために
+ ls コマンドを実行してリポジトリを確認します．
+    $ ls
+
+「scheduler」が表示されていれば，正しくクローンが行われています．
+
+これでschedulerのファイルを作ることができました．
+次は cd コマンドを使いリポジトリを移動します．
+    $ cd scheduler
+
+移動ができれば，リポジトリの内容を ls コマンドを利用して確認します．
+    $ ls -al
+
+以下は実行結果の例です．
+    // あとで記述する
+
+確認ができたら，プロジェクトの実行のために以下のコマンドを実行します．
+    $ bash ./gradlew bootrun
+
+実行後，ブラウザで対象の URL にアクセスし，動作を確認してください．
