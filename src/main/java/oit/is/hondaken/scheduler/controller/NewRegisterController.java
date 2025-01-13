@@ -16,7 +16,7 @@ import oit.is.hondaken.scheduler.model.UserSetting;
 import oit.is.hondaken.scheduler.model.UserSettingMapper;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
+import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 
@@ -80,10 +80,18 @@ public class NewRegisterController {
       message.setTo(mail);
       message.setFrom("isdev24@ubuntu205");
       message.setSubject("認証コードをお送りします。");
-      message.setText("登録番号:" + gakuseki + "\n認証コード:" + admin_code);
+      // message.setText("登録番号:" + gakuseki + "\n認証コード:" + admin_code);
+      message.setText("認証コード:" + admin_code + "\n登録番号:" + gakuseki);
 
       // メール送信を実施する。
-      mailSender.send(message);
+      try {
+        mailSender.send(message);
+        System.out.println("メール送信に成功しました ");
+      } catch (MailException e) {
+        System.out.println("メール送信に失敗しました: " + e.getMessage());
+        model.addAttribute("error", "メール送信に失敗しました: " + e.getMessage());
+      }
+
       model.addAttribute("mail", mail);
       model.addAttribute("gakuseki", gakuseki);
       model.addAttribute("pass", pass);
