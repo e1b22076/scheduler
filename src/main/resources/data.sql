@@ -1029,9 +1029,6 @@ INSERT INTO userSetting(myNumber,userName,userRole,mail,myPass,isActive ) VALUES
 INSERT INTO userSetting(myNumber,userName,userRole,mail,myPass,isActive ) VALUES('B22000','ほんだ2','STUDENT','e1b22000@oit.ac.jp','$2y$05$2okqcneYBBlPb39NXazmKuuLby7vb8Cp3wTAebrhEVCrydKwxB2R6',false);
 INSERT INTO userSetting(myNumber,userName,userRole,mail,myPass,isActive ) VALUES('B00999','ほんだ3','TEACHER','e1b00999@oit.ac.jp','$2y$05$2okqcneYBBlPb39NXazmKuuLby7vb8Cp3wTAebrhEVCrydKwxB2R6',false);
 INSERT INTO userSetting(myNumber,userName,userRole,mail,myPass,isActive ) VALUES('B00000','ほんだ4','TEACHER','e1b00000@oit.ac.jp','$2y$05$2okqcneYBBlPb39NXazmKuuLby7vb8Cp3wTAebrhEVCrydKwxB2R6',false);
-INSERT INTO userSetting(myNumber,userName,userRole,mail,myPass,isActive) VALUES('B99999','ほんだ5','ADMIN','e1b99999@oit.ac.jp','$2y$05$2okqcneYBBlPb39NXazmKuuLby7vb8Cp3wTAebrhEVCrydKwxB2R6',false);
-INSERT INTO userSetting(myNumber,userName,userRole,mail,myPass,isActive ) VALUES('B99000','ほんだ6','ADMIN','e1b99000@oit.ac.jp','$2y$05$2okqcneYBBlPb39NXazmKuuLby7vb8Cp3wTAebrhEVCrydKwxB2R6',false);
-
 
 INSERT INTO todos (myNumber,
     title ,description ,
