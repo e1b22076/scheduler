@@ -12,8 +12,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   </a>
   <script th:src="@{/js/joinCalendar.js}"></script>
-  <script src="js/common.js"></script>
-  <script src="js/logout.js"></script>
+  <script th:src="@{/js/common.js}"></script>
+  <script th:src="@{/js/logout.js}"></script>
 </head>
 
 <body>
@@ -33,6 +33,10 @@
     </a>
     <a href="/team" class="link">
       <i class="fa-solid fa-people-group"></i>チーム
+    </a>
+    <a href="/teacherSetting" class="link" sec:authorize="hasRole('ROLE_TEACHER')">
+      <i class="fa-regular fa-paper-plane"></i>
+      担当授業設定
     </a>
     <a href="/setting" class="link">
       <i class="fa-solid fa-gear"></i> 設定
@@ -63,6 +67,10 @@
     <a href="/team" class="link">
       <i class="fa-solid fa-people-group"></i>チーム
     </a>
+    <a href="/teacherSetting" class="link" sec:authorize="hasRole('ROLE_TEACHER')">
+      <i class="fa-regular fa-paper-plane"></i>
+      担当授業設定
+    </a>
     <a href="/setting" class="link">
       <i class="fa-solid fa-gear"></i> 設定
     </a>
@@ -73,6 +81,7 @@
       </button>
     </form>
   </div>
+
 
   <div class="title-container">
     <h1>[[${userNumber}]]のカレンダー</h1>
