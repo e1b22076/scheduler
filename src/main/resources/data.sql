@@ -1059,9 +1059,11 @@ INSERT INTO events (myNumber, title, description, startDate, endDate, startTime,
 ('B22000','プレゼン', '東京でのクライアント訪問', '2024-11-15','2024-11-16', '10:00:00', '10:30:00', '東京オフィス'),
 ('B22999','会議', '東京でのクライアントと会議', '2024-11-15','2024-11-16', '10:00:00', '10:30:00', '東京オフィス');
 
-INSERT INTO permissions (requesterNumber, targetNumber, isApproved) VALUES ('B22000','B00000',true),
-('B22000','B99000',false),
-('B00000','B22000',null);
+INSERT INTO permissions (requesterNumber, targetNumber, isApproved)
+VALUES
+  ('B22000', 'B00000', true),
+  ('B00000', 'B22000', null);
+
 --終わり
 
 INSERT INTO lessonNumber(lessonYear,lessonCount,DayofWeek,timing,lessonDate) VALUES
