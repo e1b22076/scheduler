@@ -1,31 +1,156 @@
 対象リポジトリ(https):https://github.com/e1b22076/scheduler.git
 対象リポジトリ(ssh):git@github.com:e1b22076/scheduler.git
 
-リポジトリのクローンをおこないます．
-httpsの場合：
-	$ git clone https://github.com/e1b22076/scheduler.git
-    $ cd scheduler
+サーバーへの接続を行います。
+    ssh isdev24@150.89.233.205
 
-sshの場合：
-	$ git clone git@github.com:e1b22076/scheduler.git
+と入力すると以下のようにパスワードの入力が求められます。
 
-リポジトリが正しくクローン出来たかどうかを確認するために
- ls コマンドを実行してリポジトリを確認します．
-    $ ls
+    $  ssh isdev24@150.89.233.205
+    isdev24@150.89.233.205's password:
 
-「scheduler」が表示されていれば，正しくクローンが行われています．
+パスワード欄にisDev24?205と入力すると、サーバーに接続できます。以下は接続した際の一例です。
 
-これでschedulerのファイルを作ることができました．
-次は cd コマンドを使いリポジトリを移動します．
-    $ cd scheduler
+    $  ssh isdev24@150.89.233.205
+    isdev24@150.89.233.205's password:
+    Welcome to Ubuntu 22.04.5 LTS (GNU/Linux 6.8.0-49-generic x86_64)
 
-移動ができれば，リポジトリの内容を ls コマンドを利用して確認します．
-    $ ls -al
+     * Documentation:  https://help.ubuntu.com
+     * Management:     https://landscape.canonical.com
+     * Support:        https://ubuntu.com/pro
 
-以下は実行結果の例です．
-    // あとで記述する
+     System information as of Mon Jan 13 01:03:32 JST 2025
 
-確認ができたら，プロジェクトの実行のために以下のコマンドを実行します．
-    $ bash ./gradlew bootrun
+      System load:    1.02      Temperature:           39.0 C
+      Usage of /home: unknown   Processes:             36
+      Memory usage:   1%        Users logged in:       0
+      Swap usage:     0%        IPv4 address for eth0: 150.89.233.205
 
-実行後，ブラウザで対象の URL にアクセスし，動作を確認してください．
+     * Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s
+       just raised the bar for easy, resilient and secure K8s cluster deployment.
+
+       https://ubuntu.com/engage/secure-kubernetes-at-the-edge
+
+    Expanded Security Maintenance for Applications is not enabled.
+
+    13 updates can be applied immediately.
+    To see these additional updates run: apt list --upgradable
+
+    2 additional security updates can be applied with ESM Apps.
+    Learn more about enabling ESM Apps service at https://ubuntu.com/esm
+
+    New release '24.04.1 LTS' available.
+    Run 'do-release-upgrade' to upgrade to it.
+
+
+    You have new mail.
+    Last login: Sun Jan 12 23:38:12 2025 from 172.21.128.22
+    isdev24@ubuntu205:~$
+
+タイムゾーンの変更を行います。以下のコマンドを入力することで変更が可能です。
+    sudo timedatectl set-timezone Asia/Tokyo
+
+確認は以下のコマンドで確認が可能です。
+    timedatectl
+
+以下はタイムゾーンの変更と確認を行った際の一例です。
+
+    isdev24@ubuntu205:~$ sudo timedatectl set-timezone Asia/Tokyo
+    isdev24@ubuntu205:~$ timedatectl
+                   Local time: Mon 2025-01-13 01:10:59 JST
+               Universal time: Sun 2025-01-12 16:10:59 UTC
+                     RTC time: n/a
+                    Time zone: Asia/Tokyo (JST, +0900)
+    System clock synchronized: yes
+                  NTP service: inactive
+              RTC in local TZ: no
+
+Javaのインストールを行います。
+以下のコマンドを入力します。
+    $ wget -O - https://apt.corretto.aws/corretto.key | sudo gpg --dearmor -o /usr/share/keyrings/corretto-keyring.gpg &&
+    echo "deb [signed-by=/usr/share/keyrings/corretto-keyring.gpg] https://apt.corretto.aws stable main" | sudo tee /etc/apt/sources.list.d/corretto.list
+
+以下のコマンドを入力して、Javaのインストールを行います。
+    sudo apt-get update; sudo apt-get install -y java-21-amazon-corretto-jdk
+
+インストールが完了したらjava -versionコマンドを実行し、 結果が一致することを確認します。
+    $java -version
+    openjdk version "21.0.5" 2024-10-15 LTS
+    OpenJDK Runtime Environment Corretto-21.0.5.11.1 (build 21.0.5+11-LTS)
+    OpenJDK 64-Bit Server VM Corretto-21.0.5.11.1 (build 21.0.5+11-LTS, mixed mode, sharing)
+
+以下のコマンドでホームディレクトリに移動します。
+    $ cd
+
+移動できているかを以下のコマンドで確認します。
+    $ pwd
+    
+結果はこのようになります。
+    isdev24@ubuntu205:~$ pwd
+    /home/isdev24
+
+リポジトリのクローンをおこないます。
+
+	git clone git@github.com:e1b22076/scheduler.git
+	cd scheduler
+
+これでschedulerのファイルを作り、移動することができました。
+
+schedulerフォルダ内のものをls -alコマンドで確認した時の一例です・
+
+isdev24@ubuntu205:~/scheduler$ ls -al
+total 21
+drwxrwxr-x 8 isdev24 isdev24   14 Jan 12 14:53 .
+drwxr-x--- 8 isdev24 isdev24   16 Jan 12 23:39 ..
+drwxrwxr-x 8 isdev24 isdev24   15 Jan 13 00:23 .git
+-rw-rw-r-- 1 isdev24 isdev24   54 Dec 10 14:06 .gitattributes
+-rw-rw-r-- 1 isdev24 isdev24  444 Dec 10 14:06 .gitignore
+drwxrwxr-x 5 isdev24 isdev24    5 Dec 10 14:06 .gradle
+drwxrwxr-x 6 isdev24 isdev24    7 Dec 10 14:06 build
+-rw-rw-r-- 1 isdev24 isdev24 1255 Dec 10 14:06 build.gradle
+drwxrwxr-x 3 isdev24 isdev24    3 Dec 10 14:06 gradle
+-rw-rw-r-- 1 isdev24 isdev24 8762 Dec 10 14:06 gradlew
+-rw-rw-r-- 1 isdev24 isdev24 2966 Dec 10 14:06 gradlew.bat
+drwxrwxr-x 5 isdev24 isdev24   11 Jan 12 14:53 scheduler
+-rw-rw-r-- 1 isdev24 isdev24   31 Dec 10 14:06 settings.gradle
+drwxrwxr-x 4 isdev24 isdev24    4 Dec 10 14:06 src
+
+bash ./gradlew  を入力します。
+以下は実行時の成功の一例です。
+    isdev24@ubuntu205:~/scheduler$ bash ./gradlew
+
+    > Task :help
+
+    Welcome to Gradle 8.10.2.
+
+    To run a build, run gradlew <task> ...
+
+    To see a list of available tasks, run gradlew tasks
+
+    To see more detail about a task, run gradlew help --task <task>
+
+    To see a list of command-line options, run gradlew --help
+
+    For more detail on using Gradle, see https://docs.gradle.org/8.10.2/userguide/command_line_interface.html
+
+    For troubleshooting, visit https://help.gradle.org
+
+    BUILD SUCCESSFUL in 454ms
+    1 actionable task: 1 executed
+
+プロジェクトの実行を行います。以下のコマンドを入力します。
+    bash ./gradlew bootrun
+
+以下が実行時の一例です。(長いため、最終行付近を取り出しています。)
+    
+    2025-01-13T01:24:04.962+09:00  INFO 34271 --- [scheduler] [           main] o.i.h.scheduler.SchedulerApplication     : Started SchedulerApplication in 1.509 seconds (process running for 1.663)
+    2025-01-13T01:24:04.962+09:00 DEBUG 34271 --- [scheduler] [           main] o.s.b.a.ApplicationAvailabilityBean      : Application availability state LivenessState changed to CORRECT
+    2025-01-13T01:24:04.963+09:00 DEBUG 34271 --- [scheduler] [           main] o.s.b.a.ApplicationAvailabilityBean      : Application availability state ReadinessState changed to ACCEPTING_TRAFFIC
+    <==========---> 80% EXECUTING [9s]
+    > :bootRun
+
+ブラウザに移動し、以下のURLにアクセスします。
+    http://150.89.233.205/
+
+※万が一、メールサーバーが重い場合以下のコマンドを試してください。
+    sudo service postfix restart
